@@ -1,0 +1,58 @@
+﻿# Prometheus Configuration for Oracle MCP Server Monitoring
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'oracle-mcp-server'
+
+# Rule files
+rule_files:
+  - "rules/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # Oracle MCP Server metrics
+  - job_name: 'oracle-mcp-server'
+    static_configs:
+      - targets: ['mcp-oracle-server:8080']
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 15s
+    scrape_timeout: 5s
+    honor_labels: true
+    params:
+      format: ['prometheus']
+
+  # Oracle MCP Server health
+  - job_name: 'oracle-mcp-health'
+    static_configs:
+      - targets: ['mcp-oracle-server:8080']
+    metrics_path: '/actuator/health'
+    scrape_interval: 30s
+    scrape_timeout: 5s
+
+  # Oracle Database metrics (if Oracle exporter is available)
+  - job_name: 'oracle-database'
+    static_configs:
+      - targets: ['oracle-xe:1521']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    # Note: Requires oracle_exporter or similar Oracle metrics exporter
+
+  # Self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Storage configuration
+storage:
+  tsdb:
+    retention_time: 15d
+    retention_size: 10GB

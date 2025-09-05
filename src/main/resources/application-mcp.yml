@@ -1,0 +1,56 @@
+﻿# MCP Stdio Profile Configuration
+# Optimized for MCP stdio transport protocol
+
+spring:
+  profiles:
+    active: mcp
+  
+  main:
+    web-application-type: none  # Disable web server for stdio
+  
+  jmx:
+    enabled: false
+
+server:
+  port: 0  # Disable HTTP server
+
+# Minimal logging for stdio transport
+logging:
+  level:
+    root: WARN
+    com.deepai.mcpserver: INFO
+    oracle.jdbc: ERROR
+  
+  pattern:
+    console: ""  # Minimal console output for stdio
+
+# Actuator disabled for stdio
+management:
+  endpoints:
+    enabled-by-default: false
+  
+  endpoint:
+    health:
+      enabled: true
+      show-details: never
+
+# MCP Stdio Configuration
+mcp:
+  tools:
+    exposure: public
+  transport: stdio
+
+# Oracle Configuration for MCP
+oracle:
+  features:
+    detection:
+      enabled: true
+    tools:
+      core:
+        enabled: true
+      analytics:
+        enabled: true
+      ai:
+        enabled: true
+      enterprise:
+        enabled: false

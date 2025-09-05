@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.5</version>
+        <relativePath/>
+    </parent>
+    
+    <groupId>com.deepai</groupId>
+    <artifactId>mcp-oracledb-server</artifactId>
+    <version>1.0.0-PRODUCTION</version>
+    <name>MCP Oracle DB Server (FINAL Production)</name>
+    <description>Production-ready Oracle MCP server with 55+ tools (Enhanced) / 75+ tools (Enterprise)</description>
+    
+    <properties>
+        <java.version>17</java.version>
+        <spring-ai.version>1.0.1</spring-ai.version>
+        <testcontainers.bom.version>1.19.0</testcontainers.bom.version>
+        
+        <!-- Oracle JDBC Configuration -->
+        <oracle.jdbc.version>19.20.0.0</oracle.jdbc.version>
+        <oracle.jdbc.artifact>ojdbc8</oracle.jdbc.artifact>
+        
+        <!-- Tool Count Tracking -->
+        <mcp.tools.enhanced>55</mcp.tools.enhanced>
+        <mcp.tools.enterprise>75</mcp.tools.enterprise>
+        <baseline.mongodb.tools>39</baseline.mongodb.tools>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>{spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>{testcontainers.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+        <!-- Spring Boot starters -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        
+        <!-- Oracle JDBC -->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>{oracle.jdbc.artifact}</artifactId>
+            <version>{oracle.jdbc.version}</version>
+        </dependency>
+        
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>mcp-oracledb-server-{project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>{java.version}</release>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <!-- Enhanced edition (55+ tools) -->
+        <profile>
+            <id>enhanced</id>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <properties>
+                <mcp.edition>enhanced</mcp.edition>
+                <mcp.tools.total>55</mcp.tools.total>
+            </properties>
+        </profile>
+        
+        <!-- Enterprise edition (75+ tools) -->
+        <profile>
+            <id>enterprise</id>
+            <properties>
+                <mcp.edition>enterprise</mcp.edition>
+                <mcp.tools.total>75</mcp.tools.total>
+            </properties>
+        </profile>
+        
+        <!-- Oracle version specific profiles -->
+        <profile>
+            <id>oracle-12c</id>
+            <properties>
+                <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
+            </properties>
+        </profile>
+    </profiles>
+</project>

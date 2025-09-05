@@ -1,0 +1,22 @@
+{
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "mongo-mcp-server-test": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "D:\\MCP\\MCP-workspace-bootcampToProd\\spring-boot-ai-mongo-mcp-server\\target\\spring-boot-ai-mongo-mcp-server-0.0.1-SNAPSHOT.jar"
+      ],
+      "env": {
+        "SPRING_DATA_MONGODB_URI": "mongodb://localhost:27017/mcpdb",
+        "MONGO_DATABASE": "mcpdb",
+        "SERVER_PORT": "8080",
+        "SPRING_PROFILES_ACTIVE": "prod"
+      }
+    }
+  }
+}

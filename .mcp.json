@@ -1,0 +1,104 @@
+﻿{
+  "servers": {
+    "oracle-mcp-enhanced-stdio": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "target/mcp-oracledb-server-1.0.0-PRODUCTION.jar"
+      ],
+      "env": {
+        "ORACLE_USERNAME": "hr",
+        "ORACLE_PASSWORD": "password",
+        "SPRING_PROFILES_ACTIVE": "mcp,enhanced",
+        "MCP_TOOLS_EXPOSURE": "public",
+        "ORACLE_FEATURES_DETECTION_ENABLED": "true"
+      },
+      "description": "Oracle MCP Server - Enhanced Edition (55+ tools)",
+      "features": {
+        "toolCount": 55,
+        "edition": "enhanced",
+        "oracleVersions": "11g-23c",
+        "transport": "stdio"
+      }
+    },
+    "oracle-mcp-enterprise-stdio": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "target/mcp-oracledb-server-1.0.0-PRODUCTION.jar",
+        "--spring.profiles.active=mcp,enterprise"
+      ],
+      "env": {
+        "ORACLE_USERNAME": "system",
+        "ORACLE_PASSWORD": "manager",
+        "MCP_TOOLS_EXPOSURE": "all",
+        "ORACLE_FEATURES_TOOLS_ENTERPRISE_ENABLED": "true"
+      },
+      "description": "Oracle MCP Server - Enterprise Edition (75+ tools)",
+      "features": {
+        "toolCount": 75,
+        "edition": "enterprise",
+        "oracleVersions": "11g-23c",
+        "transport": "stdio",
+        "enterpriseFeatures": ["VPD", "TDE", "Database Vault", "Partitioning"]
+      }
+    },
+    "oracle-mcp-http-dev": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp/v1",
+      "headers": {
+        "Content-Type": "application/json",
+        "User-Agent": "Global-MCP-Client/1.0"
+      },
+      "description": "Oracle MCP Server - HTTP mode for development and testing",
+      "features": {
+        "toolCount": 55,
+        "edition": "enhanced",
+        "transport": "http",
+        "development": true
+      }
+    },
+    "oracle-mcp-docker": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp/v1",
+      "description": "Oracle MCP Server - Docker deployment",
+      "features": {
+        "toolCount": 55,
+        "edition": "enhanced",
+        "deployment": "docker",
+        "monitoring": "prometheus+grafana"
+      }
+    }
+  },
+  "metadata": {
+    "project": "MCP Oracle DB Server",
+    "version": "1.0.0-PRODUCTION",
+    "author": "officeWorkPlace",
+    "repository": "https://github.com/officeWorkPlace/mcp-oracledb-server",
+    "baseline": {
+      "reference": "officeWorkPlace/spring-boot-ai-mongodb-mcp-server",
+      "tools": 39,
+      "improvement": "+41% to +92%"
+    },
+    "integration": {
+      "target": "officeWorkPlace/global-mcp-client",
+      "compatible": true
+    },
+    "oracle": {
+      "versions": ["11g", "12c", "18c", "19c", "21c", "23c"],
+      "features": {
+        "pdb": "12c+",
+        "vectorSearch": "23c+",
+        "json": "12c+",
+        "awr": "10g+"
+      }
+    },
+    "spring": {
+      "boot": "3.4.5",
+      "ai": "1.0.1",
+      "java": "17"
+    }
+  }
+}

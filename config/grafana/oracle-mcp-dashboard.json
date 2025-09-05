@@ -1,0 +1,92 @@
+﻿{
+  "dashboard": {
+    "id": null,
+    "title": "Oracle MCP Server Dashboard",
+    "tags": ["oracle", "mcp", "spring-boot"],
+    "style": "dark",
+    "timezone": "browser",
+    "refresh": "30s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "MCP Server Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"oracle-mcp-server\"}",
+            "legendFormat": "Server Status"
+          }
+        ],
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Oracle Connection Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "oracle_connection_active",
+            "legendFormat": "Oracle Connection"
+          }
+        ],
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "MCP Tool Executions",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(mcp_tool_executions_total[5m])",
+            "legendFormat": "{{tool_name}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4}
+      },
+      {
+        "id": 4,
+        "title": "Oracle Database Performance",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "oracle_response_time_seconds",
+            "legendFormat": "Response Time"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4}
+      },
+      {
+        "id": 5,
+        "title": "JVM Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "jvm_memory_used_bytes{job=\"oracle-mcp-server\"}",
+            "legendFormat": "{{area}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12}
+      },
+      {
+        "id": 6,
+        "title": "HikariCP Connection Pool",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "hikaricp_connections_active",
+            "legendFormat": "Active Connections"
+          },
+          {
+            "expr": "hikaricp_connections_idle",
+            "legendFormat": "Idle Connections"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12}
+      }
+    ]
+  }
+}

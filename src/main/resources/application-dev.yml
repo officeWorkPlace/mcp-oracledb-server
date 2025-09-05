@@ -1,0 +1,84 @@
+﻿# Development Profile Configuration
+# Oracle MCP Server - Enhanced for development and debugging
+
+spring:
+  profiles:
+    active: dev
+  
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 10000
+      leak-detection-threshold: 30000
+  
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+# Logging Configuration for Development
+logging:
+  level:
+    root: INFO
+    com.deepai.mcpserver: DEBUG
+    oracle.jdbc: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.ai: DEBUG
+    org.springframework.jdbc.core: DEBUG
+  
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Actuator Configuration for Development
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  
+  endpoint:
+    health:
+      show-details: always
+    beans:
+      enabled: true
+    env:
+      enabled: true
+    configprops:
+      enabled: true
+
+# Oracle Configuration for Development
+oracle:
+  features:
+    detection:
+      enabled: true
+    cache:
+      ttl: 300  # Shorter cache for development
+    tools:
+      core:
+        enabled: true
+        count: 25
+      analytics:
+        enabled: true
+        count: 20
+      ai:
+        enabled: true
+        count: 10
+      enterprise:
+        enabled: true  # Enable enterprise tools in development
+
+# MCP Configuration for Development
+mcp:
+  tools:
+    exposure: all  # Expose all tools in development
+  transport: stdio
+
+# Development-specific Oracle settings
+debug:
+  oracle:
+    log-sql: true
+    log-parameters: true
+    log-results: false

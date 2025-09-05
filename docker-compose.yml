@@ -1,0 +1,157 @@
+﻿version: '3.8'
+
+services:
+  # Oracle Database
+  oracle-xe:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-mcp-db
+    environment:
+      ORACLE_PASSWORD: oracle
+      ORACLE_DATABASE: MCPDB
+      ORACLE_USERNAME: mcpuser
+      ORACLE_USER_PASSWORD: mcppassword
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./scripts/oracle-init.sql:/container-entrypoint-initdb.d/01-init.sql:ro
+    networks:
+      - oracle-mcp-network
+    healthcheck:
+      test: ["CMD", "sqlplus", "-L", "system/oracle@//localhost:1521/XE", "@/dev/null"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # MCP Oracle Server (Enhanced Edition - 55+ tools)
+  mcp-oracle-server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: mcp-oracle-server
+    environment:
+      # Oracle Database Connection
+      ORACLE_USERNAME: mcpuser
+      ORACLE_PASSWORD: mcppassword
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-xe:1521/XEPDB1
+      
+      # Spring Profiles
+      SPRING_PROFILES_ACTIVE: prod,enhanced
+      
+      # MCP Configuration
+      MCP_TOOLS_EXPOSURE: public
+      MCP_TRANSPORT: stdio
+      
+      # Oracle Features
+      ORACLE_FEATURES_DETECTION_ENABLED: true
+      
+      # JVM Optimization
+      JAVA_OPTS: >
+        -XX:+UseG1GC 
+        -XX:+UseContainerSupport 
+        -XX:MaxRAMPercentage=75.0 
+        -XX:+ExitOnOutOfMemoryError
+        -Doracle.jdbc.fanEnabled=false
+        -Doracle.net.CONNECT_TIMEOUT=10000
+    ports:
+      - "8080:8080"
+    depends_on:
+      oracle-xe:
+        condition: service_healthy
+    networks:
+      - oracle-mcp-network
+    volumes:
+      - app_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # Prometheus for Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: oracle-mcp-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - oracle-mcp-network
+    restart: unless-stopped
+
+  # Grafana for Visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: oracle-mcp-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: false
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana:/etc/grafana/provisioning:ro
+    networks:
+      - oracle-mcp-network
+    restart: unless-stopped
+
+  # Enterprise Edition MCP Server (75+ tools) - Optional
+  mcp-oracle-server-enterprise:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: mcp-oracle-server-enterprise
+    environment:
+      ORACLE_USERNAME: system
+      ORACLE_PASSWORD: oracle
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-xe:1521/XE
+      SPRING_PROFILES_ACTIVE: prod,enterprise
+      MCP_TOOLS_EXPOSURE: all
+      ORACLE_FEATURES_TOOLS_ENTERPRISE_ENABLED: true
+    ports:
+      - "8081:8080"
+    depends_on:
+      oracle-xe:
+        condition: service_healthy
+    networks:
+      - oracle-mcp-network
+    profiles:
+      - enterprise
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
+    driver: local
+    name: oracle-mcp-data
+  prometheus_data:
+    driver: local
+    name: oracle-mcp-prometheus
+  grafana_data:
+    driver: local
+    name: oracle-mcp-grafana
+  app_logs:
+    driver: local
+    name: oracle-mcp-logs
+
+networks:
+  oracle-mcp-network:
+    driver: bridge
+    name: oracle-mcp-network
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
