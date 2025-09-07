@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.deepai.mcpserver.controller.OracleAnalyticsControllerTest
--------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.570 s -- in com.deepai.mcpserver.controller.OracleAnalyticsControllerTest

@@ -3,21 +3,23 @@ package com.deepai.mcpserver.controller;
 import com.deepai.mcpserver.config.TestSecurityConfig;
 import com.deepai.mcpserver.service.OracleAIService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.*;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,37 +28,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Comprehensive unit tests for OracleAIController
  * Tests all 10 AI service endpoints
  */
+@ExtendWith(MockitoExtension.class)
 @WebMvcTest(OracleAIController.class)
 @Import(TestSecurityConfig.class)
 @DisplayName("Oracle AI Controller Tests")
-@SuppressWarnings("deprecation")
 class OracleAIControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     private OracleAIService oracleAIService;
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    private Map<String, Object> successResponse;
-    private Map<String, Object> errorResponse;
-
-    @BeforeEach
-    void setUp() {
-        successResponse = Map.of(
-            "status", "success",
-            "message", "Operation completed successfully",
-            "timestamp", Instant.now()
-        );
-
-        errorResponse = Map.of(
-            "status", "error",
-            "message", "Operation failed"
-        );
-    }
 
     // ========== VECTOR SEARCH TESTS (4 tools) ==========
 
