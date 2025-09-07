@@ -40,14 +40,14 @@
             <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
-                <version>{spring-ai.version}</version>
+                <version>${spring-ai.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
                 <artifactId>testcontainers-bom</artifactId>
-                <version>{testcontainers.bom.version}</version>
+                <version>${testcontainers.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -55,7 +55,7 @@
     </dependencyManagement>
     
     <dependencies>
-        <!-- Spring Boot starters -->
+        <!-- Spring Boot starters - Essential for the application -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -81,14 +81,95 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         
-        <!-- Oracle JDBC -->
+        <!-- Oracle JDBC - Essential for Oracle database connectivity -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>{oracle.jdbc.artifact}</artifactId>
-            <version>{oracle.jdbc.version}</version>
+            <artifactId>${oracle.jdbc.artifact}</artifactId>
+            <version>${oracle.jdbc.version}</version>
         </dependency>
         
-        <!-- Testing -->
+        <!-- Lombok - Development utility -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Explicitly declare used dependencies to avoid "used undeclared" warnings -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-annotations-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+
+        <!-- Testing dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -99,10 +180,72 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>oracle-xe</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Explicitly declare test dependencies that were showing as "used undeclared" -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
-        <finalName>mcp-oracledb-server-{project.version}</finalName>
+        <finalName>mcp-oracledb-server-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -113,7 +256,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <release>{java.version}</release>
+                    <release>${java.version}</release>
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
@@ -146,6 +289,293 @@
             <properties>
                 <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
             </properties>
+        </profile>
+        
+        <!-- Testing profiles -->
+        <profile>
+            <id>unit-tests</id>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*Test.java</include>
+                                <include>**/*Tests.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*IntegrationTests.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>integration-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                                <include>**/*IntegrationTests.java</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>test-coverage</id>
+            <properties>
+                <jacoco.minimum.coverage>0.90</jacoco.minimum.coverage>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.10</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>check</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <rule>
+                                            <element>BUNDLE</element>
+                                            <limits>
+                                                <limit>
+                                                    <counter>INSTRUCTION</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>${jacoco.minimum.coverage}</minimum>
+                                                </limit>
+                                                <limit>
+                                                    <counter>BRANCH</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>${jacoco.minimum.coverage}</minimum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/config/**</exclude>
+                                <exclude>**/Application.class</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Complete Test Suite Profile -->
+        <profile>
+            <id>test-all</id>
+            <properties>
+                <spring.profiles.active>test</spring.profiles.active>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Unit Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.2.5</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*Test.java</include>
+                                <include>**/*Tests.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*IT.java</exclude>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                                <exclude>**/*PerformanceTest.java</exclude>
+                            </excludes>
+                            <parallel>methods</parallel>
+                            <threadCount>4</threadCount>
+                            <forkCount>1</forkCount>
+                            <reuseForks>true</reuseForks>
+                            <systemPropertyVariables>
+                                <spring.profiles.active>unit-test</spring.profiles.active>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <!-- Integration Tests -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.2.5</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT.java</include>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                            <systemPropertyVariables>
+                                <spring.profiles.active>integration-test</spring.profiles.active>
+                            </systemPropertyVariables>
+                            <environmentVariables>
+                                <TEST_ENV>integration</TEST_ENV>
+                            </environmentVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Code Coverage -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.10</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Performance Test Profile -->
+        <profile>
+            <id>performance-test</id>
+            <properties>
+                <spring.profiles.active>performance-test</spring.profiles.active>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*PerformanceTest.java</include>
+                            </includes>
+                            <systemPropertyVariables>
+                                <spring.profiles.active>performance-test</spring.profiles.active>
+                                <test.performance.enabled>true</test.performance.enabled>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Security Test Profile -->
+        <profile>
+            <id>security-test</id>
+            <properties>
+                <spring.profiles.active>security-test</spring.profiles.active>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/security/*Test.java</include>
+                                <include>**/security/*Tests.java</include>
+                            </includes>
+                            <systemPropertyVariables>
+                                <spring.profiles.active>security-test</spring.profiles.active>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Test Data Setup Profile -->
+        <profile>
+            <id>test-data-setup</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.oracle.database.jdbc</groupId>
+                                <artifactId>ojdbc8</artifactId>
+                                <version>${oracle.jdbc.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>oracle.jdbc.OracleDriver</driver>
+                            <url>jdbc:oracle:thin:@localhost:1521:ORCL</url>
+                            <username>C##deepai</username>
+                            <password>admin</password>
+                            <autocommit>true</autocommit>
+                            <skip>${maven.test.skip}</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>create-test-data</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>src/test/resources/sql/test-data-setup.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

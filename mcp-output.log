@@ -1,0 +1,127 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.deepai:mcp-oracledb-server >-------------------
+[INFO] Building MCP Oracle DB Server (FINAL Production) 1.0.0-PRODUCTION
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.4.5:run (default-cli) > test-compile @ mcp-oracledb-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ mcp-oracledb-server ---
+[INFO] Copying 7 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ mcp-oracledb-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ mcp-oracledb-server ---
+[INFO] Copying 3 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ mcp-oracledb-server ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 9 source files with javac [debug parameters release 17] to target\test-classes
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAIControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAIControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAIControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAIControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAIControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAnalyticsControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAnalyticsControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAnalyticsControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAnalyticsControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleAnalyticsControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OraclePerformanceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OraclePerformanceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OraclePerformanceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OraclePerformanceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OraclePerformanceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleSecurityControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleSecurityControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleSecurityControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleSecurityControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleSecurityControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleServiceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleServiceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleServiceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleServiceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/controller/OracleServiceControllerTest.java:[38,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[INFO] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/integration/OracleIntegrationTests.java: C:\Work\Project\Java\mcp-oracledb-server\src\test\java\com\deepai\mcpserver\integration\OracleIntegrationTests.java uses unchecked or unsafe operations.
+[INFO] /C:/Work/Project/Java/mcp-oracledb-server/src/test/java/com/deepai/mcpserver/integration/OracleIntegrationTests.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] <<< spring-boot:3.4.5:run (default-cli) < test-compile @ mcp-oracledb-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.4.5:run (default-cli) @ mcp-oracledb-server ---
+[INFO] Attaching agents: []
+15:14:36.746 INFO  - Starting McpOracleDbServerApplication using Java 17.0.12 with PID 23608 (C:\Work\Project\Java\mcp-oracledb-server\target\classes started by Deepak in C:\Work\Project\Java\mcp-oracledb-server)
+15:14:36.756 INFO  - The following 1 profile is active: "mcp-run"
+15:14:39.887 INFO  - Oracle version detected: 19.0.0.0.0, features cached
+
+================================================================================
+? Oracle MCP Server - Auto-Discovery Enabled
+================================================================================
+Discovered 19 MCP tools
+? Total Oracle MCP Tools: 48
+? Available Tools by Service:
+
+   ? oracleAdvancedAnalyticsService (20 tools):
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? executePivotOperations         | Execute PIVOT/UNPIVOT operations for data transformation
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? executeComplexJoins            | Execute complex SQL JOINs with auto-discovery of relations
+      ?? executeWindowFunctions         | Execute SQL window functions with analytics
+      ?? executeWindowFunctions         | Execute Oracle window functions for advanced analytics
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? executeAnalyticalFunctions     | Execute Oracle analytical functions with advanced parameters
+      ?? executeHierarchicalQueries     | Execute hierarchical queries with CONNECT BY
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? executeCteQueries              | Execute queries with Common Table Expressions
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+      ?? analyticsTool                  | Oracle Advanced Analytics Tool
+
+   ? oracleAIService (8 tools):
+      ?? performVectorClustering        | Perform vector clustering using Oracle 23c vector operations
+      ?? recommendSchemaDesign          | AI-powered Oracle schema design recommendations
+      ?? generateSqlFromNaturalLanguage | Convert natural language queries to Oracle SQL
+      ?? analyzeDocument                | AI-powered document analysis with keyword extraction and sentiment
+      ?? generateSummary                | Generate AI-powered document summaries
+      ?? manageVectorIndex              | Manage Oracle 23c vector indexes for similarity search
+      ?? classifyContent                | AI-powered content classification
+      ?? optimizeQuery                  | AI-powered Oracle SQL query optimization
+
+   ? oracleEnterprisePerformanceService (10 tools):
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+      ?? performanceTool                | Oracle Enterprise Performance Tool
+
+   ? oracleEnterpriseSecurityService (10 tools):
+      ?? configureDataRedaction         | Configure Oracle Data Redaction for sensitive data protection
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? securityTool                   | Oracle Enterprise Security Tool
+      ?? manageVpdPolicy                | Manage Oracle Virtual Private Database (VPD) policies
+
+? Spring AI MCP will automatically expose these tools.
+? MCP clients can now discover and use all Oracle tools!
+================================================================================
+
+15:14:41.297 INFO  - Started McpOracleDbServerApplication in 5.328 seconds (process running for 5.981)

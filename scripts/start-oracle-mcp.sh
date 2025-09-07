@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Oracle MCP Server Startup Script
 # Provides convenient startup options for different configurations

@@ -1,0 +1,52 @@
+﻿# Test Profile Configuration
+# Oracle MCP Server - Configured for Testcontainers
+
+spring:
+  profiles:
+    active: test
+  
+  datasource:
+    # Testcontainers will override these values
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: hr
+    password: oracle
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
+
+# Test Logging
+logging:
+  level:
+    root: WARN
+    com.deepai.mcpserver: DEBUG
+    org.testcontainers: INFO
+    org.springframework.test: INFO
+
+# Oracle Configuration for Testing
+oracle:
+  features:
+    detection:
+      enabled: false  # Skip feature detection in tests
+    tools:
+      core:
+        enabled: true
+      analytics:
+        enabled: true
+      ai:
+        enabled: true
+      enterprise:
+        enabled: true  # Test all tools
+
+# MCP Configuration for Testing
+mcp:
+  tools:
+    exposure: all  # Test all tools
+  transport: stdio
+
+# Testcontainers Configuration
+testcontainers:
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    password: oracle
+    database: XEPDB1
+    username: hr

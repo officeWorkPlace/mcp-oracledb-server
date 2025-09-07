@@ -1,0 +1,9 @@
+com\deepai\mcpserver\TestSuite.class
+com\deepai\mcpserver\controller\OracleSecurityControllerTest.class
+com\deepai\mcpserver\config\TestSecurityConfig.class
+com\deepai\mcpserver\controller\OracleAnalyticsControllerTest.class
+com\deepai\mcpserver\integration\OracleIntegrationTests.class
+com\deepai\mcpserver\OracleIntegrationTest.class
+com\deepai\mcpserver\controller\OracleServiceControllerTest.class
+com\deepai\mcpserver\controller\OracleAIControllerTest.class
+com\deepai\mcpserver\controller\OraclePerformanceControllerTest.class

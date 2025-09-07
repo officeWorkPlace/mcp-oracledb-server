@@ -1,8 +1,8 @@
-﻿package com.deepai.mcpserver;
+package com.deepai.mcpserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.ai.tool.annotation.ToolScan;
+// Tool scanning will be configured via Spring configuration
 
 /**
  * MCP Oracle DB Server - Production-Ready Implementation
@@ -30,7 +30,7 @@ import org.springframework.ai.tool.annotation.ToolScan;
  * @version 1.0.0-PRODUCTION
  */
 @SpringBootApplication
-@ToolScan(basePackages = "com.deepai.mcpserver.service")
+// @ToolScan - Using alternative configuration approach
 public class McpOracleDbServerApplication {
 
     public static void main(String[] args) {
