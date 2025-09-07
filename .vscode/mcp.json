@@ -17,6 +17,29 @@
         "SERVER_PORT": "8080",
         "SPRING_PROFILES_ACTIVE": "prod"
       }
+    },
+    "oracle-mcp-server": {
+      "type": "stdio",
+      "command": "java",
+      "args": [
+        "-jar",
+        "C:\\Work\\Project\\Java\\mcp-oracledb-server\\target\\mcp-oracledb-server-1.0.0-PRODUCTION.jar",
+        "--spring.profiles.active=mcp-run"
+      ],
+      "env": {
+        "ORACLE_USERNAME": "C##deepai",
+        "ORACLE_PASSWORD": "admin",
+        "ORACLE_HOST": "localhost",
+        "ORACLE_PORT": "1521",
+        "ORACLE_SID": "ORCL",
+        "MCP_TOOLS_EXPOSURE": "public"
+      },
+      "description": "Oracle MCP Server - Enhanced Edition with Oracle AI Tools",
+      "features": {
+        "toolCount": 73,
+        "transport": "stdio",
+        "oracleVersion": "19c"
+      }
     }
   }
 }

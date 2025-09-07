@@ -1,0 +1,1910 @@
+{
+  "info": {
+    "name": "MCP Oracle DB Server - Complete API Suite",
+    "description": "Comprehensive API collection for Oracle Database MCP Server covering AI, Analytics, Performance, Security, and Core services with 80+ endpoints",
+    "version": "1.0.0-PRODUCTION",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication & CSRF",
+      "description": "CSRF token management for secure API access",
+      "item": [
+        {
+          "name": "Get CSRF Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/csrf/token",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "csrf", "token"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CSRF token retrieved successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains CSRF token', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('token');",
+                  "    pm.expect(jsonData).to.have.property('headerName');",
+                  "    ",
+                  "    // Store CSRF token for use in other requests",
+                  "    pm.collectionVariables.set('csrfToken', jsonData.token);",
+                  "    pm.collectionVariables.set('csrfHeader', jsonData.headerName);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get CSRF Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/csrf/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "csrf", "info"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CSRF info retrieved successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains CSRF configuration', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('csrfEnabled');",
+                  "    pm.expect(jsonData).to.have.property('headerName');",
+                  "    pm.expect(jsonData).to.have.property('parameterName');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🤖 Oracle AI Services",
+      "description": "AI-powered Oracle operations including Vector Search, Content Analysis, and SQL Generation",
+      "item": [
+        {
+          "name": "Vector Search Operations",
+          "item": [
+            {
+              "name": "Vector Search",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0\n]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/vector-search?tableName=documents&vectorColumn=embedding&distanceMetric=COSINE&topK=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "vector-search"],
+                  "query": [
+                    {"key": "tableName", "value": "documents"},
+                    {"key": "vectorColumn", "value": "embedding"},
+                    {"key": "distanceMetric", "value": "COSINE"},
+                    {"key": "topK", "value": "10"}
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Vector search response is successful', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test('Response contains search results', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('status');",
+                      "    pm.expect(jsonData).to.have.property('message');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Vector Similarity Calculation",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vector1\": [0.1, 0.2, 0.3, 0.4, 0.5],\n  \"vector2\": [0.5, 0.4, 0.3, 0.2, 0.1],\n  \"distanceMetrics\": [\"COSINE\", \"EUCLIDEAN\", \"DOT\"]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/vector-similarity",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "vector-similarity"]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Vector similarity calculation is successful', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test('Response contains similarity metrics', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('status');",
+                      "    pm.expect(jsonData).to.have.property('message');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Vector Clustering",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/vector-clustering?tableName=embeddings&vectorColumn=vector_data&clusterCount=5&distanceMetric=COSINE&identifierColumn=id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "vector-clustering"],
+                  "query": [
+                    {"key": "tableName", "value": "embeddings"},
+                    {"key": "vectorColumn", "value": "vector_data"},
+                    {"key": "clusterCount", "value": "5"},
+                    {"key": "distanceMetric", "value": "COSINE"},
+                    {"key": "identifierColumn", "value": "id"}
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Vector clustering is successful', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test('Response contains clustering results', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('status');",
+                      "    pm.expect(jsonData).to.have.property('message');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Manage Vector Indexes",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": {\n    \"neighbor_partitions\": 32,\n    \"accuracy\": 95\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/vector-indexes/create?indexName=vector_idx_1&tableName=documents&vectorColumn=embedding&distanceMetric=COSINE",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "vector-indexes", "create"],
+                  "query": [
+                    {"key": "indexName", "value": "vector_idx_1"},
+                    {"key": "tableName", "value": "documents"},
+                    {"key": "vectorColumn", "value": "embedding"},
+                    {"key": "distanceMetric", "value": "COSINE"}
+                  ]
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Vector index operation is successful', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test('Response contains operation result', function () {",
+                      "    const jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('status');",
+                      "});"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "AI Content Analysis",
+          "item": [
+            {
+              "name": "Analyze Document",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/analyze-document?tableName=documents&documentColumn=content&documentId=DOC123&analysisType=comprehensive&aiModel=oracle-ai",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "analyze-document"],
+                  "query": [
+                    {"key": "tableName", "value": "documents"},
+                    {"key": "documentColumn", "value": "content"},
+                    {"key": "documentId", "value": "DOC123"},
+                    {"key": "analysisType", "value": "comprehensive"},
+                    {"key": "aiModel", "value": "oracle-ai"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Generate Summary",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/generate-summary?tableName=documents&documentColumn=content&documentId=DOC123&summaryType=extractive&maxLength=500",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "generate-summary"],
+                  "query": [
+                    {"key": "tableName", "value": "documents"},
+                    {"key": "documentColumn", "value": "content"},
+                    {"key": "documentId", "value": "DOC123"},
+                    {"key": "summaryType", "value": "extractive"},
+                    {"key": "maxLength", "value": "500"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Classify Content",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"technology\", \"business\", \"entertainment\", \"sports\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/classify-content?tableName=articles&contentColumn=body&recordId=ART456&confidenceThreshold=0.8",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "classify-content"],
+                  "query": [
+                    {"key": "tableName", "value": "articles"},
+                    {"key": "contentColumn", "value": "body"},
+                    {"key": "recordId", "value": "ART456"},
+                    {"key": "confidenceThreshold", "value": "0.8"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Oracle-AI Integration",
+          "item": [
+            {
+              "name": "Generate SQL from Natural Language",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"employees\", \"departments\", \"salaries\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/generate-sql?naturalLanguageQuery=Show me all employees with salary greater than 50000 ordered by department&dialectOptimization=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "generate-sql"],
+                  "query": [
+                    {"key": "naturalLanguageQuery", "value": "Show me all employees with salary greater than 50000 ordered by department"},
+                    {"key": "dialectOptimization", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Optimize SQL Query",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"performance\", \"cost\", \"execution_time\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/optimize-query?sqlQuery=SELECT * FROM employees WHERE department_id IN (SELECT id FROM departments WHERE location = 'NY')&includeExplainPlan=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "optimize-query"],
+                  "query": [
+                    {"key": "sqlQuery", "value": "SELECT * FROM employees WHERE department_id IN (SELECT id FROM departments WHERE location = 'NY')"},
+                    {"key": "includeExplainPlan", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Recommend Schema Design",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"high_performance\", \"scalability\", \"data_integrity\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/ai/recommend-schema?businessRequirements=E-commerce platform with product catalog, user management, and order processing&dataVolume=10TB&includePartitioning=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "ai", "recommend-schema"],
+                  "query": [
+                    {"key": "businessRequirements", "value": "E-commerce platform with product catalog, user management, and order processing"},
+                    {"key": "dataVolume", "value": "10TB"},
+                    {"key": "includePartitioning", "value": "true"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "AI Capabilities & Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/ai/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "ai", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('AI capabilities retrieval is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains AI capabilities', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('capabilities');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "AI Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/ai/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "ai", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('AI health check is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains health status', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📊 Oracle Advanced Analytics",
+      "description": "Advanced analytics operations including SQL analytics, CTEs, Window functions, and Performance analysis",
+      "item": [
+        {
+          "name": "SQL Analytics & CTEs",
+          "item": [
+            {
+              "name": "Complex Joins",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tables\": [\"employees\", \"departments\", \"locations\"],\n  \"joinConditions\": [\"e.dept_id = d.id\", \"d.location_id = l.id\"],\n  \"selectColumns\": [\"e.name\", \"e.salary\", \"d.dept_name\", \"l.city\"],\n  \"whereClause\": \"e.salary > 50000\",\n  \"optimizerHints\": [\"USE_INDEX(employees, idx_salary)\"]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/complex-joins",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "complex-joins"]
+                }
+              }
+            },
+            {
+              "name": "CTE Queries",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"high_earners\",\n    \"query\": \"SELECT * FROM employees WHERE salary > 75000\"\n  },\n  {\n    \"name\": \"dept_stats\",\n    \"query\": \"SELECT dept_id, COUNT(*) as emp_count FROM high_earners GROUP BY dept_id\"\n  }\n]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/cte-queries?mainQuery=SELECT * FROM dept_stats ORDER BY emp_count DESC&recursive=false",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "cte-queries"],
+                  "query": [
+                    {"key": "mainQuery", "value": "SELECT * FROM dept_stats ORDER BY emp_count DESC"},
+                    {"key": "recursive", "value": "false"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Window Functions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"salary DESC\", \"hire_date ASC\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/window-functions?tableName=employees&windowFunction=ROW_NUMBER()&partitionBy=department_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "window-functions"],
+                  "query": [
+                    {"key": "tableName", "value": "employees"},
+                    {"key": "windowFunction", "value": "ROW_NUMBER()"},
+                    {"key": "partitionBy", "value": "department_id"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Pivot Operations",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"Q1\", \"Q2\", \"Q3\", \"Q4\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/pivot-operations?tableName=sales&operation=PIVOT&aggregateFunction=SUM&aggregateColumn=amount&pivotColumn=quarter",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "pivot-operations"],
+                  "query": [
+                    {"key": "tableName", "value": "sales"},
+                    {"key": "operation", "value": "PIVOT"},
+                    {"key": "aggregateFunction", "value": "SUM"},
+                    {"key": "aggregateColumn", "value": "amount"},
+                    {"key": "pivotColumn", "value": "quarter"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Analytical Functions",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/analytical-functions?tableName=sales&analyticalFunction=RANK()&column=revenue&partitionBy=region&orderBy=revenue DESC",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "analytical-functions"],
+                  "query": [
+                    {"key": "tableName", "value": "sales"},
+                    {"key": "analyticalFunction", "value": "RANK()"},
+                    {"key": "column", "value": "revenue"},
+                    {"key": "partitionBy", "value": "region"},
+                    {"key": "orderBy", "value": "revenue DESC"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Hierarchical & Model Operations",
+          "item": [
+            {
+              "name": "Hierarchical Queries",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/hierarchical-queries?tableName=employees&startWithCondition=manager_id IS NULL&connectByCondition=PRIOR employee_id = manager_id&selectColumns=employee_id,name,level&orderSiblings=name",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "hierarchical-queries"],
+                  "query": [
+                    {"key": "tableName", "value": "employees"},
+                    {"key": "startWithCondition", "value": "manager_id IS NULL"},
+                    {"key": "connectByCondition", "value": "PRIOR employee_id = manager_id"},
+                    {"key": "selectColumns", "value": "employee_id,name,level"},
+                    {"key": "orderSiblings", "value": "name"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Recursive CTE",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/recursive-cte?tableName=organization&anchorQuery=SELECT emp_id, name, manager_id, 1 as level FROM organization WHERE manager_id IS NULL&recursiveQuery=SELECT o.emp_id, o.name, o.manager_id, r.level + 1 FROM organization o INNER JOIN org_hierarchy r ON o.manager_id = r.emp_id&cteName=org_hierarchy&maxRecursion=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "recursive-cte"],
+                  "query": [
+                    {"key": "tableName", "value": "organization"},
+                    {"key": "anchorQuery", "value": "SELECT emp_id, name, manager_id, 1 as level FROM organization WHERE manager_id IS NULL"},
+                    {"key": "recursiveQuery", "value": "SELECT o.emp_id, o.name, o.manager_id, r.level + 1 FROM organization o INNER JOIN org_hierarchy r ON o.manager_id = r.emp_id"},
+                    {"key": "cteName", "value": "org_hierarchy"},
+                    {"key": "maxRecursion", "value": "10"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "MODEL Clause",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partitionBy\": [\"department_id\"],\n  \"dimensionBy\": [\"employee_id\"],\n  \"measuresColumns\": [\"salary\", \"bonus\"],\n  \"modelRules\": [\n    \"bonus[any] = salary[cv()] * 0.15\",\n    \"salary[employee_id = 100] = salary[cv()] * 1.1\"\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/model-clause?tableName=employees",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "model-clause"],
+                  "query": [
+                    {"key": "tableName", "value": "employees"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Index & Performance Analysis",
+          "item": [
+            {
+              "name": "Create Advanced Index",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"last_name\", \"first_name\", \"email\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/create-index?indexName=idx_emp_name_email&tableName=employees&indexType=BTREE&unique=false&tablespace=USERS",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "create-index"],
+                  "query": [
+                    {"key": "indexName", "value": "idx_emp_name_email"},
+                    {"key": "tableName", "value": "employees"},
+                    {"key": "indexType", "value": "BTREE"},
+                    {"key": "unique", "value": "false"},
+                    {"key": "tablespace", "value": "USERS"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Performance Analysis",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "SELECT e.employee_id, e.last_name, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.salary > (SELECT AVG(salary) FROM employees)"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/performance-analysis?includeAwrData=true&generateAddmReport=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "performance-analysis"],
+                  "query": [
+                    {"key": "includeAwrData", "value": "true"},
+                    {"key": "generateAddmReport", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Optimizer Hints",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sqlQuery\": \"SELECT * FROM employees WHERE department_id = 10\",\n  \"hints\": [\"USE_INDEX(employees, idx_dept_id)\", \"FIRST_ROWS(10)\"],\n  \"comparePerformance\": true\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/optimizer-hints",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "optimizer-hints"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "PL/SQL Operations",
+          "item": [
+            {
+              "name": "Execute PL/SQL Block",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "DECLARE\n  v_count NUMBER;\nBEGIN\n  SELECT COUNT(*) INTO v_count FROM employees WHERE salary > 50000;\n  DBMS_OUTPUT.PUT_LINE('High earners count: ' || v_count);\nEND;"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/plsql-execute?captureOutput=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "plsql-execute"],
+                  "query": [
+                    {"key": "captureOutput", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Stored Procedure",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parameters\": [\n    {\"name\": \"p_emp_id\", \"type\": \"NUMBER\", \"direction\": \"IN\"},\n    {\"name\": \"p_salary_increase\", \"type\": \"NUMBER\", \"direction\": \"IN\"},\n    {\"name\": \"p_result\", \"type\": \"VARCHAR2\", \"direction\": \"OUT\"}\n  ],\n  \"procedureBody\": \"BEGIN\\n  UPDATE employees SET salary = salary * (1 + p_salary_increase/100) WHERE employee_id = p_emp_id;\\n  p_result := 'Success';\\n  COMMIT;\\nEXCEPTION\\n  WHEN OTHERS THEN\\n    p_result := 'Error: ' || SQLERRM;\\n    ROLLBACK;\\nEND;\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/analytics/create-procedure?procedureName=update_salary&replaceExisting=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "analytics", "create-procedure"],
+                  "query": [
+                    {"key": "procedureName", "value": "update_salary"},
+                    {"key": "replaceExisting", "value": "true"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Analytics Capabilities & Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/analytics/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "analytics", "capabilities"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🚀 Oracle Performance Services",
+      "description": "Enterprise performance optimization including Parallel Execution, Partitioning, Materialized Views, and AWR",
+      "item": [
+        {
+          "name": "Parallel Execution",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/parallel-execution/enable?sqlQuery=SELECT * FROM large_table WHERE created_date > SYSDATE-30&parallelDegree=4&tableName=large_table",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "parallel-execution", "enable"],
+              "query": [
+                {"key": "sqlQuery", "value": "SELECT * FROM large_table WHERE created_date > SYSDATE-30"},
+                {"key": "parallelDegree", "value": "4"},
+                {"key": "tableName", "value": "large_table"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Parallel execution management is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains execution result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Table Partitioning",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/partitioning/create?tableName=sales_data&partitionType=RANGE&partitionColumn=sale_date&partitionName=sales_2024",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "partitioning", "create"],
+              "query": [
+                {"key": "tableName", "value": "sales_data"},
+                {"key": "partitionType", "value": "RANGE"},
+                {"key": "partitionColumn", "value": "sale_date"},
+                {"key": "partitionName", "value": "sales_2024"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Table partitioning operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains partitioning result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Materialized Views",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/materialized-views/create?mvName=mv_sales_summary&baseQuery=SELECT region, SUM(amount) as total_sales FROM sales GROUP BY region&refreshType=FAST&refreshInterval=DAILY",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "materialized-views", "create"],
+              "query": [
+                {"key": "mvName", "value": "mv_sales_summary"},
+                {"key": "baseQuery", "value": "SELECT region, SUM(amount) as total_sales FROM sales GROUP BY region"},
+                {"key": "refreshType", "value": "FAST"},
+                {"key": "refreshInterval", "value": "DAILY"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Materialized view operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains materialized view result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Query Optimization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\"USE_INDEX(employees, idx_salary)\", \"FIRST_ROWS(100)\"]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/optimize-query?sqlQuery=SELECT e.*, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.salary > 60000&optimizationType=COST&analyzeExecution=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "optimize-query"],
+              "query": [
+                {"key": "sqlQuery", "value": "SELECT e.*, d.department_name FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.salary > 60000"},
+                {"key": "optimizationType", "value": "COST"},
+                {"key": "analyzeExecution", "value": "true"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Memory Management",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/memory/configure?memoryType=SGA&targetSize=2G",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "memory", "configure"],
+              "query": [
+                {"key": "memoryType", "value": "SGA"},
+                {"key": "targetSize", "value": "2G"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Memory management operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains memory configuration result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "AWR Reports",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/awr/generate?beginSnapId=100&endSnapId=110&reportType=HTML&instanceId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "awr", "generate"],
+              "query": [
+                {"key": "beginSnapId", "value": "100"},
+                {"key": "endSnapId", "value": "110"},
+                {"key": "reportType", "value": "HTML"},
+                {"key": "instanceId", "value": "1"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('AWR report generation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains AWR report data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "SQL Plan Baselines",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/sql-plan-baselines/capture?sqlHandle=SQL_123456789ABCDEF&planName=PLAN_001&sqlText=SELECT * FROM employees WHERE department_id = 10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "sql-plan-baselines", "capture"],
+              "query": [
+                {"key": "sqlHandle", "value": "SQL_123456789ABCDEF"},
+                {"key": "planName", "value": "PLAN_001"},
+                {"key": "sqlText", "value": "SELECT * FROM employees WHERE department_id = 10"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('SQL Plan Baselines operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains baseline result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Compression Management",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/compression/enable?objectName=large_table&objectType=TABLE&compressionType=BASIC",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "compression", "enable"],
+              "query": [
+                {"key": "objectName", "value": "large_table"},
+                {"key": "objectType", "value": "TABLE"},
+                {"key": "compressionType", "value": "BASIC"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Compression management operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains compression result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resource Manager",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/resource-manager/create?planName=OLTP_PLAN&groupName=HIGH_PRIORITY&cpuP1=80&cpuP2=15",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "resource-manager", "create"],
+              "query": [
+                {"key": "planName", "value": "OLTP_PLAN"},
+                {"key": "groupName", "value": "HIGH_PRIORITY"},
+                {"key": "cpuP1", "value": "80"},
+                {"key": "cpuP2", "value": "15"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Resource Manager operation is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains resource manager result', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Performance Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Performance capabilities retrieval is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains capabilities data', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('capabilities');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Performance Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Performance health check is successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains health status', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('status');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🔐 Oracle Security Services",
+      "description": "Enterprise security features including VPD, Data Redaction, Database Vault, and Audit Management",
+      "item": [
+        {
+          "name": "Advanced Security Features",
+          "item": [
+            {
+              "name": "VPD Policy Management",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/vpd/create?objectName=employees&policyName=dept_policy&functionName=get_dept_predicate&policyType=DYNAMIC",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "vpd", "create"],
+                  "query": [
+                    {"key": "objectName", "value": "employees"},
+                    {"key": "policyName", "value": "dept_policy"},
+                    {"key": "functionName", "value": "get_dept_predicate"},
+                    {"key": "policyType", "value": "DYNAMIC"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Data Redaction",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/data-redaction/add?tableName=customers&columnName=ssn&redactionType=FULL&expression=1=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "data-redaction", "add"],
+                  "query": [
+                    {"key": "tableName", "value": "customers"},
+                    {"key": "columnName", "value": "ssn"},
+                    {"key": "redactionType", "value": "FULL"},
+                    {"key": "expression", "value": "1=1"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Database Vault",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/database-vault/create?realmName=HR_REALM&objectName=employees&ruleSetName=HR_RULES",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "database-vault", "create"],
+                  "query": [
+                    {"key": "realmName", "value": "HR_REALM"},
+                    {"key": "objectName", "value": "employees"},
+                    {"key": "ruleSetName", "value": "HR_RULES"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "TDE Encryption",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/tde-encryption/enable?objectName=sensitive_data&objectType=TABLE&encryptionAlgorithm=AES256",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "tde-encryption", "enable"],
+                  "query": [
+                    {"key": "objectName", "value": "sensitive_data"},
+                    {"key": "objectType", "value": "TABLE"},
+                    {"key": "encryptionAlgorithm", "value": "AES256"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Audit Management",
+          "item": [
+            {
+              "name": "Audit Policies",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/audit-policies/create?policyName=SENSITIVE_DATA_AUDIT&auditCondition=object_name = 'EMPLOYEES'",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "audit-policies", "create"],
+                  "query": [
+                    {"key": "policyName", "value": "SENSITIVE_DATA_AUDIT"},
+                    {"key": "auditCondition", "value": "object_name = 'EMPLOYEES'"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Privilege Analysis",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/privilege-analysis/start?captureType=CONTEXT&captureName=HR_ANALYSIS&runName=RUN_001",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "privilege-analysis", "start"],
+                  "query": [
+                    {"key": "captureType", "value": "CONTEXT"},
+                    {"key": "captureName", "value": "HR_ANALYSIS"},
+                    {"key": "runName", "value": "RUN_001"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Data Classification",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/security/data-classification/discover?schemaName=HR&tableName=employees&sensitivityLevel=HIGH",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "security", "data-classification", "discover"],
+                  "query": [
+                    {"key": "schemaName", "value": "HR"},
+                    {"key": "tableName", "value": "employees"},
+                    {"key": "sensitivityLevel", "value": "HIGH"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Security Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/security/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "security", "capabilities"]
+            }
+          }
+        },
+        {
+          "name": "Security Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/security/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "security", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔧 Oracle Core Services",
+      "description": "Core database operations including Database Management, Schema/User Management, and Table Operations",
+      "item": [
+        {
+          "name": "Database Management",
+          "item": [
+            {
+              "name": "List Databases",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases?includePdbs=true&includeStatus=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases"],
+                  "query": [
+                    {"key": "includePdbs", "value": "true"},
+                    {"key": "includeStatus", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Database",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases?databaseName=TESTDB&createType=PDB&datafileSize=1G",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases"],
+                  "query": [
+                    {"key": "databaseName", "value": "TESTDB"},
+                    {"key": "createType", "value": "PDB"},
+                    {"key": "datafileSize", "value": "1G"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Database Statistics",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases/stats?includeAwrData=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases", "stats"],
+                  "query": [
+                    {"key": "includeAwrData", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Database Size",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases/size?includeTablespaces=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases", "size"],
+                  "query": [
+                    {"key": "includeTablespaces", "value": "true"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Perform Backup",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases/backup?backupType=FULL&backupLocation=/backups/oracle",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases", "backup"],
+                  "query": [
+                    {"key": "backupType", "value": "FULL"},
+                    {"key": "backupLocation", "value": "/backups/oracle"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Manage PDB",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"adminUser\": \"pdbadmin\",\n  \"adminPassword\": \"password123\",\n  \"defaultTablespace\": \"USERS\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/databases/pdb/open?pdbName=TESTPDB",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "databases", "pdb", "open"],
+                  "query": [
+                    {"key": "pdbName", "value": "TESTPDB"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Schema/User Management",
+          "item": [
+            {
+              "name": "List Schemas",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/schemas?includeSystemSchemas=false",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "schemas"],
+                  "query": [
+                    {"key": "includeSystemSchemas", "value": "false"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Schema",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/schemas?schemaName=TESTSCHEMA&password=password123&tablespace=USERS&quota=100M",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "schemas"],
+                  "query": [
+                    {"key": "schemaName", "value": "TESTSCHEMA"},
+                    {"key": "password", "value": "password123"},
+                    {"key": "tablespace", "value": "USERS"},
+                    {"key": "quota", "value": "100M"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"CREATE SESSION\", \"CREATE TABLE\", \"CREATE VIEW\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/users?username=testuser&password=password123&tablespace=USERS",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "users"],
+                  "query": [
+                    {"key": "username", "value": "testuser"},
+                    {"key": "password", "value": "password123"},
+                    {"key": "tablespace", "value": "USERS"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Grant Privileges",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/users/testuser/privileges/grant?privilegeType=OBJECT&objectName=employees",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "users", "testuser", "privileges", "grant"],
+                  "query": [
+                    {"key": "privilegeType", "value": "OBJECT"},
+                    {"key": "objectName", "value": "employees"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Lock User Account",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/users/testuser/lock?reason=Security violation",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "users", "testuser", "lock"],
+                  "query": [
+                    {"key": "reason", "value": "Security violation"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Unlock User Account",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/users/testuser/unlock?resetPassword=true&newPassword=newpassword123",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "users", "testuser", "unlock"],
+                  "query": [
+                    {"key": "resetPassword", "value": "true"},
+                    {"key": "newPassword", "value": "newpassword123"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Configure Password Policy",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/profiles/DEFAULT/password-policy?passwordLifeDays=90&passwordGraceDays=7&passwordReuseMax=5&failedLoginAttempts=3",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "profiles", "DEFAULT", "password-policy"],
+                  "query": [
+                    {"key": "passwordLifeDays", "value": "90"},
+                    {"key": "passwordGraceDays", "value": "7"},
+                    {"key": "passwordReuseMax", "value": "5"},
+                    {"key": "failedLoginAttempts", "value": "3"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Table Operations",
+          "item": [
+            {
+              "name": "List Tables",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables?schemaName=HR&includeSystemTables=false",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables"],
+                  "query": [
+                    {"key": "schemaName", "value": "HR"},
+                    {"key": "includeSystemTables", "value": "false"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Table",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\"name\": \"id\", \"type\": \"NUMBER\", \"constraints\": \"PRIMARY KEY\"},\n  {\"name\": \"name\", \"type\": \"VARCHAR2(100)\", \"constraints\": \"NOT NULL\"},\n  {\"name\": \"email\", \"type\": \"VARCHAR2(255)\", \"constraints\": \"UNIQUE\"},\n  {\"name\": \"created_date\", \"type\": \"DATE\", \"default\": \"SYSDATE\"}\n]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables?tableName=test_users&primaryKey=id&tablespace=USERS",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables"],
+                  "query": [
+                    {"key": "tableName", "value": "test_users"},
+                    {"key": "primaryKey", "value": "id"},
+                    {"key": "tablespace", "value": "USERS"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Describe Table",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/employees/describe?schemaName=HR",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "employees", "describe"],
+                  "query": [
+                    {"key": "schemaName", "value": "HR"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Insert Records",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\"id\": 1, \"name\": \"John Doe\", \"email\": \"john@example.com\"},\n  {\"id\": 2, \"name\": \"Jane Smith\", \"email\": \"jane@example.com\"},\n  {\"id\": 3, \"name\": \"Bob Johnson\", \"email\": \"bob@example.com\"}\n]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/test_users/records",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "test_users", "records"]
+                }
+              }
+            },
+            {
+              "name": "Query Records",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\"id\", \"name\", \"email\"]"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/test_users/query?whereClause=id > 1&orderBy=name ASC&limit=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "test_users", "query"],
+                  "query": [
+                    {"key": "whereClause", "value": "id > 1"},
+                    {"key": "orderBy", "value": "name ASC"},
+                    {"key": "limit", "value": "10"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update Records",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"john.doe@newcompany.com\",\n  \"updated_date\": \"SYSDATE\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/test_users/records?whereClause=id = 1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "test_users", "records"],
+                  "query": [
+                    {"key": "whereClause", "value": "id = 1"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete Records",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/test_users/records?whereClause=id = 3&cascadeDelete=false",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "test_users", "records"],
+                  "query": [
+                    {"key": "whereClause", "value": "id = 3"},
+                    {"key": "cascadeDelete", "value": "false"}
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Truncate Table",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/oracle/core/tables/test_users/truncate?reuseStorage=true",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "oracle", "core", "tables", "test_users", "truncate"],
+                  "query": [
+                    {"key": "reuseStorage", "value": "true"}
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Core Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "capabilities"]
+            }
+          }
+        },
+        {
+          "name": "Core Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "health"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{password}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set default base URL if not already defined",
+          "if (!pm.variables.get('baseUrl')) {",
+          "    pm.variables.set('baseUrl', 'http://localhost:8080');",
+          "}",
+          "",
+          "// Set authentication credentials if not already defined",
+          "if (!pm.variables.get('username')) {",
+          "    pm.variables.set('username', 'admin');",
+          "}",
+          "if (!pm.variables.get('password')) {",
+          "    pm.variables.set('password', 'admin');",
+          "}",
+          "",
+          "// Add CSRF token to POST, PUT, DELETE requests",
+          "if (pm.request.method === 'POST' || pm.request.method === 'PUT' || pm.request.method === 'DELETE') {",
+          "    const csrfToken = pm.collectionVariables.get('csrfToken');",
+          "    if (csrfToken && !pm.request.url.path.includes('csrf')) {",
+          "        pm.request.headers.add({",
+          "            key: 'X-XSRF-TOKEN',",
+          "            value: csrfToken",
+          "        });",
+          "    }",
+          "}",
+          "",
+          "// Add timestamp to all requests",
+          "pm.request.headers.add({",
+          "    key: 'X-Request-Timestamp',",
+          "    value: new Date().toISOString()",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test for all requests",
+          "pm.test('Response time is acceptable', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "pm.test('Response has valid JSON format (when applicable)', function () {",
+          "    if (pm.response.headers.get('Content-Type') && ",
+          "        pm.response.headers.get('Content-Type').includes('application/json')) {",
+          "        pm.response.to.have.jsonBody();",
+          "    }",
+          "});",
+          "",
+          "// Log response for debugging if needed",
+          "if (pm.response.code >= 400) {",
+          "    console.log('Error Response:', pm.response.text());",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "admin",
+      "type": "string"
+    },
+    {
+      "key": "csrfToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "csrfHeader",
+      "value": "X-XSRF-TOKEN",
+      "type": "string"
+    }
+  ]
+}

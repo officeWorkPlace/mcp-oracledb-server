@@ -1,4 +1,4 @@
-﻿package com.deepai.mcpserver.config;
+package com.deepai.mcpserver.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

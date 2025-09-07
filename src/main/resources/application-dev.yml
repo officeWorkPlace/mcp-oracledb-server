@@ -2,8 +2,6 @@
 # Oracle MCP Server - Enhanced for development and debugging
 
 spring:
-  profiles:
-    active: dev
   
   datasource:
     hikari:

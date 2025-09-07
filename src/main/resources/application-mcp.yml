@@ -2,8 +2,6 @@
 # Optimized for MCP stdio transport protocol
 
 spring:
-  profiles:
-    active: mcp
   
   main:
     web-application-type: none  # Disable web server for stdio
@@ -22,7 +20,7 @@ logging:
     oracle.jdbc: ERROR
   
   pattern:
-    console: ""  # Minimal console output for stdio
+    console: "%d{HH:mm:ss.SSS} - %msg%n"  # Minimal but structured output for stdio
 
 # Actuator disabled for stdio
 management:

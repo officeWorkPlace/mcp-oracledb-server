@@ -32,6 +32,14 @@
 
 The **MCP Oracle DB Server** is a production-ready Model Context Protocol (MCP) server that provides comprehensive Oracle database operations with AI-enhanced capabilities. Built with Spring Boot 3.4.5 and Spring AI 1.0.1, it significantly exceeds the MongoDB MCP server baseline with **55+ tools (Enhanced Edition)** or **75+ tools (Enterprise Edition)**.
 
+### Architecture Highlights
+
+- **Raw JDBC Performance**: Uses Spring JDBC Template for maximum Oracle performance
+- **Oracle-Specific Features**: Direct access to Oracle system views and enterprise features
+- **Multi-Version Support**: Compatible with Oracle 11g through 23c
+- **Dynamic Feature Detection**: Automatically adapts to available Oracle features
+- **Enterprise-Grade**: Supports PDBs, AWR, partitioning, and advanced security
+
 ### Key Differentiators vs MongoDB MCP Server
 
 | Metric | MongoDB Baseline | Oracle Enhanced | Oracle Enterprise | Advantage |
@@ -41,6 +49,26 @@ The **MCP Oracle DB Server** is a production-ready Model Context Protocol (MCP) 
 | **Analytics** | 12 tools | 20 tools | 20 tools | +67% more |
 | **AI Features** | 7 tools | 10 tools | 10 tools | +43% more |
 | **Enterprise** | 0 tools | 0 tools | 20 tools | Oracle-exclusive |
+
+### Why Raw JDBC Instead of JPA/Hibernate?
+
+This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate for several architectural reasons:
+
+| Aspect | JPA/Hibernate | Raw JDBC (This Project) | Oracle Advantage |
+|--------|---------------|-------------------------|------------------|
+| **Oracle Features** | Limited ORM abstraction | Full Oracle API access | ✅ V$ views, PDBs, AWR |
+| **Performance** | Entity mapping overhead | Direct SQL execution | ✅ Optimized for Oracle |
+| **DDL Operations** | Limited schema operations | Full DDL capabilities | ✅ Database/user creation |
+| **Enterprise Tools** | Not accessible | Direct Oracle packages | ✅ RMAN, partitioning, TDE |
+| **Multi-Version** | Complex version handling | Dynamic feature detection | ✅ Oracle 11g-23c support |
+| **AI Integration** | Fixed entity responses | Flexible JSON responses | ✅ Structured metadata |
+
+**Key Benefits:**
+- **Direct Oracle System View Access**: Query `v$database`, `dba_users`, `all_tables` without ORM limitations
+- **Oracle-Specific SQL**: Use Oracle hints, connect by, analytical functions, and PL/SQL
+- **Enterprise Feature Support**: Access RMAN, AWR, Partitioning, and Database Vault
+- **Performance Optimization**: HikariCP with Oracle-specific connection settings
+- **Dynamic SQL Generation**: Build Oracle version-specific SQL with safety checks
 
 ---
 
@@ -207,6 +235,59 @@ spring.datasource.hikari.leak-detection-threshold=60000
 # Oracle JDBC properties
 spring.datasource.hikari.data-source-properties.oracle.net.CONNECT_TIMEOUT=60000
 spring.datasource.hikari.data-source-properties.oracle.jdbc.ReadTimeout=60000
+\\\
+
+### Advanced Oracle Configuration
+
+#### Oracle Version-Specific Settings
+
+\\\properties
+# Oracle 23c with Vector Support
+spring.profiles.active=oracle23c
+oracle.features.vector.enabled=true
+oracle.features.json.enabled=true
+
+# Oracle 19c Enterprise
+spring.profiles.active=oracle19c,enterprise
+oracle.features.awr.enabled=true
+oracle.features.partitioning.enabled=true
+
+# Oracle 12c with PDB Support
+spring.profiles.active=oracle12c
+oracle.features.multitenant.enabled=true
+oracle.features.pdb.autodetect=true
+\\\
+
+#### Connection Pool Optimization
+
+\\\properties
+# Production Connection Pool Settings
+spring.datasource.hikari.maximum-pool-size=50
+spring.datasource.hikari.minimum-idle=10
+spring.datasource.hikari.connection-timeout=30000
+spring.datasource.hikari.idle-timeout=600000
+spring.datasource.hikari.max-lifetime=1800000
+spring.datasource.hikari.leak-detection-threshold=300000
+
+# Oracle-Specific JDBC Properties
+spring.datasource.hikari.data-source-properties.oracle.net.CONNECT_TIMEOUT=60000
+spring.datasource.hikari.data-source-properties.oracle.net.READ_TIMEOUT=60000
+spring.datasource.hikari.data-source-properties.oracle.jdbc.defaultRowPrefetch=100
+spring.datasource.hikari.data-source-properties.oracle.jdbc.useFetchSizeWithLongColumn=true
+\\\
+
+#### Security Configuration
+
+\\\properties
+# SSL/TLS Configuration
+spring.datasource.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=tcps)(HOST=hostname)(PORT=2484))(CONNECT_DATA=(SERVICE_NAME=service)))
+oracle.security.ssl.enabled=true
+oracle.security.ssl.truststore.location=/path/to/truststore.jks
+oracle.security.ssl.truststore.password=${SSL_TRUSTSTORE_PASSWORD}
+
+# Oracle Wallet Configuration
+oracle.security.wallet.enabled=true
+oracle.security.wallet.location=/path/to/wallet
 \\\
 
 ---
@@ -467,6 +548,39 @@ Pre-configured dashboards for:
 - JVM and application metrics
 - Connection pool monitoring
 
+### Performance Monitoring
+
+#### Custom Oracle Metrics
+
+\\\bash
+# Oracle-specific performance metrics
+curl http://localhost:8080/actuator/metrics/oracle.connection.active
+curl http://localhost:8080/actuator/metrics/oracle.query.execution.time
+curl http://localhost:8080/actuator/metrics/oracle.tools.usage.count
+
+# Database health indicators
+curl http://localhost:8080/actuator/health/oracle
+curl http://localhost:8080/actuator/health/oracleFeatureDetector
+\\\
+
+#### JVM Optimization for Oracle Workloads
+
+\\\bash
+# Production JVM settings
+export JAVA_OPTS="
+  -XX:+UseG1GC
+  -XX:MaxGCPauseMillis=200
+  -XX:+UseContainerSupport
+  -XX:MaxRAMPercentage=75.0
+  -XX:+HeapDumpOnOutOfMemoryError
+  -XX:HeapDumpPath=/tmp/heapdump.hprof
+  -Doracle.jdbc.fanEnabled=false
+  -Doracle.net.keepAlive=true
+"
+
+java $JAVA_OPTS -jar mcp-oracledb-server-1.0.0-PRODUCTION.jar
+\\\
+
 ---
 
 ##  Security
@@ -502,6 +616,74 @@ Pre-configured dashboards for:
 - **PDB Operations:** Pluggable database management
 - **Performance Tuning:** Oracle-specific optimizations
 - **Enterprise Features:** VPD, TDE, and advanced security
+
+##  Troubleshooting
+
+### Common Issues and Solutions
+
+#### Oracle Connection Issues
+
+**Problem**: `ORA-12541: TNS:no listener`
+\\\bash
+# Check Oracle listener status
+lsnrctl status
+
+# Verify connection string
+sqlplus username/password@hostname:port/service_name
+
+# Test with MCP server
+curl -X POST http://localhost:8080/v1/tools/oracle_ping
+\\\
+
+**Problem**: `ORA-00942: table or view does not exist`
+\\\bash
+# Grant necessary privileges
+GRANT SELECT ON v$database TO mcp_user;
+GRANT SELECT ON dba_users TO mcp_user;
+GRANT SELECT ON all_tables TO mcp_user;
+
+# For enterprise features
+GRANT SELECT ON dba_hist_snapshot TO mcp_user;
+GRANT EXECUTE ON dbms_workload_repository TO mcp_user;
+\\\
+
+#### Feature Detection Issues
+
+**Problem**: Oracle features not detected correctly
+\\\properties
+# Enable debug logging
+logging.level.com.deepai.mcpserver.util.OracleFeatureDetector=DEBUG
+
+# Force feature detection refresh
+oracle.features.detection.enabled=true
+oracle.features.cache.ttl=0
+\\\
+
+#### Performance Issues
+
+**Problem**: Slow query execution
+\\\properties
+# Increase fetch size
+spring.datasource.hikari.data-source-properties.oracle.jdbc.defaultRowPrefetch=1000
+
+# Enable statement caching
+spring.datasource.hikari.data-source-properties.oracle.jdbc.implicitStatementCacheSize=50
+
+# Monitor slow queries
+logging.level.org.springframework.jdbc=DEBUG
+\\\
+
+#### Memory Issues
+
+**Problem**: OutOfMemoryError with large result sets
+\\\bash
+# Increase JVM heap
+export JAVA_OPTS="-Xms2g -Xmx8g -XX:+UseG1GC"
+
+# Enable result set streaming
+oracle.jdbc.streaming.enabled=true
+oracle.jdbc.fetchSize=1000
+\\\
 
 ---
 

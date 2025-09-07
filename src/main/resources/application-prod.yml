@@ -106,3 +106,11 @@ mcp:
 security:
   require-ssl: false  # Enable in production with proper certificates
   enable-csrf: false  # MCP typically doesn't need CSRF protection
+
+# Spring Security User Configuration
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN

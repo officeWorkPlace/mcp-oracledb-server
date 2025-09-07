@@ -1,4 +1,4 @@
-﻿package com.deepai.mcpserver;
+package com.deepai.mcpserver;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -107,7 +107,7 @@ class OracleIntegrationTest {
     @Order(3)
     @DisplayName("Test Core Database Operations - listDatabases")
     void testListDatabases() {
-        Map<String, Object> result = oracleServiceClient.listDatabases(true);
+        Map<String, Object> result = oracleServiceClient.listDatabases(true, true);
         
         assertEquals("success", result.get("status"), "List databases should succeed");
         assertNotNull(result.get("databases"), "Should return databases list");
@@ -122,8 +122,8 @@ class OracleIntegrationTest {
     @DisplayName("Test User Management Operations - createUser")
     void testCreateUser() {
         Map<String, Object> result = oracleServiceClient.createUser(
-            "testuser", "testpass", "USERS", "TEMP", 
-            java.util.List.of("CONNECT", "RESOURCE"), "DEFAULT");
+            "testuser", "testpass", "USERS", 
+            java.util.List.of("CONNECT", "RESOURCE"));
         
         assertEquals("success", result.get("status"), "Create user should succeed");
         assertEquals("testuser", result.get("username"), "Should return correct username");
@@ -136,12 +136,12 @@ class OracleIntegrationTest {
     @Order(5)
     @DisplayName("Test Database Statistics")
     void testDatabaseStats() {
-        Map<String, Object> result = oracleServiceClient.getDatabaseStats(null, false);
+        Map<String, Object> result = oracleServiceClient.getDatabaseStats(false);
         
         assertEquals("success", result.get("status"), "Get database stats should succeed");
-        assertTrue(result.containsKey("basicInfo"), "Should include basic database info");
-        assertTrue(result.containsKey("tablespaces"), "Should include tablespace info");
-        assertTrue(result.containsKey("sessions"), "Should include session info");
+        assertTrue(result.containsKey("statistics"), "Should include statistics info");
+        assertTrue(result.containsKey("awrAvailable"), "Should include AWR availability info");
+        assertTrue(result.containsKey("timestamp"), "Should include timestamp");
         
         System.out.println(" Database statistics retrieved successfully");
     }
@@ -185,7 +185,7 @@ class OracleIntegrationTest {
         
         // Test error handling
         Map<String, Object> errorResult = oracleServiceClient.createUser(
-            null, "pass", null, null, null, null);
+            null, "pass", null, null);
         assertEquals("error", errorResult.get("status"), "Should handle invalid input gracefully");
         
         System.out.println(" Production readiness validated");
@@ -201,8 +201,8 @@ class OracleIntegrationTest {
         long startTime = System.currentTimeMillis();
         
         // Execute a series of operations to test performance
-        oracleServiceClient.listDatabases(false);
-        oracleServiceClient.getDatabaseStats(null, false);
+        oracleServiceClient.listDatabases(false, false);
+        oracleServiceClient.getDatabaseStats(false);
         
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;

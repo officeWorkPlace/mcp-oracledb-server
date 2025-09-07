@@ -1,4 +1,4 @@
-﻿package com.deepai.mcpserver.config;
+package com.deepai.mcpserver.config;
 
 import com.deepai.mcpserver.util.OracleFeatureDetector;
 import com.zaxxer.hikari.HikariDataSource;
@@ -67,7 +67,7 @@ public class OracleConfiguration {
         // Oracle-specific optimizations
         jdbcTemplate.setFetchSize(1000);
         jdbcTemplate.setMaxRows(0); // No limit
-        jdbcTemplate.setQueryTimeout(300); // 5 minutes
+        jdbcTemplate.setQueryTimeout(290); // Slightly less than socket timeout (300s)
         
         return jdbcTemplate;
     }

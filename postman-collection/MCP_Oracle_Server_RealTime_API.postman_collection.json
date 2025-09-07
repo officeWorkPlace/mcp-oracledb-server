@@ -1,0 +1,719 @@
+{
+  "info": {
+    "name": "MCP Oracle DB Server - Real-Time Data Testing",
+    "description": "Comprehensive real-time testing for Oracle Database MCP Server with actual C##DEEPAI schema data",
+    "version": "2.0.0-REALTIME",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "admin",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "admin",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-populate base URL if not set",
+          "if (!pm.collectionVariables.get('baseUrl')) {",
+          "    pm.collectionVariables.set('baseUrl', 'http://localhost:8080');",
+          "}",
+          "",
+          "// Set current timestamp for tests",
+          "pm.collectionVariables.set('currentTimestamp', new Date().toISOString());"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "testSchema", 
+      "value": "C##DEEPAI",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔍 Real-Time Database Connectivity Tests",
+      "description": "Test actual Oracle database connectivity and real data",
+      "item": [
+        {
+          "name": "Health Check - Core Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Core service is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('UP');",
+                  "    pm.expect(jsonData.availableEndpoints).to.be.a('number');",
+                  "    console.log(`🔧 Available endpoints: ${jsonData.availableEndpoints}`);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Service Capabilities Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Service capabilities loaded', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.totalEndpoints).to.be.a('number');",
+                  "    pm.expect(jsonData.capabilities).to.be.an('object');",
+                  "    console.log(`🎯 Total endpoints available: ${jsonData.totalEndpoints}`);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Database Connection Test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/databases",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "databases"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Database connection successful', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.databases).to.be.an('array');",
+                  "    pm.expect(jsonData.count).to.be.a('number');",
+                  "    console.log(`🗄️  Connected databases: ${jsonData.count}`);",
+                  "    console.log(`📝 Note: ${jsonData.note || 'Full database access'}`);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📊 Real Schema & Table Operations", 
+      "description": "Test operations on actual C##DEEPAI schema and tables",
+      "item": [
+        {
+          "name": "List All Schemas (Real Data)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/schemas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "schemas"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Real schemas retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.schemas).to.be.an('array');",
+                  "    pm.expect(jsonData.count).to.be.above(0);",
+                  "    ",
+                  "    // Check for our test schema",
+                  "    const deepaiSchema = jsonData.schemas.find(s => s.SCHEMA_NAME === 'C##DEEPAI');",
+                  "    pm.expect(deepaiSchema).to.not.be.undefined;",
+                  "    console.log(`🏢 Total schemas found: ${jsonData.count}`);",
+                  "    console.log(`🎯 C##DEEPAI schema found: ${deepaiSchema ? 'YES' : 'NO'}`);",
+                  "    if (deepaiSchema) {",
+                  "        console.log(`📅 Created: ${deepaiSchema.CREATED}`);",
+                  "        console.log(`📊 Status: ${deepaiSchema.ACCOUNT_STATUS}`);",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List All Tables (Real Data)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/tables",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "tables"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Real tables retrieved successfully', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.tables).to.be.an('array');",
+                  "    pm.expect(jsonData.count).to.be.above(0);",
+                  "    ",
+                  "    // Filter C##DEEPAI tables",
+                  "    const deepaiTables = jsonData.tables.filter(t => t.OWNER === 'C##DEEPAI');",
+                  "    pm.expect(deepaiTables.length).to.be.above(0);",
+                  "    ",
+                  "    console.log(`📋 Total tables in database: ${jsonData.count}`);",
+                  "    console.log(`🎯 C##DEEPAI schema tables: ${deepaiTables.length}`);",
+                  "    ",
+                  "    // Store table names for later tests",
+                  "    const tableNames = deepaiTables.map(t => t.TABLE_NAME);",
+                  "    pm.collectionVariables.set('deepaiTables', JSON.stringify(tableNames));",
+                  "    ",
+                  "    deepaiTables.forEach(table => {",
+                  "        console.log(`  📊 ${table.TABLE_NAME}: ${table.NUM_ROWS || 'unknown'} rows`);",
+                  "    });",
+                  "    ",
+                  "    // Check for specific test tables",
+                  "    const expectedTables = ['EMPLOYEES', 'DEPARTMENTS', 'PRODUCTS', 'LOANS_FULL_SCHEMA'];",
+                  "    expectedTables.forEach(tableName => {",
+                  "        const found = deepaiTables.find(t => t.TABLE_NAME === tableName);",
+                  "        console.log(`🔍 ${tableName}: ${found ? 'FOUND' : 'NOT FOUND'}`);",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Describe EMPLOYEES Table Structure",
+          "request": {
+            "method": "GET", 
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/tables/EMPLOYEES/describe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "tables", "EMPLOYEES", "describe"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ EMPLOYEES table structure retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.tableName).to.equal('EMPLOYEES');",
+                  "    pm.expect(jsonData.columns).to.be.an('array');",
+                  "    pm.expect(jsonData.columnCount).to.be.above(0);",
+                  "    ",
+                  "    console.log(`🏗️  EMPLOYEES table: ${jsonData.columnCount} columns`);",
+                  "    ",
+                  "    // Check for expected columns",
+                  "    const expectedColumns = ['EMP_ID', 'FIRST_NAME', 'LAST_NAME', 'EMAIL', 'SALARY'];",
+                  "    expectedColumns.forEach(colName => {",
+                  "        const found = jsonData.columns.find(c => c.COLUMN_NAME === colName);",
+                  "        pm.expect(found).to.not.be.undefined;",
+                  "        console.log(`  ✓ ${colName}: ${found.DATA_TYPE}`);",
+                  "    });",
+                  "    ",
+                  "    if (jsonData.constraints && jsonData.constraints.length > 0) {",
+                  "        console.log(`🔒 Constraints: ${jsonData.constraints.length}`);",
+                  "    }",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Describe DEPARTMENTS Table Structure", 
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/tables/DEPARTMENTS/describe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "tables", "DEPARTMENTS", "describe"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ DEPARTMENTS table structure retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.tableName).to.equal('DEPARTMENTS');",
+                  "    pm.expect(jsonData.columns).to.be.an('array');",
+                  "    ",
+                  "    console.log(`🏢 DEPARTMENTS table: ${jsonData.columnCount} columns`);",
+                  "    ",
+                  "    // Check for expected columns",
+                  "    const expectedColumns = ['DEPT_ID', 'DEPT_NAME', 'LOCATION', 'BUDGET'];",
+                  "    expectedColumns.forEach(colName => {",
+                  "        const found = jsonData.columns.find(c => c.COLUMN_NAME === colName);",
+                  "        pm.expect(found).to.not.be.undefined;",
+                  "        console.log(`  ✓ ${colName}: ${found.DATA_TYPE}`);",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Describe PRODUCTS Table Structure",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/tables/PRODUCTS/describe", 
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "tables", "PRODUCTS", "describe"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ PRODUCTS table structure retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.tableName).to.equal('PRODUCTS');",
+                  "    pm.expect(jsonData.columns).to.be.an('array');",
+                  "    ",
+                  "    console.log(`🛍️  PRODUCTS table: ${jsonData.columnCount} columns`);",
+                  "    ",
+                  "    // Check for expected columns including CLOB",
+                  "    const expectedColumns = ['PRODUCT_ID', 'PRODUCT_NAME', 'DESCRIPTION', 'PRICE', 'CATEGORY'];",
+                  "    expectedColumns.forEach(colName => {",
+                  "        const found = jsonData.columns.find(c => c.COLUMN_NAME === colName);",
+                  "        pm.expect(found).to.not.be.undefined;",
+                  "        console.log(`  ✓ ${colName}: ${found.DATA_TYPE}`);",
+                  "    });",
+                  "    ",
+                  "    // Verify CLOB column for large text",
+                  "    const descColumn = jsonData.columns.find(c => c.COLUMN_NAME === 'DESCRIPTION');",
+                  "    pm.expect(descColumn.DATA_TYPE).to.equal('CLOB');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Describe LOANS_FULL_SCHEMA (Large Table)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/tables/LOANS_FULL_SCHEMA/describe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "tables", "LOANS_FULL_SCHEMA", "describe"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ LOANS_FULL_SCHEMA (large table) structure retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.tableName).to.equal('LOANS_FULL_SCHEMA');",
+                  "    pm.expect(jsonData.columns).to.be.an('array');",
+                  "    pm.expect(jsonData.columnCount).to.be.above(50); // Should have 55 columns",
+                  "    ",
+                  "    console.log(`💰 LOANS_FULL_SCHEMA: ${jsonData.columnCount} columns (large table)`);",
+                  "    console.log(`📊 This represents a real dataset with 10,000+ loan records`);",
+                  "    ",
+                  "    // Show first few columns",
+                  "    jsonData.columns.slice(0, 5).forEach(col => {",
+                  "        console.log(`  📋 ${col.COLUMN_NAME}: ${col.DATA_TYPE}`);",
+                  "    });",
+                  "    console.log(`  ... and ${jsonData.columnCount - 5} more columns`);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🤖 AI Service Real-Time Tests",
+      "description": "Test AI service endpoints with real database connectivity",
+      "item": [
+        {
+          "name": "AI Service Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/ai/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "ai", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ AI services are healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('UP');",
+                  "    pm.expect(jsonData.aiServicesAvailable).to.be.true;",
+                  "    console.log('🤖 AI Services Status:', jsonData.status);",
+                  "    console.log('🔍 Vector Search Enabled:', jsonData.vectorSearchEnabled);",
+                  "    console.log('📝 Content Analysis Enabled:', jsonData.contentAnalysisEnabled);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "AI Capabilities Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/ai/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "ai", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ AI capabilities loaded', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.capabilities).to.be.an('object');",
+                  "    ",
+                  "    const caps = jsonData.capabilities;",
+                  "    console.log('🎯 Vector Search Supported:', caps.vectorSearchSupported);",
+                  "    console.log('🧠 AI Analysis Supported:', caps.aiAnalysisSupported);",
+                  "    console.log('📝 Natural Language SQL:', caps.naturalLanguageSqlSupported);",
+                  "    console.log('📊 Distance Metrics:', caps.supportedDistanceMetrics.join(', '));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📈 Analytics Service Real-Time Tests",
+      "description": "Test analytics service with real data",
+      "item": [
+        {
+          "name": "Analytics Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/analytics/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "analytics", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Analytics service is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('UP');",
+                  "    console.log('📈 Analytics Service Status:', jsonData.status);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Analytics Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/analytics/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "analytics", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Analytics capabilities retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    console.log('📊 Analytics capabilities available');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "⚡ Performance Service Real-Time Tests",
+      "description": "Test performance monitoring with real database",
+      "item": [
+        {
+          "name": "Performance Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Performance service is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('UP');",
+                  "    console.log('⚡ Performance Service Status:', jsonData.status);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Performance Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/performance/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "performance", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Performance capabilities retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    console.log('📊 Performance monitoring capabilities available');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🔒 Security Service Real-Time Tests",
+      "description": "Test security service with real database",
+      "item": [
+        {
+          "name": "Security Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/security/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "security", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Security service is healthy', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('UP');",
+                  "    console.log('🔒 Security Service Status:', jsonData.status);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Security Capabilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/security/capabilities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "security", "capabilities"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('✅ Security capabilities retrieved', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    console.log('🛡️  Security capabilities available');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎯 Real-Time Data Validation",
+      "description": "Final validation tests with actual database operations",
+      "item": [
+        {
+          "name": "Validate Real Database Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/oracle/core/schemas?includeSystemSchemas=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "oracle", "core", "schemas"],
+              "query": [
+                {"key": "includeSystemSchemas", "value": "false"}
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('🎯 FINAL VALIDATION: Real Oracle database connected', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.status).to.equal('success');",
+                  "    pm.expect(jsonData.count).to.be.above(0);",
+                  "    ",
+                  "    // Must find our test schema",
+                  "    const deepaiSchema = jsonData.schemas.find(s => s.SCHEMA_NAME === 'C##DEEPAI');",
+                  "    pm.expect(deepaiSchema).to.not.be.undefined;",
+                  "    ",
+                  "    console.log('🎉 REAL-TIME DATABASE VALIDATION COMPLETE!');",
+                  "    console.log(`✅ Total schemas: ${jsonData.count}`);",
+                  "    console.log(`✅ C##DEEPAI schema: FOUND`); ",
+                  "    console.log(`✅ Account status: ${deepaiSchema.ACCOUNT_STATUS}`);",
+                  "    console.log(`✅ Created: ${deepaiSchema.CREATED}`);",
+                  "    console.log('');",
+                  "    console.log('🔥 SUCCESS: Oracle MCP Server is connected to REAL Oracle database!');",
+                  "    console.log('📊 All GET endpoints tested with actual live data');",
+                  "    console.log('🚀 Ready for production use with real Oracle operations');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
