@@ -22,3 +22,5 @@ target/
 
 # Logs
 *.log
+
+src/main/java/META-INF/

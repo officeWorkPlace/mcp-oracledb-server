@@ -429,47 +429,234 @@ public class OracleSqlBuilder {
     /**
      * Build INSERT SQL
      */
+//    public String buildInsertSql(String tableName, Map<String, Object> data) {
+//        validateTableName(tableName);
+//        
+//        StringBuilder sql = new StringBuilder();
+//        sql.append("INSERT INTO ").append(escapeIdentifier(tableName)).append(" (");
+//        
+//        // Build column list
+//        String columns = String.join(", ", 
+//            data.keySet().stream().map(this::escapeIdentifier).toArray(String[]::new));
+//        sql.append(columns).append(") VALUES (");
+//        
+//        // Build values list
+//        String values = String.join(", ", 
+//            data.values().stream().map(v -> v == null ? "NULL" : "'" + v.toString().replace("'", "''") + "'").toArray(String[]::new));
+//        sql.append(values).append(")");
+//        
+//        logger.debug("Generated INSERT SQL for table: {}", tableName);
+//        return sql.toString();
+//    }
+    
     public String buildInsertSql(String tableName, Map<String, Object> data) {
         validateTableName(tableName);
-        
+
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO ").append(escapeIdentifier(tableName)).append(" (");
-        
+
         // Build column list
-        String columns = String.join(", ", 
+        String columns = String.join(", ",
             data.keySet().stream().map(this::escapeIdentifier).toArray(String[]::new));
         sql.append(columns).append(") VALUES (");
-        
-        // Build values list
-        String values = String.join(", ", 
-            data.values().stream().map(v -> v == null ? "NULL" : "'" + v.toString().replace("'", "''") + "'").toArray(String[]::new));
+
+        // Build values list with proper Oracle type handling
+        String values = String.join(", ",
+            data.values().stream().map(this::formatValueForOracle).toArray(String[]::new));
         sql.append(values).append(")");
-        
+
         logger.debug("Generated INSERT SQL for table: {}", tableName);
         return sql.toString();
+    }
+    
+    private String formatValueForOracle(Object value) {
+        if (value == null) {
+            return "NULL";
+        }
+
+        // Handle numeric types (don't quote)
+        if (value instanceof Number) {
+            return value.toString();
+        }
+
+        // Handle boolean (Oracle doesn't have native boolean, convert to number)
+        if (value instanceof Boolean) {
+            return ((Boolean) value) ? "1" : "0";
+        }
+
+        // Handle Java Date/Time objects
+        if (value instanceof java.sql.Date) {
+            return "DATE '" + value.toString() + "'";
+        }
+
+        if (value instanceof java.sql.Timestamp) {
+            return "TIMESTAMP '" + value.toString() + "'";
+        }
+
+        if (value instanceof java.time.LocalDate) {
+            return "DATE '" + value.toString() + "'";
+        }
+
+        if (value instanceof java.time.LocalDateTime) {
+            // Oracle 12c+ supports ISO 8601 format
+            return "TIMESTAMP '" + value.toString().replace('T', ' ') + "'";
+        }
+
+        if (value instanceof java.util.Date) {
+            java.sql.Timestamp ts = new java.sql.Timestamp(((java.util.Date) value).getTime());
+            return "TIMESTAMP '" + ts.toString() + "'";
+        }
+
+        // Handle string values
+        String stringValue = value.toString();
+
+        // Check if string represents a date (common patterns)
+        if (isDateString(stringValue)) {
+            return formatDateString(stringValue);
+        }
+
+        // Check if string represents a number
+        if (isNumericString(stringValue)) {
+            return stringValue; // Don't quote numeric strings
+        }
+
+        // Check if it's a JSON/XML that should use Oracle 12c+ features
+        if (isJsonString(stringValue)) {
+            // Oracle 12c+ JSON support - escape and quote
+            return "'" + stringValue.replace("'", "''") + "'";
+        }
+
+        // Regular string - escape single quotes
+        return "'" + stringValue.replace("'", "''") + "'";
+    }
+    
+    private boolean isDateString(String value) {
+        // ISO 8601 date patterns
+        return value.matches("\\d{4}-\\d{2}-\\d{2}") ||                          // YYYY-MM-DD
+               value.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}") ||     // YYYY-MM-DDTHH:mm:ss
+               value.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}") ||     // YYYY-MM-DD HH:mm:ss
+               value.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+") || // with milliseconds
+               value.matches("\\d{2}-[A-Z]{3}-\\d{4}") ||                        // DD-MON-YYYY
+               value.matches("\\d{2}/\\d{2}/\\d{4}");                           // DD/MM/YYYY or MM/DD/YYYY
+    }
+    
+    private String formatDateString(String dateStr) {
+        try {
+            // ISO 8601 patterns (Oracle 12c+ supports these directly)
+            if (dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                return "DATE '" + dateStr + "'";
+            }
+
+            if (dateStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}")) {
+                return "TIMESTAMP '" + dateStr.replace('T', ' ') + "'";
+            }
+
+            if (dateStr.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+                return "TIMESTAMP '" + dateStr + "'";
+            }
+
+            if (dateStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d+")) {
+                return "TIMESTAMP '" + dateStr.replace('T', ' ') + "'";
+            }
+
+            // Traditional Oracle formats
+            if (dateStr.matches("\\d{2}-[A-Z]{3}-\\d{4}")) {
+                return "TO_DATE('" + dateStr + "', 'DD-MON-YYYY')";
+            }
+
+            if (dateStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                return "TO_DATE('" + dateStr + "', 'DD/MM/YYYY')";
+            }
+
+            // If no specific pattern matches, treat as string
+            return "'" + dateStr.replace("'", "''") + "'";
+
+        } catch (Exception e) {
+            // If any error, treat as regular string
+            return "'" + dateStr.replace("'", "''") + "'";
+        }
+    }
+
+    /**
+    * Check if string represents a number
+    */
+    private boolean isNumericString(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return false;
+        }
+
+        try {
+            // Try to parse as different numeric types
+            if (value.contains(".")) {
+                Double.parseDouble(value);
+            } else {
+                Long.parseLong(value);
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+    * Check if string is JSON (for Oracle 12c+ JSON support)
+    */
+    private boolean isJsonString(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return false;
+        }
+
+        String trimmed = value.trim();
+        return (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
+               (trimmed.startsWith("[") && trimmed.endsWith("]"));
     }
     
     /**
      * Build UPDATE SQL
      */
+//    public String buildUpdateSql(String tableName, Map<String, Object> data, String whereClause) {
+//        validateTableName(tableName);
+//        
+//        StringBuilder sql = new StringBuilder();
+//        sql.append("UPDATE ").append(escapeIdentifier(tableName)).append(" SET ");
+//        
+//        // Build SET clause
+//        String[] setParts = data.entrySet().stream()
+//            .map(entry -> escapeIdentifier(entry.getKey()) + " = " + 
+//                 (entry.getValue() == null ? "NULL" : "'" + entry.getValue().toString().replace("'", "''") + "'"))
+//            .toArray(String[]::new);
+//        sql.append(String.join(", ", setParts));
+//        
+//        // Add WHERE clause
+//        if (whereClause != null && !whereClause.trim().isEmpty()) {
+//            sql.append(" WHERE ").append(whereClause);
+//        }
+//        
+//        logger.debug("Generated UPDATE SQL for table: {}", tableName);
+//        return sql.toString();
+//    }
+    
     public String buildUpdateSql(String tableName, Map<String, Object> data, String whereClause) {
         validateTableName(tableName);
-        
+
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE ").append(escapeIdentifier(tableName)).append(" SET ");
-        
-        // Build SET clause
+
+        // Build SET clause with proper Oracle type handling
         String[] setParts = data.entrySet().stream()
-            .map(entry -> escapeIdentifier(entry.getKey()) + " = " + 
-                 (entry.getValue() == null ? "NULL" : "'" + entry.getValue().toString().replace("'", "''") + "'"))
+            .map(entry -> escapeIdentifier(entry.getKey()) + " = " + formatValueForOracle(entry.getValue()))
             .toArray(String[]::new);
         sql.append(String.join(", ", setParts));
-        
-        // Add WHERE clause
+
+        // Add WHERE clause with validation
         if (whereClause != null && !whereClause.trim().isEmpty()) {
             sql.append(" WHERE ").append(whereClause);
+        } else {
+            logger.warn("UPDATE operation without WHERE clause on table: {}", tableName);
+            // Optionally throw exception for safety
+            // throw new IllegalArgumentException("WHERE clause is required for UPDATE operations");
         }
-        
+
         logger.debug("Generated UPDATE SQL for table: {}", tableName);
         return sql.toString();
     }
