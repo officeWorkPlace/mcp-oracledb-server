@@ -964,36 +964,86 @@ public class OracleServiceClient {
         }
     }
 
+//    @Tool(name = "insertRecords", description = "Insert multiple records into Oracle table")
+//    public Map<String, Object> insertRecords(
+//         String tableName,
+//         List<Map<String, Object>> records) {
+//
+//        try {
+//            int insertedCount = 0;
+//            List<String> errors = new ArrayList<>();
+//
+//            for (Map<String, Object> record : records) {
+//                try {
+//                    String sql = sqlBuilder.buildInsertSql(tableName, record);
+//                    jdbcTemplate.update(sql);
+//                    insertedCount++;
+//                } catch (Exception e) {
+//                    errors.add("Record " + (insertedCount + 1) + ": " + e.getMessage());
+//                }
+//            }
+//
+//            return Map.of(
+//                "status", insertedCount > 0 ? "success" : "error",
+//                "tableName", tableName,
+//                "totalRecords", records.size(),
+//                "insertedCount", insertedCount,
+//                "errors", errors
+//            );
+//        } catch (Exception e) {
+//            return Map.of(
+//                "status", "error",
+//                "message", "Failed to insert records: " + e.getMessage()
+//            );
+//        }
+//    }
+    
     @Tool(name = "insertRecords", description = "Insert multiple records into Oracle table")
     public Map<String, Object> insertRecords(
-         String tableName,
-         List<Map<String, Object>> records) {
+            String tableName,
+            List<Map<String, Object>> records) {
 
         try {
             int insertedCount = 0;
             List<String> errors = new ArrayList<>();
+            List<String> successfulSqls = new ArrayList<>(); // For debugging
 
-            for (Map<String, Object> record : records) {
+            for (int i = 0; i < records.size(); i++) {
+                Map<String, Object> record = records.get(i);
                 try {
                     String sql = sqlBuilder.buildInsertSql(tableName, record);
+                    logger.debug("Executing SQL: {}", sql);
+
                     jdbcTemplate.update(sql);
                     insertedCount++;
+                    successfulSqls.add(sql);
+
                 } catch (Exception e) {
-                    errors.add("Record " + (insertedCount + 1) + ": " + e.getMessage());
+                    String errorMsg = String.format("Record %d: %s", i + 1, e.getMessage());
+                    errors.add(errorMsg);
+                    logger.error("Failed to insert record {}: {}", i + 1, e.getMessage());
                 }
             }
 
-            return Map.of(
-                "status", insertedCount > 0 ? "success" : "error",
-                "tableName", tableName,
-                "totalRecords", records.size(),
-                "insertedCount", insertedCount,
-                "errors", errors
-            );
+            Map<String, Object> result = new HashMap<>();
+            result.put("status", insertedCount > 0 ? "success" : "error");
+            result.put("tableName", tableName);
+            result.put("totalRecords", records.size());
+            result.put("insertedCount", insertedCount);
+            result.put("failedCount", records.size() - insertedCount);
+            result.put("errors", errors);
+
+            if (logger.isDebugEnabled() && !successfulSqls.isEmpty()) {
+                result.put("successfulSqls", successfulSqls.subList(0, Math.min(3, successfulSqls.size()))); // First 3 for debugging
+            }
+
+            return result;
+
         } catch (Exception e) {
+            logger.error("Failed to insert records into table {}: {}", tableName, e.getMessage());
             return Map.of(
-                "status", "error",
-                "message", "Failed to insert records: " + e.getMessage()
+                    "status", "error",
+                    "message", "Failed to insert records: " + e.getMessage()
             );
         }
     }
@@ -1046,27 +1096,84 @@ public class OracleServiceClient {
         }
     }
 
+//    @Tool(name = "updateRecords", description = "Update records in Oracle table")
+//    public Map<String, Object> updateRecords(
+//         String tableName,
+//         Map<String, Object> updateData,
+//         String whereClause) {
+//
+//        try {
+//            String sql = sqlBuilder.buildUpdateSql(tableName, updateData, whereClause);
+//            int updatedCount = jdbcTemplate.update(sql);
+//
+//            return Map.of(
+//                "status", "success",
+//                "tableName", tableName,
+//                "updatedCount", updatedCount,
+//                "whereClause", whereClause,
+//                "updateData", updateData
+//            );
+//        } catch (Exception e) {
+//            return Map.of(
+//                "status", "error",
+//                "message", "Failed to update records: " + e.getMessage()
+//            );
+//        }
+//    }
+    
     @Tool(name = "updateRecords", description = "Update records in Oracle table")
     public Map<String, Object> updateRecords(
-         String tableName,
-         Map<String, Object> updateData,
-         String whereClause) {
+            String tableName,
+            Map<String, Object> updateData,
+            String whereClause) {
 
         try {
+            // Validate inputs
+            if (updateData == null || updateData.isEmpty()) {
+                return Map.of(
+                    "status", "error",
+                    "message", "Update data cannot be null or empty"
+                );
+            }
+            
+            // Optional: Validate WHERE clause exists (for safety)
+            if (whereClause == null || whereClause.trim().isEmpty()) {
+                logger.warn("UPDATE operation without WHERE clause on table: {}", tableName);
+                // Uncomment to enforce WHERE clause requirement:
+                // return Map.of(
+                //     "status", "error",
+                //     "message", "WHERE clause is required for UPDATE operations"
+                // );
+            }
+
             String sql = sqlBuilder.buildUpdateSql(tableName, updateData, whereClause);
+            logger.debug("Executing UPDATE SQL: {}", sql);
+            
             int updatedCount = jdbcTemplate.update(sql);
 
-            return Map.of(
-                "status", "success",
-                "tableName", tableName,
-                "updatedCount", updatedCount,
-                "whereClause", whereClause,
-                "updateData", updateData
-            );
+            Map<String, Object> result = new HashMap<>();
+            result.put("status", updatedCount > 0 ? "success" : "warning");
+            result.put("tableName", tableName);
+            result.put("updatedCount", updatedCount);
+            result.put("whereClause", whereClause);
+            result.put("updateData", updateData);
+            
+            if (updatedCount == 0) {
+                result.put("message", "No records matched the WHERE clause");
+            }
+            
+            if (logger.isDebugEnabled()) {
+                result.put("executedSql", sql);
+            }
+            
+            return result;
+            
         } catch (Exception e) {
+            logger.error("Failed to update records in table {}: {}", tableName, e.getMessage());
             return Map.of(
-                "status", "error",
-                "message", "Failed to update records: " + e.getMessage()
+                    "status", "error",
+                    "message", "Failed to update records: " + e.getMessage(),
+                    "tableName", tableName
             );
         }
     }
