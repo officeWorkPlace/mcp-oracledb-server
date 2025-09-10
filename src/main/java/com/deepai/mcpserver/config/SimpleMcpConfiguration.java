@@ -1,6 +1,7 @@
 package com.deepai.mcpserver.config;
 
 import com.deepai.mcpserver.service.OracleServiceClient;
+import com.deepai.mcpserver.service.OracleVisualizationService;
 import com.deepai.mcpserver.service.OracleAdvancedAnalyticsService;
 import com.deepai.mcpserver.service.OracleAIService;
 import com.deepai.mcpserver.service.OracleEnterpriseSecurityService;
@@ -55,7 +56,8 @@ public class SimpleMcpConfiguration {
                                            OracleAdvancedAnalyticsService oracleAdvancedAnalyticsService,
                                            OracleAIService oracleAIService,
                                            OracleEnterpriseSecurityService oracleEnterpriseSecurityService,
-                                           OracleEnterprisePerformanceService oracleEnterprisePerformanceService) {
+                                           OracleEnterprisePerformanceService oracleEnterprisePerformanceService,
+                                           OracleVisualizationService oracleVisualizationService) {
         
         logger.info("🚀 Configuring Oracle MCP tools with exposure level: {}", toolsExposure);
         
@@ -82,7 +84,8 @@ public class SimpleMcpConfiguration {
                                oracleAdvancedAnalyticsService, 
                                oracleAIService,
                                oracleEnterpriseSecurityService,
-                               oracleEnterprisePerformanceService)
+                               oracleEnterprisePerformanceService,
+                               oracleVisualizationService)
                     .build();
         }
     }

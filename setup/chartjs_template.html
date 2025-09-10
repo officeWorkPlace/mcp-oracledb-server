@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle MCP Chart.js Visualizations</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .chart-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        .data-input {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover { background: #0056b3; }
+        #dataInput {
+            width: 100%;
+            height: 150px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oracle MCP Data Visualization with Chart.js</h1>
+        
+        <!-- Data Input Section -->
+        <div class="chart-section">
+            <h2>1. Data Input from Oracle MCP</h2>
+            <div class="data-input">
+                <label for="dataInput">Paste your Oracle MCP Server response JSON here:</label>
+                <textarea id="dataInput" placeholder="Paste JSON response from Oracle MCP functions here...">
+{
+  "overallHealthScore": 75.0,
+  "healthGrade": "GOOD",
+  "sectionsAnalyzed": 5,
+  "sections": {
+    "performance": {"score": 80},
+    "storage": {"score": 70},
+    "security": {"score": 85},
+    "connectivity": {"score": 90},
+    "memory": {"score": 60}
+  }
+}
+                </textarea>
+                <br>
+                <button class="btn" onclick="parseAndVisualize()">Generate Charts</button>
+                <button class="btn" onclick="loadSampleData()">Load Sample Data</button>
+            </div>
+        </div>
+
+        <!-- Health Radar Chart -->
+        <div class="chart-section">
+            <h2>2. Health Assessment Radar Chart</h2>
+            <div class="chart-container">
+                <canvas id="healthRadarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Capacity Line Chart -->
+        <div class="chart-section">
+            <h2>3. Capacity Planning Line Chart</h2>
+            <div class="chart-container">
+                <canvas id="capacityLineChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Performance Bar Chart -->
+        <div class="chart-section">
+            <h2>4. Performance Metrics Bar Chart</h2>
+            <div class="chart-container">
+                <canvas id="performanceBarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Compliance Gauge Chart -->
+        <div class="chart-section">
+            <h2>5. Compliance Gauge Chart</h2>
+            <div class="chart-container">
+                <canvas id="complianceGaugeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global chart instances
+        let healthChart, capacityChart, performanceChart, gaugeChart;
+
+        // Function to parse Oracle MCP data and create visualizations
+        function parseAndVisualize() {
+            try {
+                const jsonData = JSON.parse(document.getElementById('dataInput').value);
+                console.log('Parsed data:', jsonData);
+                
+                // Create different chart types based on the data
+                createHealthRadarChart(jsonData);
+                createCapacityLineChart(jsonData);
+                createPerformanceBarChart(jsonData);
+                createComplianceGaugeChart(jsonData);
+                
+            } catch (error) {
+                alert('Invalid JSON data. Please check your input.');
+                console.error('Parse error:', error);
+            }
+        }
+
+        // 1. Health Radar Chart
+        function createHealthRadarChart(data) {
+            const ctx = document.getElementById('healthRadarChart').getContext('2d');
+            
+            if (healthChart) healthChart.destroy();
+            
+            const sections = data.sections || {};
+            const labels = Object.keys(sections).map(key => 
+                key.charAt(0).toUpperCase() + key.slice(1)
+            );
+            const scores = Object.values(sections).map(section => 
+                section.score || Math.random() * 100
+            );
+
+            healthChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Current Health',
+                        data: scores,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        pointRadius: 6
+                    }, {
+                        label: 'Target Health',
+                        data: labels.map(() => 90), // Target of 90% for all areas
+                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Database Health Assessment (Overall: ${data.overallHealthScore}%)`
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. Capacity Planning Line Chart
+        function createCapacityLineChart(data) {
+            const ctx = document.getElementById('capacityLineChart').getContext('2d');
+            
+            if (capacityChart) capacityChart.destroy();
+            
+            // Generate sample time series data (you'd get this from Oracle MCP)
+            const labels = [];
+            const cpuData = [];
+            const memoryData = [];
+            const forecastData = [];
+            
+            // Historical data (last 30 days)
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString());
+                cpuData.push(Math.random() * 30 + 40 + (30-i) * 0.3);
+                memoryData.push(Math.random() * 25 + 50 + (30-i) * 0.5);
+            }
+            
+            // Forecast data (next 30 days)
+            for (let i = 1; i <= 30; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() + i);
+                labels.push(date.toLocaleDateString());
+                cpuData.push(null);
+                memoryData.push(null);
+                forecastData.push({
+                    cpu: 70 + i * 0.2 + Math.random() * 5,
+                    memory: 75 + i * 0.3 + Math.random() * 3
+                });
+            }
+
+            capacityChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'CPU Usage (%)',
+                        data: cpuData.concat(forecastData.map(d => d ? d.cpu : null)),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        fill: false,
+                        tension: 0.4
+                    }, {
+                        label: 'Memory Usage (%)',
+                        data: memoryData.concat(forecastData.map(d => d ? d.memory : null)),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Time Period'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Usage Percentage'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Capacity Planning - CPU & Memory Usage Forecast'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // 3. Performance Bar Chart
+        function createPerformanceBarChart(data) {
+            const ctx = document.getElementById('performanceBarChart').getContext('2d');
+            
+            if (performanceChart) performanceChart.destroy();
+            
+            const performanceMetrics = [
+                { name: 'Buffer Cache Hit Ratio', value: Math.random() * 20 + 80 },
+                { name: 'Library Cache Hit Ratio', value: Math.random() * 15 + 85 },
+                { name: 'Shared Pool Utilization', value: Math.random() * 25 + 60 },
+                { name: 'Wait Events Performance', value: Math.random() * 30 + 70 },
+                { name: 'I/O Throughput', value: Math.random() * 20 + 75 }
+            ];
+
+            performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: performanceMetrics.map(m => m.name),
+                    datasets: [{
+                        label: 'Performance Score (%)',
+                        data: performanceMetrics.map(m => m.value),
+                        backgroundColor: performanceMetrics.map(m => {
+                            if (m.value >= 90) return 'rgba(75, 192, 192, 0.7)';
+                            if (m.value >= 70) return 'rgba(255, 205, 86, 0.7)';
+                            return 'rgba(255, 99, 132, 0.7)';
+                        }),
+                        borderColor: performanceMetrics.map(m => {
+                            if (m.value >= 90) return 'rgba(75, 192, 192, 1)';
+                            if (m.value >= 70) return 'rgba(255, 205, 86, 1)';
+                            return 'rgba(255, 99, 132, 1)';
+                        }),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Performance Score (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Database Performance Metrics'
+                        },
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // 4. Compliance Gauge Chart (using Doughnut)
+        function createComplianceGaugeChart(data) {
+            const ctx = document.getElementById('complianceGaugeChart').getContext('2d');
+            
+            if (gaugeChart) gaugeChart.destroy();
+            
+            const complianceScore = data.overallHealthScore || 75;
+            const remainingScore = 100 - complianceScore;
+
+            gaugeChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [complianceScore, remainingScore],
+                        backgroundColor: [
+                            complianceScore >= 80 ? '#28a745' : 
+                            complianceScore >= 60 ? '#ffc107' : '#dc3545',
+                            '#e9ecef'
+                        ],
+                        borderWidth: 0,
+                        cutout: '80%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    rotation: -90,
+                    circumference: 180,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Overall Compliance Score'
+                        }
+                    }
+                },
+                plugins: [{
+                    beforeDraw: function(chart) {
+                        const width = chart.width;
+                        const height = chart.height;
+                        const ctx = chart.ctx;
+                        
+                        ctx.restore();
+                        const fontSize = (height / 150).toFixed(2);
+                        ctx.font = fontSize + "em Arial";
+                        ctx.textBaseline = "middle";
+                        ctx.fillStyle = "#333";
+                        
+                        const text = complianceScore.toFixed(0) + "%";
+                        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                        const textY = height / 1.4;
+                        
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            });
+        }
+
+        // Load sample data for testing
+        function loadSampleData() {
+            const sampleData = {
+                "overallHealthScore": 72.5,
+                "healthGrade": "GOOD",
+                "sectionsAnalyzed": 5,
+                "sections": {
+                    "performance": {"score": 85},
+                    "storage": {"score": 68},
+                    "security": {"score": 90},
+                    "connectivity": {"score": 78},
+                    "memory": {"score": 55}
+                },
+                "capacityData": {
+                    "cpu": {"current": 65, "forecast": 78},
+                    "memory": {"current": 72, "forecast": 85}
+                }
+            };
+            
+            document.getElementById('dataInput').value = JSON.stringify(sampleData, null, 2);
+            parseAndVisualize();
+        }
+
+        // Initialize with sample data on page load
+        window.onload = function() {
+            loadSampleData();
+        };
+    </script>
+</body>
+</html>
