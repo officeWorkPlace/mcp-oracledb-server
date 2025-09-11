@@ -1,0 +1,1001 @@
+assessment_id,application_id,assessed_by,assessed_at,risk_score,recommended_action,remarks
+1,770,433,2024-10-01,21.47,Manual Review,income mismatch
+2,245,524,2018-10-26,2.93,Request Documents,high risk
+3,511,870,2018-01-19,93.03,Request Documents,high risk
+4,73,576,2022-03-05,3.66,Reject,high risk
+5,403,67,2022-06-25,24.82,Approve,needs guarantor
+6,289,400,2021-03-16,61.17,Manual Review,LTV high
+7,21,774,2019-04-04,47.6,Reject,needs guarantor
+8,63,716,2018-02-02,7.22,Manual Review,needs guarantor
+9,26,300,2024-08-22,66.52,Manual Review,income mismatch
+10,562,118,2021-03-27,9.36,Request Documents,income mismatch
+11,25,78,2022-01-17,23.97,Lower Amount,income mismatch
+12,612,949,2019-07-08,66.19,Reject,LTV high
+13,173,609,2019-05-25,90.83,Reject,LTV high
+14,689,127,2018-11-26,65.59,Request Documents,needs guarantor
+15,913,669,2018-07-05,5.54,Request Documents,needs guarantor
+16,229,772,2019-08-11,38.67,Lower Amount,needs guarantor
+17,218,172,2020-07-05,66.05,Request Documents,ok
+18,981,745,2025-01-29,85.05,Manual Review,income mismatch
+19,486,990,2019-07-22,59.28,Manual Review,high risk
+20,293,839,2023-05-26,17.22,Reject,high risk
+21,925,434,2021-03-19,93.22,Reject,LTV high
+22,886,254,2025-03-13,24.5,Manual Review,high risk
+23,163,648,2022-04-01,4.4,Reject,high risk
+24,140,154,2025-05-21,44.55,Request Documents,ok
+25,511,667,2021-12-20,52.77,Manual Review,needs guarantor
+26,688,929,2018-10-21,81.99,Reject,ok
+27,639,833,2023-09-09,80.18,Approve,LTV high
+28,770,86,2024-06-10,70.97,Reject,needs guarantor
+29,750,932,2025-05-25,14.23,Approve,high risk
+30,614,448,2020-07-16,35.62,Lower Amount,income mismatch
+31,380,165,2019-07-17,51.28,Lower Amount,high risk
+32,153,32,2024-12-12,22.04,Request Documents,needs guarantor
+33,633,561,2018-05-28,81.76,Lower Amount,high risk
+34,626,237,2022-07-28,44.27,Lower Amount,needs guarantor
+35,851,85,2021-02-02,93.94,Manual Review,needs guarantor
+36,789,753,2024-08-30,31.17,Manual Review,needs guarantor
+37,145,804,2024-09-25,90.38,Request Documents,high risk
+38,501,151,2022-10-21,56.22,Reject,high risk
+39,210,999,2020-11-05,53.3,Reject,income mismatch
+40,690,362,2022-03-04,98.9,Request Documents,high risk
+41,505,555,2021-10-25,9.24,Lower Amount,high risk
+42,923,79,2019-03-15,86.5,Request Documents,needs guarantor
+43,221,117,2019-08-18,86.0,Request Documents,needs guarantor
+44,355,961,2022-04-11,69.47,Lower Amount,income mismatch
+45,456,933,2021-12-12,83.93,Approve,needs guarantor
+46,490,110,2023-05-16,9.36,Lower Amount,ok
+47,668,553,2020-07-02,90.83,Reject,high risk
+48,375,405,2019-11-15,77.24,Manual Review,needs guarantor
+49,18,126,2020-04-23,33.52,Lower Amount,needs guarantor
+50,116,780,2018-08-14,70.7,Reject,needs guarantor
+51,86,80,2020-08-12,44.11,Reject,ok
+52,958,678,2025-02-14,65.51,Reject,ok
+53,86,1000,2023-02-08,22.85,Lower Amount,high risk
+54,871,130,2025-01-27,43.01,Approve,income mismatch
+55,552,404,2025-01-22,97.91,Lower Amount,income mismatch
+56,432,236,2018-01-04,75.0,Approve,LTV high
+57,638,995,2022-08-20,80.67,Lower Amount,LTV high
+58,418,822,2020-07-24,92.24,Lower Amount,LTV high
+59,876,464,2021-07-05,95.41,Lower Amount,ok
+60,590,174,2025-01-03,56.93,Manual Review,LTV high
+61,801,985,2018-11-28,8.64,Approve,high risk
+62,634,959,2023-11-23,30.52,Reject,LTV high
+63,882,195,2021-08-03,1.42,Lower Amount,high risk
+64,150,957,2022-12-21,36.91,Reject,LTV high
+65,737,398,2024-10-20,28.99,Lower Amount,income mismatch
+66,196,894,2025-05-29,12.55,Approve,high risk
+67,744,961,2018-02-23,84.75,Manual Review,high risk
+68,207,176,2020-08-29,60.05,Request Documents,LTV high
+69,73,846,2019-02-05,66.14,Request Documents,income mismatch
+70,317,906,2025-08-27,76.45,Approve,needs guarantor
+71,96,767,2022-04-28,29.34,Manual Review,income mismatch
+72,817,342,2024-10-14,87.5,Reject,LTV high
+73,426,796,2022-03-16,92.71,Lower Amount,income mismatch
+74,575,155,2022-11-07,58.47,Approve,LTV high
+75,16,4,2021-02-28,45.53,Reject,high risk
+76,165,427,2018-06-14,74.29,Lower Amount,LTV high
+77,791,882,2023-12-17,30.6,Reject,LTV high
+78,83,207,2020-12-31,61.96,Reject,ok
+79,903,907,2018-03-29,96.7,Reject,LTV high
+80,531,542,2025-03-28,65.97,Reject,ok
+81,781,165,2024-12-27,70.34,Manual Review,needs guarantor
+82,166,515,2019-08-17,23.82,Request Documents,ok
+83,442,35,2018-12-16,2.09,Lower Amount,income mismatch
+84,152,765,2024-04-07,62.38,Reject,LTV high
+85,176,71,2019-06-02,84.62,Approve,ok
+86,100,991,2022-01-22,75.71,Approve,income mismatch
+87,996,49,2024-09-21,49.01,Lower Amount,needs guarantor
+88,577,494,2025-08-02,2.61,Reject,ok
+89,596,449,2025-07-20,85.56,Request Documents,income mismatch
+90,865,931,2022-10-14,67.07,Reject,ok
+91,996,34,2018-07-26,60.34,Manual Review,needs guarantor
+92,206,79,2024-09-10,72.73,Manual Review,high risk
+93,138,937,2020-05-29,38.37,Reject,high risk
+94,485,82,2020-11-24,88.87,Request Documents,high risk
+95,660,695,2021-11-18,1.3,Request Documents,high risk
+96,201,234,2019-06-06,97.59,Request Documents,needs guarantor
+97,41,596,2025-06-05,27.32,Manual Review,needs guarantor
+98,527,228,2018-12-07,49.56,Manual Review,LTV high
+99,899,872,2020-05-27,99.24,Approve,ok
+100,408,84,2022-11-22,71.48,Request Documents,income mismatch
+101,229,754,2018-05-07,92.65,Reject,income mismatch
+102,167,156,2025-05-17,31.61,Manual Review,LTV high
+103,268,544,2020-09-14,40.29,Lower Amount,ok
+104,455,845,2018-05-14,10.23,Reject,LTV high
+105,630,571,2024-02-12,10.19,Reject,LTV high
+106,330,844,2022-12-15,55.52,Reject,high risk
+107,689,214,2020-08-08,67.76,Manual Review,LTV high
+108,440,140,2020-05-27,27.36,Reject,high risk
+109,234,845,2021-04-09,90.86,Reject,high risk
+110,428,310,2018-11-08,1.67,Manual Review,needs guarantor
+111,976,820,2019-08-02,19.23,Approve,needs guarantor
+112,391,843,2022-05-19,78.41,Request Documents,income mismatch
+113,432,13,2022-07-13,10.8,Reject,needs guarantor
+114,128,498,2020-11-23,23.81,Reject,ok
+115,29,555,2021-06-28,23.45,Lower Amount,LTV high
+116,853,525,2024-04-24,88.35,Lower Amount,ok
+117,255,722,2019-02-15,43.53,Request Documents,needs guarantor
+118,400,443,2023-10-19,1.04,Reject,income mismatch
+119,681,886,2024-03-22,47.55,Lower Amount,needs guarantor
+120,114,645,2025-01-10,10.27,Request Documents,income mismatch
+121,118,151,2021-02-22,49.16,Request Documents,LTV high
+122,334,805,2024-07-27,45.61,Request Documents,needs guarantor
+123,804,439,2024-04-27,15.76,Request Documents,needs guarantor
+124,613,694,2025-02-28,96.95,Reject,LTV high
+125,977,164,2023-04-22,84.17,Request Documents,needs guarantor
+126,421,630,2021-02-11,99.34,Lower Amount,high risk
+127,341,732,2021-04-06,80.34,Request Documents,income mismatch
+128,250,302,2021-04-22,81.14,Lower Amount,high risk
+129,42,49,2019-03-23,19.16,Request Documents,LTV high
+130,254,371,2019-10-15,97.06,Lower Amount,ok
+131,241,497,2019-06-13,67.53,Reject,ok
+132,972,295,2022-09-15,74.78,Reject,needs guarantor
+133,163,69,2025-05-08,49.25,Approve,needs guarantor
+134,830,870,2023-05-01,13.45,Request Documents,income mismatch
+135,587,564,2020-03-01,88.73,Approve,high risk
+136,739,765,2018-07-20,19.23,Manual Review,high risk
+137,206,50,2023-06-13,46.36,Approve,ok
+138,653,95,2019-06-18,91.11,Manual Review,high risk
+139,185,253,2023-08-21,54.33,Approve,LTV high
+140,627,347,2022-02-26,33.85,Request Documents,high risk
+141,498,126,2024-04-01,12.34,Request Documents,high risk
+142,73,611,2023-12-30,36.63,Manual Review,LTV high
+143,56,443,2022-05-13,45.0,Request Documents,needs guarantor
+144,723,991,2022-11-09,14.02,Lower Amount,ok
+145,682,891,2022-09-24,32.26,Request Documents,needs guarantor
+146,88,136,2022-07-02,31.92,Manual Review,income mismatch
+147,862,202,2023-05-31,3.72,Reject,ok
+148,805,311,2019-05-04,36.33,Reject,LTV high
+149,461,450,2023-12-06,49.28,Approve,ok
+150,7,582,2023-12-10,34.11,Manual Review,ok
+151,417,653,2024-09-12,20.51,Manual Review,income mismatch
+152,409,246,2025-06-30,20.7,Approve,high risk
+153,199,909,2021-08-19,83.13,Reject,high risk
+154,441,48,2022-05-28,15.46,Reject,income mismatch
+155,423,58,2019-06-15,63.8,Approve,income mismatch
+156,33,457,2020-10-06,46.98,Request Documents,income mismatch
+157,848,550,2018-06-27,24.19,Request Documents,LTV high
+158,659,453,2022-11-19,1.62,Lower Amount,ok
+159,276,919,2022-04-24,64.4,Approve,ok
+160,345,344,2024-08-20,75.85,Approve,LTV high
+161,594,286,2024-06-07,98.04,Manual Review,needs guarantor
+162,628,727,2024-10-25,6.75,Request Documents,ok
+163,373,633,2018-06-28,18.67,Lower Amount,income mismatch
+164,625,716,2024-04-18,88.16,Request Documents,high risk
+165,143,968,2021-08-21,33.63,Manual Review,income mismatch
+166,910,312,2019-03-16,62.0,Manual Review,needs guarantor
+167,649,981,2018-06-28,52.13,Lower Amount,ok
+168,445,394,2018-04-13,23.21,Reject,needs guarantor
+169,14,597,2025-03-27,8.81,Request Documents,ok
+170,933,427,2024-05-06,21.82,Reject,high risk
+171,255,387,2020-04-02,29.15,Reject,LTV high
+172,32,276,2025-06-20,21.96,Reject,income mismatch
+173,264,285,2020-12-29,81.45,Lower Amount,ok
+174,415,310,2024-07-24,97.36,Request Documents,ok
+175,810,337,2019-10-10,63.55,Request Documents,LTV high
+176,117,336,2024-11-12,10.93,Request Documents,income mismatch
+177,309,668,2018-03-16,63.01,Lower Amount,needs guarantor
+178,585,98,2022-12-03,65.38,Lower Amount,ok
+179,434,17,2025-07-04,73.38,Lower Amount,ok
+180,143,353,2022-12-06,85.58,Request Documents,ok
+181,160,713,2024-11-30,53.1,Reject,high risk
+182,272,935,2024-03-02,58.45,Request Documents,ok
+183,320,488,2018-07-30,99.14,Request Documents,needs guarantor
+184,624,402,2021-09-10,3.29,Approve,ok
+185,187,863,2019-04-09,67.94,Request Documents,LTV high
+186,457,941,2022-09-23,30.34,Request Documents,ok
+187,668,318,2024-03-30,40.96,Approve,ok
+188,414,350,2022-06-20,6.93,Manual Review,income mismatch
+189,422,138,2021-09-22,41.22,Lower Amount,needs guarantor
+190,66,145,2022-03-03,6.65,Reject,LTV high
+191,743,645,2018-05-01,17.5,Approve,needs guarantor
+192,184,941,2019-09-16,81.3,Manual Review,income mismatch
+193,294,394,2024-07-28,48.67,Manual Review,ok
+194,216,433,2023-12-01,7.37,Manual Review,LTV high
+195,23,657,2021-01-31,26.66,Request Documents,high risk
+196,930,345,2024-03-03,96.12,Approve,high risk
+197,955,807,2023-01-18,95.46,Reject,LTV high
+198,96,458,2019-02-21,26.66,Approve,high risk
+199,112,994,2020-01-10,61.01,Manual Review,LTV high
+200,515,959,2023-08-24,29.13,Lower Amount,high risk
+201,980,401,2025-02-06,63.26,Reject,income mismatch
+202,646,876,2020-05-11,9.08,Reject,needs guarantor
+203,600,262,2022-10-03,2.75,Lower Amount,ok
+204,737,524,2019-10-18,62.39,Reject,ok
+205,981,604,2025-06-05,23.61,Manual Review,high risk
+206,138,171,2024-11-25,21.82,Approve,needs guarantor
+207,958,190,2020-07-09,7.93,Manual Review,needs guarantor
+208,495,838,2024-07-11,69.16,Approve,needs guarantor
+209,893,639,2025-01-08,68.69,Lower Amount,LTV high
+210,964,673,2020-07-21,7.82,Reject,ok
+211,388,677,2018-05-26,31.41,Reject,LTV high
+212,351,893,2021-06-23,24.45,Reject,LTV high
+213,284,356,2025-03-24,7.65,Reject,LTV high
+214,681,777,2024-04-27,20.9,Request Documents,LTV high
+215,943,523,2021-01-12,20.19,Approve,income mismatch
+216,300,586,2018-11-25,26.28,Lower Amount,income mismatch
+217,425,854,2021-02-25,17.86,Reject,ok
+218,899,7,2024-07-23,16.69,Approve,LTV high
+219,575,899,2023-06-14,6.08,Request Documents,LTV high
+220,764,642,2024-02-07,19.71,Lower Amount,high risk
+221,834,279,2018-08-17,7.96,Request Documents,high risk
+222,863,523,2018-03-25,8.78,Request Documents,LTV high
+223,815,36,2023-03-17,24.19,Reject,LTV high
+224,108,835,2024-06-10,46.37,Manual Review,ok
+225,466,503,2019-09-08,7.42,Lower Amount,LTV high
+226,19,442,2022-09-14,90.65,Manual Review,ok
+227,680,343,2022-10-10,36.17,Manual Review,high risk
+228,287,999,2018-04-05,5.02,Reject,income mismatch
+229,700,911,2023-07-13,8.26,Approve,income mismatch
+230,139,821,2023-02-17,44.5,Reject,LTV high
+231,876,580,2021-09-17,25.91,Reject,ok
+232,716,643,2025-01-23,65.21,Approve,ok
+233,553,417,2024-08-15,51.72,Manual Review,high risk
+234,668,890,2019-04-19,50.7,Lower Amount,high risk
+235,581,952,2020-09-16,5.15,Approve,needs guarantor
+236,693,968,2021-01-29,60.63,Reject,LTV high
+237,273,423,2024-03-08,62.49,Request Documents,ok
+238,418,842,2022-08-11,77.6,Approve,LTV high
+239,382,475,2018-05-29,74.61,Approve,ok
+240,868,588,2019-10-05,5.99,Request Documents,high risk
+241,454,565,2022-11-24,40.17,Manual Review,income mismatch
+242,913,119,2024-10-28,33.6,Manual Review,income mismatch
+243,170,581,2018-06-25,19.09,Approve,high risk
+244,560,429,2021-07-08,7.18,Request Documents,income mismatch
+245,695,932,2025-05-23,94.63,Reject,income mismatch
+246,153,817,2023-06-10,17.03,Lower Amount,ok
+247,408,966,2020-02-23,34.43,Reject,ok
+248,161,791,2019-04-26,69.78,Approve,ok
+249,32,621,2024-09-17,97.14,Approve,high risk
+250,640,883,2024-08-12,52.71,Manual Review,LTV high
+251,949,977,2022-11-07,9.4,Approve,ok
+252,1,195,2021-08-29,90.83,Approve,income mismatch
+253,477,889,2018-12-17,5.67,Lower Amount,ok
+254,171,60,2020-11-05,71.79,Lower Amount,high risk
+255,524,488,2024-10-25,36.0,Request Documents,high risk
+256,535,674,2021-05-24,32.22,Manual Review,needs guarantor
+257,883,401,2024-02-18,92.85,Lower Amount,income mismatch
+258,394,178,2020-02-27,89.16,Approve,ok
+259,196,889,2022-12-23,23.31,Reject,income mismatch
+260,799,891,2025-08-25,97.34,Manual Review,income mismatch
+261,955,771,2018-05-27,51.81,Manual Review,ok
+262,712,552,2018-02-20,94.05,Request Documents,income mismatch
+263,900,897,2024-01-25,22.63,Request Documents,LTV high
+264,190,421,2018-09-19,29.07,Manual Review,income mismatch
+265,271,924,2021-12-26,96.26,Request Documents,needs guarantor
+266,914,228,2018-09-30,6.16,Approve,high risk
+267,421,887,2022-10-19,95.49,Lower Amount,income mismatch
+268,318,869,2020-01-19,47.44,Request Documents,ok
+269,280,536,2024-09-04,96.25,Reject,needs guarantor
+270,359,135,2024-12-13,9.77,Request Documents,needs guarantor
+271,208,801,2024-10-30,81.93,Lower Amount,needs guarantor
+272,283,463,2020-10-27,0.97,Manual Review,LTV high
+273,663,423,2022-09-05,52.63,Manual Review,LTV high
+274,836,176,2022-12-27,80.22,Manual Review,needs guarantor
+275,339,869,2019-11-25,87.2,Reject,high risk
+276,281,30,2019-07-21,18.83,Lower Amount,LTV high
+277,927,965,2018-10-27,13.64,Lower Amount,needs guarantor
+278,200,631,2022-12-08,10.52,Manual Review,ok
+279,110,49,2019-09-01,83.84,Reject,LTV high
+280,306,119,2021-06-18,66.29,Lower Amount,ok
+281,64,898,2024-05-17,30.26,Approve,income mismatch
+282,847,495,2020-12-01,62.39,Approve,LTV high
+283,180,950,2023-09-18,20.26,Manual Review,LTV high
+284,379,838,2019-02-01,11.18,Lower Amount,income mismatch
+285,908,717,2023-01-24,3.08,Reject,needs guarantor
+286,638,66,2018-10-28,75.28,Lower Amount,LTV high
+287,229,814,2021-05-07,72.15,Lower Amount,income mismatch
+288,475,425,2019-08-09,60.81,Request Documents,needs guarantor
+289,764,937,2022-05-14,44.09,Reject,ok
+290,712,913,2023-03-07,14.69,Request Documents,LTV high
+291,180,76,2025-04-07,58.59,Reject,income mismatch
+292,619,805,2018-04-25,71.41,Approve,income mismatch
+293,759,526,2025-04-18,25.29,Request Documents,needs guarantor
+294,182,546,2023-08-09,94.96,Manual Review,needs guarantor
+295,678,453,2022-05-05,19.08,Manual Review,LTV high
+296,873,747,2023-02-24,19.29,Approve,ok
+297,892,221,2022-02-07,28.83,Lower Amount,high risk
+298,322,576,2022-04-17,46.98,Manual Review,income mismatch
+299,813,976,2021-04-06,31.23,Reject,ok
+300,211,168,2024-01-07,11.04,Manual Review,income mismatch
+301,80,208,2022-09-17,50.01,Reject,high risk
+302,678,743,2019-08-19,62.27,Approve,needs guarantor
+303,441,4,2023-10-21,97.1,Request Documents,income mismatch
+304,999,305,2018-05-18,47.02,Manual Review,LTV high
+305,953,888,2018-07-07,75.8,Approve,LTV high
+306,490,640,2024-12-20,60.49,Approve,income mismatch
+307,951,620,2018-04-01,54.07,Manual Review,LTV high
+308,84,327,2019-10-17,49.02,Approve,ok
+309,368,753,2019-10-27,49.34,Approve,income mismatch
+310,650,751,2020-04-17,96.87,Request Documents,ok
+311,872,847,2020-09-05,18.73,Manual Review,ok
+312,820,892,2022-06-18,84.12,Reject,high risk
+313,199,397,2019-12-06,64.27,Approve,LTV high
+314,826,837,2023-02-13,56.3,Approve,ok
+315,809,85,2020-05-18,2.63,Reject,income mismatch
+316,397,93,2024-09-21,70.41,Request Documents,ok
+317,593,451,2024-08-12,95.6,Request Documents,LTV high
+318,449,537,2018-10-03,38.08,Request Documents,income mismatch
+319,502,97,2021-01-14,6.41,Lower Amount,high risk
+320,417,680,2022-01-29,58.06,Approve,ok
+321,456,221,2019-10-24,98.95,Approve,high risk
+322,463,75,2025-06-28,72.65,Reject,ok
+323,832,363,2019-05-21,77.3,Request Documents,ok
+324,622,864,2022-07-10,75.46,Request Documents,high risk
+325,112,815,2022-10-23,47.49,Manual Review,LTV high
+326,636,154,2024-03-19,83.88,Reject,income mismatch
+327,500,533,2022-08-24,73.49,Request Documents,LTV high
+328,865,287,2018-02-08,32.4,Lower Amount,needs guarantor
+329,948,666,2019-04-08,12.8,Request Documents,ok
+330,130,755,2022-03-27,51.24,Request Documents,high risk
+331,482,13,2019-03-12,27.05,Lower Amount,LTV high
+332,468,496,2019-02-19,90.76,Manual Review,LTV high
+333,664,879,2024-10-25,74.53,Reject,income mismatch
+334,569,818,2019-02-06,97.26,Reject,needs guarantor
+335,611,519,2020-08-15,21.49,Lower Amount,LTV high
+336,79,606,2023-07-07,88.74,Lower Amount,high risk
+337,430,514,2022-09-19,90.6,Manual Review,high risk
+338,121,324,2018-10-05,8.07,Reject,income mismatch
+339,69,8,2024-08-04,73.21,Reject,LTV high
+340,729,155,2023-05-17,48.72,Request Documents,needs guarantor
+341,196,622,2024-05-10,79.72,Reject,income mismatch
+342,439,733,2025-01-10,62.8,Reject,high risk
+343,432,773,2021-06-11,99.54,Reject,income mismatch
+344,677,426,2023-01-18,44.26,Approve,ok
+345,269,947,2019-06-29,82.01,Manual Review,high risk
+346,498,692,2024-11-17,67.39,Reject,needs guarantor
+347,39,948,2023-02-18,7.24,Request Documents,high risk
+348,786,744,2023-06-11,40.09,Manual Review,income mismatch
+349,542,731,2021-06-13,52.17,Approve,needs guarantor
+350,394,257,2019-04-28,22.95,Approve,income mismatch
+351,412,403,2018-07-01,72.42,Lower Amount,income mismatch
+352,147,631,2021-05-28,33.35,Reject,needs guarantor
+353,892,421,2018-01-27,60.1,Approve,ok
+354,673,267,2023-11-02,1.42,Lower Amount,ok
+355,60,906,2022-10-24,62.66,Lower Amount,needs guarantor
+356,704,2,2020-04-15,64.16,Reject,high risk
+357,441,176,2020-07-17,47.48,Approve,needs guarantor
+358,756,860,2025-01-31,29.39,Reject,high risk
+359,738,430,2018-02-11,97.31,Request Documents,LTV high
+360,281,920,2022-05-13,94.41,Reject,needs guarantor
+361,879,57,2022-03-19,90.1,Lower Amount,high risk
+362,975,463,2021-10-07,59.5,Manual Review,needs guarantor
+363,538,495,2018-08-11,79.74,Reject,ok
+364,483,654,2018-09-24,4.31,Manual Review,income mismatch
+365,314,43,2018-04-02,41.26,Manual Review,ok
+366,382,538,2022-04-26,49.52,Manual Review,high risk
+367,294,743,2018-04-03,63.31,Request Documents,needs guarantor
+368,857,102,2021-07-18,75.58,Manual Review,ok
+369,465,340,2023-07-08,97.18,Manual Review,needs guarantor
+370,592,386,2025-01-08,24.76,Lower Amount,high risk
+371,99,312,2024-03-22,79.78,Lower Amount,income mismatch
+372,319,171,2021-02-02,71.59,Approve,needs guarantor
+373,785,201,2022-06-29,36.58,Manual Review,ok
+374,605,77,2022-10-12,5.03,Reject,high risk
+375,156,438,2025-08-22,97.86,Manual Review,income mismatch
+376,505,898,2024-09-08,61.87,Request Documents,income mismatch
+377,138,310,2020-07-28,85.62,Approve,income mismatch
+378,807,557,2025-05-16,6.5,Manual Review,LTV high
+379,694,755,2018-06-23,53.72,Request Documents,needs guarantor
+380,985,747,2025-04-15,92.69,Request Documents,ok
+381,306,418,2024-11-15,15.2,Approve,ok
+382,869,597,2020-06-29,81.82,Request Documents,LTV high
+383,476,769,2022-01-24,47.89,Approve,high risk
+384,929,178,2023-09-13,47.34,Request Documents,ok
+385,695,257,2020-12-29,30.83,Request Documents,ok
+386,552,397,2024-05-02,29.66,Approve,high risk
+387,917,618,2018-08-01,25.4,Lower Amount,ok
+388,520,938,2022-07-29,14.05,Lower Amount,high risk
+389,326,746,2021-09-03,63.44,Approve,needs guarantor
+390,189,479,2018-05-10,58.67,Approve,LTV high
+391,86,745,2020-01-19,92.97,Approve,high risk
+392,344,805,2025-05-10,58.28,Manual Review,high risk
+393,973,344,2020-05-28,62.88,Manual Review,ok
+394,169,884,2022-10-03,41.45,Reject,ok
+395,436,576,2021-08-30,39.2,Approve,LTV high
+396,4,726,2019-09-16,51.5,Manual Review,needs guarantor
+397,71,72,2018-11-12,71.51,Reject,ok
+398,93,368,2018-05-19,15.47,Request Documents,ok
+399,883,874,2021-10-05,36.95,Manual Review,high risk
+400,475,950,2023-01-01,67.06,Approve,needs guarantor
+401,67,915,2018-08-01,31.16,Manual Review,high risk
+402,895,534,2024-01-05,47.17,Manual Review,income mismatch
+403,520,964,2023-09-24,2.14,Lower Amount,ok
+404,725,699,2020-10-30,92.83,Manual Review,high risk
+405,390,29,2021-10-05,70.36,Approve,LTV high
+406,982,378,2021-04-16,73.37,Request Documents,needs guarantor
+407,97,888,2020-04-07,48.63,Lower Amount,ok
+408,109,131,2019-11-17,20.89,Manual Review,needs guarantor
+409,572,547,2022-07-22,94.57,Request Documents,income mismatch
+410,517,34,2019-12-19,60.83,Manual Review,needs guarantor
+411,943,558,2021-11-07,75.54,Lower Amount,LTV high
+412,458,338,2020-01-25,85.66,Manual Review,income mismatch
+413,39,844,2018-08-21,34.64,Reject,LTV high
+414,717,297,2021-03-08,86.22,Reject,high risk
+415,637,657,2018-05-14,71.06,Lower Amount,ok
+416,724,96,2022-10-12,4.34,Lower Amount,income mismatch
+417,183,630,2020-10-05,56.54,Manual Review,income mismatch
+418,94,200,2022-04-15,9.31,Approve,ok
+419,925,787,2018-01-30,20.36,Manual Review,LTV high
+420,703,152,2019-05-24,79.83,Approve,LTV high
+421,430,951,2024-11-23,92.53,Request Documents,ok
+422,51,711,2023-07-26,46.68,Manual Review,income mismatch
+423,948,96,2022-01-22,36.21,Manual Review,income mismatch
+424,142,707,2020-02-11,57.52,Manual Review,income mismatch
+425,427,317,2022-08-01,84.75,Lower Amount,ok
+426,755,289,2021-10-13,45.66,Manual Review,LTV high
+427,850,716,2025-06-11,73.16,Lower Amount,needs guarantor
+428,123,617,2024-03-05,92.34,Approve,LTV high
+429,321,611,2024-12-10,77.28,Approve,needs guarantor
+430,386,19,2020-05-31,82.14,Request Documents,income mismatch
+431,783,844,2019-07-03,72.77,Manual Review,ok
+432,57,239,2019-02-02,36.42,Reject,ok
+433,522,480,2018-05-18,23.88,Approve,high risk
+434,283,421,2023-06-06,92.48,Request Documents,LTV high
+435,764,431,2024-03-17,65.26,Request Documents,ok
+436,436,962,2021-04-18,8.98,Lower Amount,ok
+437,638,677,2018-09-29,0.77,Reject,LTV high
+438,629,752,2022-11-13,49.55,Reject,needs guarantor
+439,789,540,2021-10-19,35.13,Manual Review,income mismatch
+440,37,962,2020-04-10,25.82,Manual Review,LTV high
+441,95,450,2018-11-11,66.4,Approve,high risk
+442,669,642,2021-11-04,81.67,Approve,needs guarantor
+443,904,547,2020-07-18,65.25,Manual Review,LTV high
+444,288,251,2025-01-07,48.78,Request Documents,needs guarantor
+445,61,440,2020-05-02,40.22,Lower Amount,needs guarantor
+446,214,578,2024-12-28,85.94,Reject,LTV high
+447,409,739,2020-04-19,37.58,Lower Amount,high risk
+448,258,691,2018-11-24,97.12,Manual Review,high risk
+449,365,429,2021-01-06,79.09,Request Documents,needs guarantor
+450,961,51,2022-11-03,94.94,Manual Review,high risk
+451,723,233,2018-04-16,34.53,Approve,income mismatch
+452,584,436,2022-02-23,9.99,Lower Amount,high risk
+453,395,876,2024-04-04,17.64,Reject,needs guarantor
+454,417,781,2020-10-06,91.68,Reject,ok
+455,64,596,2025-02-10,14.79,Reject,needs guarantor
+456,883,794,2018-10-25,9.14,Request Documents,ok
+457,377,361,2020-02-26,42.9,Request Documents,high risk
+458,116,725,2023-06-04,79.36,Reject,ok
+459,107,351,2019-06-26,10.22,Lower Amount,high risk
+460,839,444,2024-09-29,88.54,Request Documents,ok
+461,592,602,2023-07-22,3.94,Reject,LTV high
+462,635,380,2022-01-30,10.02,Approve,ok
+463,817,247,2025-01-24,84.94,Lower Amount,income mismatch
+464,789,555,2023-11-02,93.84,Request Documents,high risk
+465,341,610,2021-04-23,10.04,Reject,ok
+466,688,816,2023-04-19,86.8,Request Documents,income mismatch
+467,309,321,2020-10-17,46.55,Request Documents,ok
+468,623,405,2020-11-04,99.56,Reject,needs guarantor
+469,424,214,2023-09-13,77.57,Approve,income mismatch
+470,30,977,2020-03-23,10.95,Approve,LTV high
+471,84,308,2020-12-20,13.23,Reject,LTV high
+472,946,81,2021-06-30,33.15,Manual Review,ok
+473,251,142,2023-05-08,71.45,Approve,needs guarantor
+474,261,444,2020-10-25,18.31,Manual Review,needs guarantor
+475,582,143,2019-07-13,49.94,Lower Amount,high risk
+476,999,646,2018-02-08,47.03,Manual Review,ok
+477,687,109,2021-04-17,67.41,Request Documents,high risk
+478,623,845,2025-07-05,71.6,Lower Amount,high risk
+479,135,653,2023-08-27,88.67,Manual Review,high risk
+480,534,119,2019-11-09,76.4,Approve,income mismatch
+481,445,827,2018-08-23,85.81,Approve,ok
+482,756,594,2024-04-01,58.44,Reject,income mismatch
+483,556,752,2023-01-14,4.19,Request Documents,high risk
+484,78,974,2022-02-14,69.41,Lower Amount,needs guarantor
+485,662,815,2023-03-25,96.28,Manual Review,needs guarantor
+486,815,43,2018-09-12,6.04,Manual Review,high risk
+487,658,93,2025-07-10,16.18,Reject,income mismatch
+488,307,598,2020-01-31,22.17,Request Documents,high risk
+489,305,650,2021-06-16,77.84,Manual Review,ok
+490,901,980,2020-06-27,50.37,Reject,needs guarantor
+491,493,435,2025-05-01,28.0,Lower Amount,LTV high
+492,329,188,2020-02-08,15.13,Manual Review,high risk
+493,746,485,2023-05-02,64.56,Reject,high risk
+494,656,422,2022-12-16,6.31,Manual Review,LTV high
+495,262,248,2021-11-09,12.18,Manual Review,needs guarantor
+496,744,690,2022-07-16,13.44,Approve,needs guarantor
+497,352,235,2023-08-24,95.02,Manual Review,needs guarantor
+498,555,513,2021-10-17,98.5,Lower Amount,ok
+499,752,924,2025-02-18,52.94,Approve,high risk
+500,954,275,2023-04-17,45.92,Manual Review,needs guarantor
+501,763,632,2024-06-22,34.94,Lower Amount,needs guarantor
+502,217,722,2024-10-25,75.89,Approve,ok
+503,772,885,2018-10-15,22.31,Approve,LTV high
+504,840,213,2019-08-17,73.65,Approve,high risk
+505,108,876,2022-10-15,10.12,Request Documents,income mismatch
+506,143,366,2019-01-10,75.97,Lower Amount,income mismatch
+507,212,861,2025-08-12,9.99,Approve,high risk
+508,813,654,2025-06-05,60.11,Reject,high risk
+509,97,147,2022-11-26,32.59,Reject,LTV high
+510,98,2,2018-08-15,90.29,Manual Review,LTV high
+511,560,562,2025-05-31,65.35,Request Documents,ok
+512,922,10,2021-12-30,25.58,Manual Review,ok
+513,281,803,2020-10-04,87.25,Lower Amount,ok
+514,59,555,2022-04-08,40.91,Manual Review,LTV high
+515,978,672,2018-11-13,31.46,Reject,LTV high
+516,255,975,2022-03-29,15.57,Reject,high risk
+517,958,630,2020-05-13,38.5,Request Documents,LTV high
+518,358,274,2024-05-13,67.99,Request Documents,needs guarantor
+519,713,955,2024-04-25,90.49,Reject,ok
+520,372,308,2023-11-13,55.75,Manual Review,ok
+521,479,924,2020-05-19,15.03,Request Documents,LTV high
+522,90,419,2020-01-27,66.12,Lower Amount,ok
+523,890,493,2023-05-07,16.56,Lower Amount,high risk
+524,374,191,2020-05-10,92.21,Approve,LTV high
+525,628,667,2022-07-17,41.79,Request Documents,high risk
+526,349,809,2018-05-18,48.69,Approve,high risk
+527,792,39,2018-02-21,85.33,Manual Review,ok
+528,488,375,2023-10-27,51.18,Reject,high risk
+529,491,131,2025-08-14,31.24,Manual Review,LTV high
+530,632,230,2018-09-17,49.5,Manual Review,LTV high
+531,483,518,2025-06-02,92.99,Reject,needs guarantor
+532,55,360,2020-08-11,54.01,Request Documents,income mismatch
+533,450,467,2018-02-19,67.58,Request Documents,high risk
+534,453,580,2022-07-17,93.71,Reject,LTV high
+535,851,41,2020-04-11,40.88,Approve,LTV high
+536,948,591,2024-06-19,25.09,Request Documents,needs guarantor
+537,846,34,2018-12-28,18.63,Manual Review,income mismatch
+538,539,150,2019-12-16,19.7,Lower Amount,needs guarantor
+539,998,918,2024-11-10,73.96,Approve,LTV high
+540,226,314,2018-07-19,43.47,Request Documents,high risk
+541,640,378,2025-07-31,23.16,Manual Review,needs guarantor
+542,75,278,2024-01-16,85.4,Request Documents,income mismatch
+543,955,649,2021-04-16,33.88,Lower Amount,needs guarantor
+544,125,514,2024-01-06,22.74,Lower Amount,ok
+545,555,595,2023-11-24,92.15,Lower Amount,ok
+546,601,779,2020-03-01,16.62,Request Documents,LTV high
+547,400,292,2021-04-12,72.46,Approve,income mismatch
+548,852,364,2021-12-24,96.06,Manual Review,high risk
+549,616,989,2018-09-29,62.64,Manual Review,needs guarantor
+550,142,938,2021-08-07,2.82,Approve,high risk
+551,53,558,2024-06-16,68.89,Request Documents,high risk
+552,991,751,2023-05-03,86.91,Approve,high risk
+553,482,987,2023-10-25,47.4,Reject,high risk
+554,137,905,2019-04-11,83.82,Manual Review,LTV high
+555,792,215,2025-01-21,40.42,Approve,high risk
+556,724,888,2024-12-30,12.56,Manual Review,LTV high
+557,753,887,2022-10-24,46.54,Manual Review,high risk
+558,983,645,2022-04-25,2.26,Lower Amount,LTV high
+559,544,534,2020-08-19,24.13,Reject,LTV high
+560,703,665,2019-04-13,93.25,Request Documents,needs guarantor
+561,7,444,2018-06-12,68.77,Manual Review,income mismatch
+562,974,67,2023-12-29,80.33,Lower Amount,ok
+563,691,685,2022-05-16,67.35,Manual Review,ok
+564,867,997,2020-08-10,8.43,Approve,needs guarantor
+565,168,579,2022-07-23,44.8,Reject,ok
+566,458,259,2022-05-21,80.03,Lower Amount,income mismatch
+567,758,210,2024-01-16,97.47,Manual Review,income mismatch
+568,858,79,2018-09-07,89.84,Request Documents,LTV high
+569,707,776,2019-02-10,17.18,Request Documents,LTV high
+570,264,635,2019-05-17,47.12,Manual Review,needs guarantor
+571,978,525,2024-11-05,55.26,Reject,high risk
+572,914,614,2018-09-24,40.93,Reject,income mismatch
+573,36,301,2025-01-03,10.08,Approve,LTV high
+574,957,780,2022-01-27,41.61,Reject,high risk
+575,243,925,2020-04-25,53.19,Reject,ok
+576,412,511,2020-01-06,58.09,Approve,high risk
+577,464,144,2025-08-17,30.68,Request Documents,ok
+578,757,678,2024-07-22,66.3,Approve,LTV high
+579,367,997,2018-12-20,19.56,Request Documents,needs guarantor
+580,336,376,2019-08-26,93.81,Approve,ok
+581,203,360,2024-11-20,86.8,Approve,needs guarantor
+582,931,490,2025-04-02,86.53,Approve,LTV high
+583,202,596,2025-08-25,13.14,Reject,income mismatch
+584,248,817,2018-01-09,94.0,Reject,ok
+585,509,517,2020-08-16,62.66,Approve,income mismatch
+586,806,267,2019-08-28,72.74,Manual Review,income mismatch
+587,104,151,2025-01-27,91.41,Request Documents,LTV high
+588,900,549,2025-06-11,66.04,Reject,high risk
+589,195,801,2019-04-26,68.48,Approve,high risk
+590,53,553,2024-11-12,60.06,Manual Review,income mismatch
+591,247,915,2025-07-31,7.98,Approve,needs guarantor
+592,927,23,2019-11-28,72.69,Manual Review,high risk
+593,52,522,2018-03-02,80.82,Approve,high risk
+594,471,864,2022-08-18,7.21,Request Documents,LTV high
+595,966,104,2019-11-23,82.66,Lower Amount,LTV high
+596,256,252,2019-06-25,21.92,Manual Review,needs guarantor
+597,141,678,2019-08-21,75.81,Reject,ok
+598,766,489,2025-08-18,49.94,Approve,income mismatch
+599,182,819,2019-04-03,72.88,Reject,income mismatch
+600,426,372,2025-04-22,43.18,Request Documents,ok
+601,490,435,2019-09-10,6.76,Manual Review,ok
+602,419,224,2021-07-06,5.5,Reject,ok
+603,291,192,2018-12-04,90.69,Request Documents,ok
+604,125,873,2020-12-15,87.56,Approve,income mismatch
+605,982,290,2021-08-10,33.74,Lower Amount,high risk
+606,7,26,2025-08-29,57.27,Approve,high risk
+607,806,277,2020-11-04,35.93,Request Documents,ok
+608,611,315,2022-07-28,33.26,Request Documents,ok
+609,640,156,2020-06-11,74.55,Request Documents,LTV high
+610,830,531,2020-08-18,80.4,Reject,high risk
+611,174,771,2020-09-25,71.18,Request Documents,income mismatch
+612,860,26,2024-09-13,55.13,Manual Review,high risk
+613,888,306,2019-08-24,35.41,Approve,income mismatch
+614,62,125,2020-02-27,81.01,Manual Review,LTV high
+615,547,875,2019-01-09,67.84,Approve,needs guarantor
+616,384,944,2021-12-05,99.63,Manual Review,LTV high
+617,591,634,2020-10-19,86.1,Lower Amount,income mismatch
+618,127,209,2018-02-23,75.95,Request Documents,ok
+619,896,570,2023-11-12,95.73,Manual Review,ok
+620,107,720,2020-01-13,88.71,Approve,high risk
+621,395,126,2018-07-24,59.03,Approve,income mismatch
+622,707,122,2018-07-18,70.73,Reject,LTV high
+623,797,934,2022-05-16,47.16,Request Documents,LTV high
+624,481,450,2023-09-26,2.52,Manual Review,LTV high
+625,802,200,2019-03-06,43.58,Reject,LTV high
+626,221,713,2021-05-29,54.38,Manual Review,needs guarantor
+627,453,320,2024-06-18,2.95,Manual Review,income mismatch
+628,307,910,2023-06-21,8.34,Request Documents,ok
+629,328,343,2022-08-07,29.18,Lower Amount,income mismatch
+630,259,242,2019-09-17,15.11,Manual Review,income mismatch
+631,602,396,2020-08-11,10.68,Lower Amount,ok
+632,334,943,2023-12-24,59.53,Request Documents,ok
+633,601,632,2020-03-17,70.33,Reject,income mismatch
+634,208,258,2020-03-14,5.2,Reject,income mismatch
+635,162,20,2021-03-04,51.24,Manual Review,ok
+636,115,826,2021-11-23,14.53,Request Documents,high risk
+637,553,113,2018-07-27,6.74,Lower Amount,LTV high
+638,999,456,2020-09-03,74.19,Reject,needs guarantor
+639,809,489,2019-02-08,34.23,Reject,needs guarantor
+640,571,972,2024-07-25,61.57,Lower Amount,income mismatch
+641,786,487,2020-08-16,61.46,Reject,ok
+642,774,398,2024-05-19,44.56,Reject,LTV high
+643,105,968,2024-01-19,77.41,Lower Amount,needs guarantor
+644,660,886,2023-12-28,25.04,Request Documents,high risk
+645,812,879,2021-03-30,22.89,Lower Amount,ok
+646,933,954,2025-08-23,54.9,Request Documents,high risk
+647,283,404,2024-12-09,96.88,Lower Amount,income mismatch
+648,725,473,2021-10-23,68.48,Lower Amount,income mismatch
+649,63,96,2021-09-12,71.56,Manual Review,high risk
+650,911,682,2019-06-30,94.54,Request Documents,ok
+651,636,984,2022-02-15,37.43,Request Documents,high risk
+652,36,908,2018-07-12,72.03,Reject,income mismatch
+653,797,563,2023-11-20,72.05,Lower Amount,ok
+654,568,591,2022-11-06,27.34,Manual Review,high risk
+655,863,558,2019-12-23,3.18,Lower Amount,income mismatch
+656,501,423,2023-01-25,69.6,Reject,LTV high
+657,276,947,2025-04-24,97.99,Approve,ok
+658,380,227,2025-01-31,0.21,Lower Amount,ok
+659,154,720,2023-07-16,72.51,Request Documents,high risk
+660,917,395,2022-06-27,17.86,Request Documents,high risk
+661,509,129,2020-11-24,95.74,Manual Review,income mismatch
+662,954,13,2024-05-10,58.15,Request Documents,income mismatch
+663,267,374,2018-02-25,45.35,Request Documents,high risk
+664,239,606,2019-09-28,89.42,Manual Review,high risk
+665,446,693,2021-11-23,67.43,Manual Review,needs guarantor
+666,709,648,2022-12-25,94.57,Request Documents,income mismatch
+667,912,681,2023-10-06,12.27,Reject,ok
+668,38,892,2022-01-05,41.94,Manual Review,needs guarantor
+669,355,959,2020-09-25,4.86,Manual Review,ok
+670,494,818,2021-02-13,19.92,Lower Amount,high risk
+671,544,470,2019-10-09,88.64,Request Documents,ok
+672,487,670,2022-01-20,60.6,Reject,high risk
+673,361,635,2025-04-30,81.32,Manual Review,high risk
+674,200,572,2021-05-12,25.06,Reject,high risk
+675,705,155,2024-02-10,58.97,Approve,income mismatch
+676,65,38,2022-06-13,20.13,Lower Amount,ok
+677,706,825,2019-05-16,54.55,Lower Amount,LTV high
+678,830,249,2024-02-05,21.1,Manual Review,needs guarantor
+679,196,284,2025-01-14,33.32,Request Documents,ok
+680,137,855,2024-04-07,28.48,Reject,LTV high
+681,270,773,2018-09-12,86.86,Lower Amount,LTV high
+682,476,802,2018-01-27,25.17,Lower Amount,ok
+683,582,204,2019-04-12,54.7,Request Documents,high risk
+684,133,239,2020-02-26,32.67,Lower Amount,needs guarantor
+685,54,631,2022-08-24,96.39,Reject,high risk
+686,313,280,2018-04-16,67.51,Lower Amount,high risk
+687,967,895,2024-03-14,73.18,Lower Amount,high risk
+688,249,991,2020-03-16,21.0,Lower Amount,income mismatch
+689,210,685,2025-05-20,22.98,Lower Amount,ok
+690,335,853,2024-02-29,16.16,Lower Amount,LTV high
+691,617,708,2021-10-22,56.85,Lower Amount,ok
+692,290,978,2023-10-21,53.63,Manual Review,LTV high
+693,343,69,2021-12-04,34.22,Request Documents,needs guarantor
+694,414,309,2019-07-01,84.57,Reject,income mismatch
+695,204,54,2018-06-02,41.51,Request Documents,needs guarantor
+696,475,40,2021-02-12,80.47,Request Documents,ok
+697,301,855,2019-07-30,53.04,Approve,needs guarantor
+698,950,685,2024-01-25,89.77,Lower Amount,ok
+699,619,145,2024-12-16,29.15,Manual Review,income mismatch
+700,433,220,2020-03-12,63.56,Request Documents,income mismatch
+701,791,617,2024-06-02,88.29,Lower Amount,ok
+702,953,261,2023-01-11,78.43,Approve,high risk
+703,861,10,2020-03-26,99.01,Request Documents,ok
+704,939,277,2024-08-22,10.85,Approve,income mismatch
+705,610,579,2023-04-01,2.13,Manual Review,income mismatch
+706,594,917,2025-07-25,44.78,Approve,ok
+707,517,54,2019-12-11,48.8,Approve,high risk
+708,975,433,2019-11-12,82.05,Reject,needs guarantor
+709,377,498,2023-11-02,28.23,Lower Amount,ok
+710,256,153,2019-06-10,13.38,Approve,high risk
+711,845,715,2023-09-08,50.82,Lower Amount,ok
+712,569,415,2022-11-11,86.52,Request Documents,ok
+713,631,814,2021-06-17,7.98,Lower Amount,needs guarantor
+714,508,164,2020-11-01,8.87,Request Documents,LTV high
+715,349,760,2023-09-11,95.57,Manual Review,needs guarantor
+716,715,815,2020-05-04,72.6,Lower Amount,LTV high
+717,677,76,2025-01-07,3.88,Manual Review,high risk
+718,748,894,2021-06-20,0.93,Reject,needs guarantor
+719,509,862,2021-03-17,57.01,Reject,ok
+720,704,553,2018-09-28,76.89,Request Documents,LTV high
+721,598,924,2020-08-09,27.03,Request Documents,needs guarantor
+722,74,890,2020-07-08,58.98,Approve,income mismatch
+723,988,684,2019-11-22,38.82,Manual Review,needs guarantor
+724,866,256,2020-07-11,61.48,Reject,needs guarantor
+725,745,588,2024-08-27,56.5,Request Documents,LTV high
+726,863,31,2025-04-30,71.42,Reject,income mismatch
+727,101,325,2020-02-01,87.22,Request Documents,high risk
+728,494,876,2019-10-23,73.05,Request Documents,high risk
+729,924,781,2023-12-03,95.1,Approve,income mismatch
+730,113,390,2024-04-21,6.33,Lower Amount,high risk
+731,348,539,2019-03-01,78.65,Lower Amount,ok
+732,30,797,2022-01-10,15.34,Manual Review,ok
+733,193,322,2023-02-02,93.97,Lower Amount,high risk
+734,376,319,2019-12-30,7.15,Approve,high risk
+735,902,984,2025-04-23,77.93,Manual Review,income mismatch
+736,634,812,2022-06-06,9.17,Manual Review,needs guarantor
+737,24,62,2021-09-08,45.77,Lower Amount,income mismatch
+738,620,562,2021-05-25,22.06,Manual Review,high risk
+739,167,497,2024-12-22,8.43,Approve,income mismatch
+740,313,446,2021-12-08,34.1,Approve,income mismatch
+741,379,782,2020-08-27,0.97,Approve,ok
+742,434,551,2022-07-18,79.07,Reject,high risk
+743,161,52,2021-05-27,13.59,Approve,needs guarantor
+744,164,152,2021-02-14,46.49,Approve,needs guarantor
+745,161,535,2021-04-27,50.11,Manual Review,ok
+746,78,206,2022-07-11,48.26,Manual Review,needs guarantor
+747,21,575,2024-11-25,23.7,Approve,ok
+748,541,325,2024-03-03,67.97,Request Documents,needs guarantor
+749,149,67,2024-05-21,22.62,Request Documents,LTV high
+750,305,284,2025-06-01,37.5,Reject,ok
+751,21,129,2024-08-07,11.61,Reject,ok
+752,578,502,2022-11-20,65.29,Lower Amount,high risk
+753,646,368,2023-07-13,11.41,Request Documents,LTV high
+754,782,434,2019-07-12,1.29,Lower Amount,high risk
+755,469,593,2024-06-20,49.48,Reject,needs guarantor
+756,570,219,2019-12-15,57.03,Lower Amount,ok
+757,505,272,2019-07-31,40.21,Lower Amount,ok
+758,123,459,2021-12-13,6.1,Request Documents,income mismatch
+759,357,285,2023-01-24,84.64,Approve,high risk
+760,661,78,2022-09-09,88.46,Lower Amount,ok
+761,367,469,2020-02-23,42.74,Manual Review,ok
+762,686,624,2022-09-06,56.01,Approve,high risk
+763,27,20,2020-05-11,56.62,Lower Amount,ok
+764,719,610,2023-03-02,72.93,Manual Review,income mismatch
+765,416,347,2024-12-24,33.23,Manual Review,ok
+766,573,554,2024-03-28,50.07,Approve,high risk
+767,822,503,2019-10-28,6.75,Lower Amount,high risk
+768,28,315,2019-01-12,55.53,Approve,LTV high
+769,669,306,2024-04-02,13.25,Request Documents,ok
+770,731,729,2021-03-13,41.99,Approve,LTV high
+771,512,238,2024-03-04,30.49,Reject,high risk
+772,103,376,2022-05-22,23.06,Manual Review,high risk
+773,620,903,2023-06-15,42.07,Lower Amount,high risk
+774,644,359,2019-06-10,82.26,Lower Amount,ok
+775,352,785,2021-02-27,47.33,Reject,high risk
+776,809,661,2024-10-21,59.94,Manual Review,income mismatch
+777,363,321,2020-09-01,78.9,Lower Amount,high risk
+778,372,32,2022-11-20,91.02,Manual Review,ok
+779,194,812,2024-06-12,81.47,Request Documents,needs guarantor
+780,893,258,2020-10-14,12.75,Request Documents,LTV high
+781,136,707,2018-01-11,18.58,Reject,high risk
+782,127,791,2019-08-15,23.49,Request Documents,ok
+783,674,236,2019-10-02,63.47,Reject,LTV high
+784,514,998,2023-12-27,60.77,Request Documents,ok
+785,695,186,2025-07-28,73.72,Approve,ok
+786,651,361,2019-07-24,6.11,Approve,ok
+787,773,857,2023-11-18,28.72,Approve,income mismatch
+788,780,598,2025-05-20,69.13,Request Documents,income mismatch
+789,346,193,2019-07-26,24.22,Request Documents,high risk
+790,681,656,2023-06-07,47.05,Request Documents,needs guarantor
+791,149,120,2022-12-17,54.64,Request Documents,high risk
+792,880,174,2023-10-10,71.97,Approve,needs guarantor
+793,722,713,2020-07-04,39.6,Approve,income mismatch
+794,990,760,2021-04-22,95.51,Reject,high risk
+795,568,931,2018-08-06,75.84,Lower Amount,income mismatch
+796,618,905,2018-12-30,58.13,Approve,LTV high
+797,55,588,2024-01-17,10.4,Request Documents,needs guarantor
+798,327,338,2019-06-21,71.39,Manual Review,high risk
+799,508,881,2018-02-09,88.91,Manual Review,ok
+800,939,35,2019-12-11,73.48,Reject,income mismatch
+801,792,164,2024-04-18,37.82,Approve,ok
+802,402,903,2024-10-09,12.59,Request Documents,ok
+803,250,969,2024-03-10,59.46,Approve,high risk
+804,974,714,2025-05-28,90.78,Request Documents,needs guarantor
+805,596,22,2020-09-25,43.18,Manual Review,income mismatch
+806,78,434,2023-12-02,51.94,Request Documents,high risk
+807,605,667,2020-06-26,7.21,Approve,ok
+808,40,936,2018-12-08,54.22,Manual Review,needs guarantor
+809,12,384,2023-06-10,75.36,Manual Review,LTV high
+810,498,892,2018-04-04,88.08,Lower Amount,ok
+811,712,919,2023-07-29,9.75,Manual Review,income mismatch
+812,298,616,2018-04-02,79.61,Request Documents,LTV high
+813,187,250,2019-08-07,52.59,Reject,high risk
+814,912,496,2020-10-14,39.66,Reject,ok
+815,710,339,2022-12-27,40.13,Approve,income mismatch
+816,171,396,2022-07-23,81.84,Lower Amount,high risk
+817,126,902,2023-12-24,71.69,Lower Amount,needs guarantor
+818,178,975,2025-04-19,10.13,Lower Amount,income mismatch
+819,146,379,2020-06-27,60.15,Request Documents,high risk
+820,595,271,2025-08-15,53.74,Manual Review,high risk
+821,137,261,2020-04-14,72.86,Lower Amount,ok
+822,605,853,2020-04-02,79.87,Reject,income mismatch
+823,774,786,2024-07-23,77.51,Request Documents,high risk
+824,898,938,2021-06-11,25.47,Lower Amount,high risk
+825,7,258,2019-04-02,90.7,Manual Review,needs guarantor
+826,346,672,2023-12-11,61.11,Approve,ok
+827,610,231,2025-02-21,45.35,Reject,LTV high
+828,399,512,2021-07-22,64.2,Request Documents,income mismatch
+829,758,551,2018-04-07,78.95,Reject,needs guarantor
+830,347,714,2023-02-25,83.2,Approve,income mismatch
+831,108,470,2023-10-02,2.22,Manual Review,needs guarantor
+832,867,39,2019-12-06,42.74,Request Documents,high risk
+833,137,207,2018-11-11,26.14,Request Documents,needs guarantor
+834,809,158,2018-07-08,15.17,Request Documents,income mismatch
+835,367,500,2024-06-07,43.06,Request Documents,income mismatch
+836,358,535,2018-11-27,69.08,Manual Review,high risk
+837,785,304,2021-01-15,46.35,Request Documents,income mismatch
+838,765,173,2020-08-07,39.67,Lower Amount,income mismatch
+839,418,690,2020-10-11,44.65,Request Documents,ok
+840,187,988,2018-01-22,83.94,Manual Review,LTV high
+841,506,509,2022-08-07,48.19,Manual Review,ok
+842,259,635,2021-11-28,91.5,Approve,income mismatch
+843,808,966,2025-03-17,59.83,Manual Review,ok
+844,768,965,2024-10-09,93.78,Approve,ok
+845,356,677,2022-03-09,42.88,Reject,LTV high
+846,881,145,2023-02-08,66.85,Approve,high risk
+847,415,148,2020-11-24,68.12,Approve,needs guarantor
+848,444,493,2023-04-08,91.93,Reject,high risk
+849,570,243,2024-07-16,33.97,Approve,high risk
+850,641,972,2023-03-15,56.04,Reject,income mismatch
+851,207,867,2025-08-01,86.86,Manual Review,ok
+852,234,325,2018-05-20,19.3,Lower Amount,income mismatch
+853,537,997,2021-07-07,8.14,Approve,high risk
+854,17,863,2018-10-01,7.4,Lower Amount,ok
+855,395,506,2023-06-16,23.01,Request Documents,LTV high
+856,327,180,2025-08-03,23.55,Manual Review,income mismatch
+857,426,125,2019-04-19,33.42,Lower Amount,needs guarantor
+858,599,980,2025-06-26,76.1,Reject,LTV high
+859,895,311,2018-02-09,0.32,Approve,ok
+860,849,64,2021-12-31,84.77,Approve,high risk
+861,271,22,2025-06-24,89.46,Request Documents,income mismatch
+862,494,536,2022-03-30,70.15,Approve,LTV high
+863,545,399,2022-04-11,28.96,Reject,high risk
+864,530,205,2023-02-10,22.7,Approve,ok
+865,825,450,2025-01-21,82.71,Request Documents,income mismatch
+866,26,198,2018-12-20,4.0,Request Documents,income mismatch
+867,196,661,2022-02-14,24.65,Lower Amount,income mismatch
+868,271,82,2021-01-11,90.37,Approve,high risk
+869,493,810,2022-02-21,47.99,Lower Amount,LTV high
+870,566,15,2019-12-20,45.76,Reject,ok
+871,629,624,2020-03-18,33.11,Manual Review,ok
+872,159,1,2024-12-06,53.05,Manual Review,needs guarantor
+873,320,956,2022-06-28,49.86,Approve,ok
+874,294,487,2021-12-20,68.35,Request Documents,ok
+875,840,992,2019-02-11,99.42,Lower Amount,ok
+876,576,470,2018-05-14,19.16,Approve,ok
+877,402,201,2024-01-17,41.88,Approve,ok
+878,10,543,2020-03-30,5.36,Manual Review,high risk
+879,352,771,2025-07-25,63.47,Request Documents,LTV high
+880,23,47,2021-08-31,40.86,Approve,LTV high
+881,546,418,2020-02-29,78.64,Manual Review,ok
+882,616,982,2022-04-25,14.03,Lower Amount,needs guarantor
+883,831,109,2024-09-18,26.16,Request Documents,needs guarantor
+884,399,636,2018-04-29,72.27,Request Documents,LTV high
+885,171,255,2019-11-20,66.26,Approve,LTV high
+886,203,586,2021-08-14,48.09,Lower Amount,needs guarantor
+887,202,542,2024-10-18,23.2,Manual Review,income mismatch
+888,130,717,2020-12-31,11.26,Manual Review,ok
+889,478,926,2024-03-23,40.17,Approve,LTV high
+890,666,597,2020-01-06,46.29,Request Documents,LTV high
+891,786,573,2025-03-28,36.59,Lower Amount,income mismatch
+892,740,880,2024-05-18,38.43,Request Documents,high risk
+893,477,705,2024-09-09,72.84,Lower Amount,needs guarantor
+894,393,548,2023-11-03,80.81,Lower Amount,needs guarantor
+895,757,705,2024-09-15,65.87,Request Documents,income mismatch
+896,358,147,2019-05-01,93.73,Reject,needs guarantor
+897,539,488,2024-03-12,99.05,Request Documents,needs guarantor
+898,888,944,2023-11-06,2.38,Approve,needs guarantor
+899,950,120,2025-04-15,9.28,Manual Review,high risk
+900,678,763,2022-03-17,92.3,Approve,ok
+901,161,150,2018-07-26,36.57,Reject,needs guarantor
+902,593,859,2021-08-16,63.59,Lower Amount,LTV high
+903,22,713,2023-12-23,22.34,Reject,income mismatch
+904,878,178,2023-01-08,24.43,Lower Amount,high risk
+905,453,406,2018-03-08,43.63,Request Documents,ok
+906,408,149,2022-02-08,99.79,Lower Amount,ok
+907,896,687,2023-04-15,72.97,Lower Amount,high risk
+908,893,414,2019-02-08,9.42,Lower Amount,ok
+909,624,816,2021-08-27,91.15,Approve,income mismatch
+910,664,587,2024-11-01,23.75,Reject,high risk
+911,142,754,2020-03-05,43.12,Reject,income mismatch
+912,713,349,2020-11-12,72.14,Approve,ok
+913,770,577,2023-05-07,21.4,Approve,ok
+914,789,175,2018-04-03,84.47,Reject,income mismatch
+915,174,183,2019-04-11,39.44,Approve,income mismatch
+916,303,685,2025-08-04,62.65,Lower Amount,LTV high
+917,872,229,2024-02-22,56.87,Request Documents,high risk
+918,230,286,2018-03-06,60.61,Manual Review,LTV high
+919,405,251,2021-08-04,29.06,Lower Amount,high risk
+920,256,801,2019-07-25,38.33,Request Documents,high risk
+921,264,156,2024-07-09,72.75,Request Documents,income mismatch
+922,840,229,2024-08-17,1.72,Request Documents,needs guarantor
+923,135,678,2022-04-27,42.31,Reject,LTV high
+924,949,643,2024-12-31,8.41,Reject,LTV high
+925,899,28,2018-02-08,18.52,Reject,income mismatch
+926,57,648,2025-08-11,72.96,Request Documents,ok
+927,640,825,2020-03-11,7.13,Approve,income mismatch
+928,686,252,2020-10-16,38.96,Reject,high risk
+929,603,223,2020-04-06,54.74,Lower Amount,LTV high
+930,264,352,2025-01-31,27.97,Lower Amount,income mismatch
+931,360,840,2018-11-29,68.83,Manual Review,high risk
+932,247,792,2023-12-11,68.12,Lower Amount,LTV high
+933,450,155,2021-11-26,2.11,Request Documents,income mismatch
+934,729,78,2020-07-09,14.17,Reject,income mismatch
+935,838,950,2018-03-07,57.94,Reject,ok
+936,246,317,2022-05-23,31.23,Reject,LTV high
+937,11,720,2018-12-09,32.9,Reject,high risk
+938,592,915,2021-10-05,56.05,Reject,high risk
+939,833,681,2022-10-02,36.08,Lower Amount,ok
+940,121,179,2023-12-02,7.06,Manual Review,LTV high
+941,628,228,2025-02-19,38.75,Manual Review,LTV high
+942,890,828,2018-09-13,24.69,Approve,ok
+943,397,477,2024-06-14,59.26,Reject,needs guarantor
+944,419,573,2018-06-11,38.17,Approve,income mismatch
+945,356,406,2018-09-22,14.47,Request Documents,needs guarantor
+946,484,143,2022-08-18,48.5,Reject,needs guarantor
+947,870,40,2022-11-14,53.94,Request Documents,income mismatch
+948,153,493,2021-10-18,92.14,Reject,LTV high
+949,428,399,2024-02-29,59.52,Request Documents,ok
+950,456,214,2021-05-11,64.68,Reject,ok
+951,551,924,2018-03-08,72.73,Lower Amount,LTV high
+952,696,904,2020-04-16,10.87,Lower Amount,LTV high
+953,139,906,2020-03-27,72.06,Lower Amount,LTV high
+954,761,381,2020-09-28,96.89,Manual Review,high risk
+955,697,651,2018-04-30,32.95,Request Documents,LTV high
+956,24,986,2023-02-13,22.42,Manual Review,high risk
+957,406,462,2021-07-23,96.12,Manual Review,high risk
+958,637,923,2025-08-08,70.32,Approve,needs guarantor
+959,249,666,2018-06-07,79.89,Request Documents,ok
+960,10,833,2018-03-09,89.23,Request Documents,ok
+961,846,751,2021-09-23,10.9,Approve,ok
+962,921,578,2024-12-23,34.16,Approve,LTV high
+963,824,816,2024-04-03,74.6,Reject,income mismatch
+964,278,893,2022-09-11,14.34,Approve,income mismatch
+965,925,467,2021-12-08,80.03,Approve,needs guarantor
+966,588,251,2021-09-27,83.63,Approve,needs guarantor
+967,863,510,2019-10-08,23.5,Request Documents,needs guarantor
+968,190,258,2023-03-13,99.3,Reject,needs guarantor
+969,554,603,2019-01-28,62.43,Lower Amount,needs guarantor
+970,630,912,2023-07-08,75.41,Request Documents,needs guarantor
+971,92,589,2023-12-22,29.64,Manual Review,income mismatch
+972,217,935,2019-03-28,78.66,Approve,high risk
+973,190,659,2024-04-15,66.16,Lower Amount,LTV high
+974,923,265,2025-07-11,53.48,Lower Amount,income mismatch
+975,572,849,2024-11-10,30.3,Request Documents,high risk
+976,441,784,2020-07-16,69.18,Manual Review,high risk
+977,532,565,2019-07-18,87.63,Lower Amount,ok
+978,696,702,2023-12-09,16.07,Reject,ok
+979,320,198,2025-06-05,87.25,Approve,high risk
+980,358,153,2018-06-12,1.16,Reject,LTV high
+981,773,708,2023-10-18,62.38,Manual Review,high risk
+982,687,425,2024-06-08,69.5,Approve,LTV high
+983,490,557,2019-12-11,88.52,Reject,needs guarantor
+984,387,508,2025-05-14,0.05,Lower Amount,income mismatch
+985,903,677,2023-08-28,74.86,Approve,income mismatch
+986,73,393,2018-10-03,24.92,Reject,ok
+987,471,949,2023-12-02,53.39,Lower Amount,LTV high
+988,690,736,2025-01-11,8.64,Reject,income mismatch
+989,433,960,2022-07-07,61.14,Request Documents,needs guarantor
+990,775,909,2019-07-28,16.02,Reject,high risk
+991,943,543,2021-03-22,30.45,Manual Review,income mismatch
+992,71,94,2023-03-02,56.79,Manual Review,needs guarantor
+993,609,745,2022-02-16,92.3,Request Documents,ok
+994,697,985,2018-12-08,44.11,Approve,needs guarantor
+995,631,971,2020-11-14,64.36,Manual Review,ok
+996,373,955,2020-02-28,38.62,Approve,needs guarantor
+997,343,876,2018-10-22,68.74,Lower Amount,high risk
+998,76,937,2020-07-27,15.11,Lower Amount,ok
+999,717,387,2023-04-23,80.8,Manual Review,LTV high
+1000,107,937,2022-01-12,39.32,Approve,ok
