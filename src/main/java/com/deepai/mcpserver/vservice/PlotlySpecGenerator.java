@@ -14,9 +14,11 @@ public class PlotlySpecGenerator {
     
     public ChartSpecification generateSpec(VisualizationRequest request, List<Map<String, Object>> data) {
         Map<String, Object> spec = new HashMap<>();
+        String chartType = (request.getChartType() != null && !request.getChartType().isBlank()) ? 
+            request.getChartType() : "bar";
         
         try {
-            switch (request.getChartType().toLowerCase()) {
+            switch (chartType.toLowerCase()) {
                 case "bar":
                     spec = generateBarChart(request, data);
                     break;
@@ -43,7 +45,7 @@ public class PlotlySpecGenerator {
         
         return ChartSpecification.builder()
             .framework("plotly")
-            .chartType(request.getChartType())
+            .chartType(chartType)
             .specification(spec)
             .build();
     }
@@ -160,12 +162,39 @@ public class PlotlySpecGenerator {
     private Map<String, Object> generateHeatmap(VisualizationRequest request, List<Map<String, Object>> data) {
         Map<Object, Map<Object, Number>> pivotData = new HashMap<>();
         
+        // Determine z-value column - prioritize colorColumn, then look for VALUE or numeric columns
+        String zColumn = request.getColorColumn();
+        if (zColumn == null || zColumn.isBlank()) {
+            // Look for "VALUE" column first
+            if (data.stream().anyMatch(row -> row.containsKey("VALUE"))) {
+                zColumn = "VALUE";
+            } else {
+                // Find first numeric column that's not x or y
+                zColumn = data.get(0).keySet().stream()
+                    .filter(col -> !col.equals(request.getXColumn()) && !col.equals(request.getYColumn()))
+                    .filter(col -> data.stream().anyMatch(row -> row.get(col) instanceof Number))
+                    .findFirst()
+                    .orElse("VALUE"); // fallback to VALUE even if it doesn't exist
+            }
+        }
+        
+        final String finalZColumn = zColumn;
         for (Map<String, Object> row : data) {
             Object x = row.get(request.getXColumn());
             Object y = row.get(request.getYColumn());
-            Number z = (Number) row.get(request.getColorColumn() != null ? request.getColorColumn() : "VALUE");
+            Object zObj = row.get(finalZColumn);
+            Number z = 0;
+            if (zObj instanceof Number) {
+                z = (Number) zObj;
+            } else if (zObj != null) {
+                try {
+                    z = Double.parseDouble(zObj.toString());
+                } catch (NumberFormatException e) {
+                    z = 0; // fallback to 0 for non-numeric values
+                }
+            }
             
-            pivotData.computeIfAbsent(y, k -> new HashMap()).put(x, z != null ? z : 0);
+            pivotData.computeIfAbsent(y, k -> new HashMap()).put(x, z);
         }
         
         List<Object> xLabels = data.stream().map(row -> row.get(request.getXColumn())).distinct().collect(Collectors.toList());

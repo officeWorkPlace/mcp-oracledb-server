@@ -1,11 +1,13 @@
 package com.deepai.mcpserver.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,6 +136,17 @@ public class DeclarativeSpecGenerator {
     public Map<String, Object> generatePlotlySpec(String chartType, List<Map<String, Object>> data,
                                                    Map<String, String> encoding, Map<String, Object> config) {
         try {
+            // Safety checks
+            if (data == null || data.isEmpty()) {
+                log.warn("No data provided for Plotly spec generation");
+                return createErrorChartSpec("No data available for chart", "plotly");
+            }
+            
+            if (encoding == null || encoding.isEmpty()) {
+                log.warn("No encoding provided for Plotly spec generation");
+                return createErrorChartSpec("No encoding configuration provided", "plotly");
+            }
+            
             Map<String, Object> spec = new HashMap<>();
             
             // Data traces
@@ -150,13 +163,45 @@ public class DeclarativeSpecGenerator {
                 trace.put("y", extractColumn(data, encoding.get("y")));
             }
             
+            // Handle marker configuration for scatter plots
+            Map<String, Object> marker = new HashMap<>();
+            
             if (encoding.containsKey("color")) {
-                trace.put("marker", Map.of("color", extractColumn(data, encoding.get("color"))));
+                List<Object> colorData = extractColumn(data, encoding.get("color"));
+                marker.put("color", colorData);
+                
+                // For scatter plots, handle categorical vs numerical color data differently
+                if ("scatter".equals(chartType)) {
+                    // Check if color data is categorical (strings) or numerical
+                    boolean isCategorical = colorData.stream().anyMatch(obj -> obj instanceof String);
+                    if (!isCategorical) {
+                        // Numerical data - use colorscale
+                        marker.put("colorscale", "Viridis");
+                        marker.put("showscale", true);
+                        marker.put("colorbar", Map.of("title", encoding.get("color")));
+                    }
+                    // For categorical data, Plotly will automatically assign distinct colors
+                }
             }
             
             if (encoding.containsKey("size")) {
-                Map<String, Object> marker = (Map<String, Object>) trace.getOrDefault("marker", new HashMap<>());
-                marker.put("size", extractColumn(data, encoding.get("size")));
+                List<Object> sizeData = extractColumn(data, encoding.get("size"));
+                marker.put("size", sizeData);
+                // Set reasonable size range for scatter plots
+                if ("scatter".equals(chartType)) {
+                    marker.put("sizemode", "diameter");
+                    marker.put("sizeref", 2);
+                    marker.put("sizemin", 4);
+                }
+            }
+            
+            // Add default marker properties for scatter plots
+            if ("scatter".equals(chartType)) {
+                marker.putIfAbsent("size", 8);
+                marker.putIfAbsent("opacity", 0.7);
+            }
+            
+            if (!marker.isEmpty()) {
                 trace.put("marker", marker);
             }
             
@@ -174,12 +219,25 @@ public class DeclarativeSpecGenerator {
                 layout.put("title", config.get("title"));
             }
             
+            // Set axis titles from encoding or use field names as fallback
+            Map<String, Object> xaxis = new HashMap<>();
             if (encoding.containsKey("xTitle")) {
-                layout.put("xaxis", Map.of("title", encoding.get("xTitle")));
+                xaxis.put("title", encoding.get("xTitle"));
+            } else if (encoding.containsKey("x")) {
+                xaxis.put("title", encoding.get("x").replace("_", " ").toUpperCase());
+            }
+            if (!xaxis.isEmpty()) {
+                layout.put("xaxis", xaxis);
             }
             
+            Map<String, Object> yaxis = new HashMap<>();
             if (encoding.containsKey("yTitle")) {
-                layout.put("yaxis", Map.of("title", encoding.get("yTitle")));
+                yaxis.put("title", encoding.get("yTitle"));
+            } else if (encoding.containsKey("y")) {
+                yaxis.put("title", encoding.get("y").replace("_", " ").toUpperCase());
+            }
+            if (!yaxis.isEmpty()) {
+                layout.put("yaxis", yaxis);
             }
             
             if (properties.getChart().isResponsive()) {
@@ -576,16 +634,40 @@ public class DeclarativeSpecGenerator {
     @Cacheable(value = "customerSegmentationSpecs", cacheManager = "visualizationCacheManager")
     public Map<String, Object> generateCustomerSegmentationSpec(List<Map<String, Object>> data, String framework) {
         try {
-            Map<String, String> encoding = Map.of(
-                "x", "credit_score",
-                "y", "annual_income",
-                "color", "risk_category",
-                "size", "loan_amount"
-            );
+            if (data == null || data.isEmpty()) {
+                log.warn("No data provided for customer segmentation chart");
+                return createEmptyChartSpec("Customer Segmentation Analysis", framework);
+            }
+
+            // Auto-detect available columns from actual data
+            Set<String> availableColumns = data.get(0).keySet();
+            log.debug("Available columns for customer segmentation: {}", availableColumns);
+            
+            // Find the best matching columns from available data
+            String xColumn = findBestColumn(availableColumns, Arrays.asList("credit_score", "customer_credit_score", "score", "rating"));
+            String yColumn = findBestColumn(availableColumns, Arrays.asList("annual_income", "income", "salary", "loan_amount", "amount"));
+            String colorColumn = findBestColumn(availableColumns, Arrays.asList("risk_category", "customer_type", "segment", "category", "status"));
+            String sizeColumn = findBestColumn(availableColumns, Arrays.asList("loan_amount", "amount", "balance", "value"));
+
+            // Fallback to first available columns if specific ones not found
+            if (xColumn == null) xColumn = availableColumns.iterator().next();
+            if (yColumn == null) yColumn = availableColumns.size() > 1 ? 
+                availableColumns.stream().skip(1).findFirst().orElse(xColumn) : xColumn;
+            if (colorColumn == null && availableColumns.size() > 2) {
+                colorColumn = availableColumns.stream().skip(2).findFirst().orElse(null);
+            }
+            
+            Map<String, String> encoding = new HashMap<>();
+            encoding.put("x", xColumn);
+            encoding.put("y", yColumn);
+            if (colorColumn != null) encoding.put("color", colorColumn);
+            if (sizeColumn != null && !sizeColumn.equals(xColumn) && !sizeColumn.equals(yColumn)) {
+                encoding.put("size", sizeColumn);
+            }
             
             Map<String, Object> config = Map.of(
                 "title", "Customer Segmentation Analysis",
-                "description", "Customer distribution by credit score and income"
+                "description", String.format("Customer distribution by %s and %s", xColumn, yColumn)
             );
             
             if ("vega-lite".equals(framework)) {
@@ -594,9 +676,36 @@ public class DeclarativeSpecGenerator {
                 return generatePlotlySpec("scatter", data, encoding, config);
             }
         } catch (Exception e) {
-            log.error("Error generating customer segmentation spec", e);
-            throw new RuntimeException("Failed to generate customer segmentation specification", e);
+            log.error("Error generating customer segmentation spec: {}", e.getMessage(), e);
+            return createErrorChartSpec("Failed to generate customer segmentation chart: " + e.getMessage(), framework);
         }
+    }
+    
+    private String findBestColumn(Set<String> availableColumns, List<String> preferredNames) {
+        for (String preferred : preferredNames) {
+            for (String available : availableColumns) {
+                if (available.toLowerCase().contains(preferred.toLowerCase()) || 
+                    preferred.toLowerCase().contains(available.toLowerCase())) {
+                    return available;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private Map<String, Object> createEmptyChartSpec(String title, String framework) {
+        Map<String, Object> spec = new HashMap<>();
+        spec.put("error", "No data available");
+        spec.put("title", title);
+        spec.put("framework", framework);
+        return spec;
+    }
+    
+    private Map<String, Object> createErrorChartSpec(String errorMessage, String framework) {
+        Map<String, Object> spec = new HashMap<>();
+        spec.put("error", errorMessage);
+        spec.put("framework", framework);
+        return spec;
     }
     
     /**

@@ -23,13 +23,42 @@ public class VisualizationConfig {
     @Bean("visualizationCacheManager")
     public CacheManager visualizationCacheManager() {
         ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager(
+            // Generic chart caches
             "chartData", 
             "tableAnalysis", 
             "columnMetadata",
             "queryResults",
             "dashboardData",
             "performanceMetrics",
-            "visualizationCache"
+            "visualizationCache",
+            
+            // Specification caches from DeclarativeSpecGenerator
+            "vegaLiteSpecs",
+            "plotlySpecs",
+            "timeSeriesSpecs",
+            "correlationSpecs",
+            "hierarchicalSpecs",
+            
+            // Financial visualization caches
+            "loanPopularitySpecs",
+            "branchPerformanceSpecs",
+            "customerSegmentationSpecs",
+            "interestRateImpactSpecs",
+            "riskAssessmentTrendsSpecs",
+            "auditComplianceSpecs",
+            "paymentBehaviorSpecs",
+            "metricsSpecs",
+            
+            // Professional chart caches
+            "professionalCharts",
+            "optimizedData",
+            "chartSpecs",
+            "executiveDashboards",
+            "gradientAreaCharts",
+            "interactiveHeatmaps",
+            "candlestickCharts",
+            "radarCharts",
+            "sunburstCharts"
         );
         return cacheManager;
     }

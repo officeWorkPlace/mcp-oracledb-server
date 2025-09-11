@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Client Demo - Oracle Data Injection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            height: 80vh;
+        }
+        .control-panel {
+            width: 300px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            overflow-y: auto;
+        }
+        .dashboard-frame {
+            flex: 1;
+            position: relative;
+        }
+        .dashboard-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn.success {
+            background: #28a745;
+        }
+        .btn.success:hover {
+            background: #1e7e34;
+        }
+        .data-preview {
+            background: #f1f3f4;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        h3 {
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 MCP Client Demo</h1>
+            <p>Test Oracle Banking Dashboard with Real MCP Data</p>
+        </div>
+        <div class="content">
+            <div class="control-panel">
+                <h3>📊 Data Injection Controls</h3>
+                
+                <button class="btn" onclick="injectLoanPopularityData()">
+                    📈 Inject Loan Popularity Data
+                </button>
+                
+                <button class="btn" onclick="injectTrendData()">
+                    📉 Inject Trend Analysis Data
+                </button>
+                
+                <button class="btn" onclick="injectRiskData()">
+                    ⚠️ Inject Risk Distribution Data
+                </button>
+                
+                <button class="btn" onclick="injectBranchData()">
+                    🏦 Inject Branch Performance Data
+                </button>
+                
+                <button class="btn" onclick="injectMetricsData()">
+                    📋 Inject Dashboard Metrics
+                </button>
+                
+                <button class="btn success" onclick="injectAllData()">
+                    🚀 Inject All Real Data
+                </button>
+                
+                <h3>🔄 Dashboard Controls</h3>
+                
+                <button class="btn" onclick="refreshDashboard()">
+                    🔄 Refresh Dashboard
+                </button>
+                
+                <button class="btn" onclick="resetToDemo()">
+                    🎲 Reset to Demo Data
+                </button>
+                
+                <h3>📝 Data Preview</h3>
+                <div class="data-preview" id="dataPreview">
+                    Click any injection button to see the data that will be sent to the dashboard...
+                </div>
+                
+                <h3>📡 MCP Status</h3>
+                <div id="mcpStatus" style="padding: 10px; background: #d4edda; border-radius: 5px; color: #155724;">
+                    ✅ MCP Client Ready
+                </div>
+            </div>
+            <div class="dashboard-frame">
+                <iframe id="dashboardFrame" src="dashboard-basic.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate real Oracle MCP data responses
+        const mockOracleData = {
+            loanPopularity: [
+                { loan_type: 'Personal Loan', application_count: 1245, total_amount: 15600000, approval_rate: 89.2 },
+                { loan_type: 'Home Loan', application_count: 867, total_amount: 43500000, approval_rate: 91.7 },
+                { loan_type: 'Auto Loan', application_count: 623, total_amount: 18900000, approval_rate: 85.4 },
+                { loan_type: 'Business Loan', application_count: 445, total_amount: 29800000, approval_rate: 78.9 },
+                { loan_type: 'Education Loan', application_count: 289, total_amount: 8700000, approval_rate: 94.1 }
+            ],
+            
+            trendAnalysis: [
+                { date: '2024-01-15', application_count: 234, avg_loan_amount: 125000 },
+                { date: '2024-02-15', application_count: 267, avg_loan_amount: 132000 },
+                { date: '2024-03-15', application_count: 298, avg_loan_amount: 128000 },
+                { date: '2024-04-15', application_count: 312, avg_loan_amount: 145000 },
+                { date: '2024-05-15', application_count: 289, avg_loan_amount: 138000 },
+                { date: '2024-06-15', application_count: 334, avg_loan_amount: 142000 },
+                { date: '2024-07-15', application_count: 356, avg_loan_amount: 149000 },
+                { date: '2024-08-15', application_count: 378, avg_loan_amount: 155000 }
+            ],
+            
+            riskDistribution: [
+                { risk_category: 'Low Risk', assessment_count: 1856, avg_risk_score: 0.23 },
+                { risk_category: 'Medium Risk', assessment_count: 1234, avg_risk_score: 0.54 },
+                { risk_category: 'High Risk', assessment_count: 567, avg_risk_score: 0.78 }
+            ],
+            
+            branchPerformance: [
+                { branch_name: 'Downtown Branch', total_amount: 12400000, application_count: 456, approval_rate: 91.2 },
+                { branch_name: 'Mall Plaza Branch', total_amount: 9800000, application_count: 389, approval_rate: 88.7 },
+                { branch_name: 'Airport Branch', total_amount: 15600000, application_count: 523, approval_rate: 93.4 },
+                { branch_name: 'University Branch', total_amount: 7200000, application_count: 267, approval_rate: 89.8 },
+                { branch_name: 'Corporate Center', total_amount: 18900000, application_count: 634, approval_rate: 87.3 }
+            ],
+            
+            metrics: {
+                totalApplications: 3469,
+                approvalRate: 90.1,
+                loanVolume: 116500000,
+                avgRiskScore: 0.48
+            }
+        };
+
+        function getDashboardWindow() {
+            return document.getElementById('dashboardFrame').contentWindow;
+        }
+
+        function updateDataPreview(dataType, data) {
+            const preview = document.getElementById('dataPreview');
+            preview.innerHTML = `
+                <strong>${dataType.toUpperCase()}</strong><br>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        function injectLoanPopularityData() {
+            const data = mockOracleData.loanPopularity;
+            updateDataPreview('Loan Popularity', data);
+            
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('loan_popularity', data);
+                updateStatus('✅ Loan popularity data injected successfully!');
+            } else {
+                updateStatus('❌ Dashboard not ready yet...');
+            }
+        }
+
+        function injectTrendData() {
+            const data = mockOracleData.trendAnalysis;
+            updateDataPreview('Trend Analysis', data);
+            
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('trend_analysis', data);
+                updateStatus('✅ Trend analysis data injected successfully!');
+            }
+        }
+
+        function injectRiskData() {
+            const data = mockOracleData.riskDistribution;
+            updateDataPreview('Risk Distribution', data);
+            
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('risk_distribution', data);
+                updateStatus('✅ Risk distribution data injected successfully!');
+            }
+        }
+
+        function injectBranchData() {
+            const data = mockOracleData.branchPerformance;
+            updateDataPreview('Branch Performance', data);
+            
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('branch_performance', data);
+                updateStatus('✅ Branch performance data injected successfully!');
+            }
+        }
+
+        function injectMetricsData() {
+            const data = mockOracleData.metrics;
+            updateDataPreview('Dashboard Metrics', data);
+            
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('metrics', data);
+                updateStatus('✅ Dashboard metrics updated successfully!');
+            }
+        }
+
+        function injectAllData() {
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.injectOracleData) {
+                dashWindow.injectOracleData('loan_popularity', mockOracleData.loanPopularity);
+                dashWindow.injectOracleData('trend_analysis', mockOracleData.trendAnalysis);
+                dashWindow.injectOracleData('risk_distribution', mockOracleData.riskDistribution);
+                dashWindow.injectOracleData('metrics', mockOracleData.metrics);
+                
+                updateDataPreview('All Data Injected', {
+                    loanPopularity: mockOracleData.loanPopularity.length + ' records',
+                    trendAnalysis: mockOracleData.trendAnalysis.length + ' records',
+                    riskDistribution: mockOracleData.riskDistribution.length + ' records',
+                    metrics: 'Updated'
+                });
+                
+                updateStatus('🚀 All Oracle data injected successfully!');
+            } else {
+                updateStatus('❌ Dashboard not ready yet...');
+            }
+        }
+
+        function refreshDashboard() {
+            getDashboardWindow().location.reload();
+            updateStatus('🔄 Dashboard refreshed');
+        }
+
+        function resetToDemo() {
+            const dashWindow = getDashboardWindow();
+            if (dashWindow && dashWindow.generateRandomData) {
+                dashWindow.generateRandomData();
+                dashWindow.updateMetrics();
+                updateStatus('🎲 Reset to demo data');
+            }
+        }
+
+        function updateStatus(message) {
+            const status = document.getElementById('mcpStatus');
+            status.innerHTML = message;
+            
+            setTimeout(() => {
+                status.innerHTML = '✅ MCP Client Ready';
+            }, 3000);
+        }
+
+        // Listen for refresh requests from the dashboard
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'oracleDataRefreshRequested') {
+                console.log('Dashboard requested refresh, auto-injecting all data...');
+                setTimeout(() => {
+                    injectAllData();
+                }, 500);
+            }
+        });
+
+        // Auto-inject data when dashboard loads
+        setTimeout(() => {
+            console.log('Auto-injecting initial data...');
+            injectAllData();
+        }, 2000);
+    </script>
+</body>
+</html>

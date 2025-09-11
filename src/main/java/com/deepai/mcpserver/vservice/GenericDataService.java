@@ -99,9 +99,27 @@ public class GenericDataService {
         return tableName.replaceAll("[^a-zA-Z0-9_#$.]", "").toUpperCase();
     }
     
+    /**
+     * Sanitizes WHERE clause by removing dangerous SQL verbs.
+     * 
+     * WARNING: This is a basic protection only. For production use:
+     * 1. Use prepared statements with parameterized queries
+     * 2. Whitelist allowed columns, operators, and functions
+     * 3. Consider disabling whereClause entirely unless in trusted context
+     * 4. Implement proper SQL injection prevention
+     */
     private String sanitizeWhereClause(String whereClause) {
         if (whereClause == null) return "";
-        return whereClause.replaceAll("(?i)(drop|delete|truncate|insert|update|create|alter|exec|execute)", "");
+        
+        // Remove dangerous SQL verbs (basic protection)
+        String sanitized = whereClause.replaceAll("(?i)(drop|delete|truncate|insert|update|create|alter|exec|execute|grant|revoke)", "");
+        
+        // Log potential issues for monitoring
+        if (!sanitized.equals(whereClause)) {
+            log.warn("WHERE clause was sanitized - removed dangerous SQL verbs");
+        }
+        
+        return sanitized;
     }
     
     private String sanitizeOrderBy(String orderBy) {

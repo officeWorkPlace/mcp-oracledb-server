@@ -18,7 +18,10 @@ public class VisualizationRequest {
     private String chartType;
     private String xColumn;
     private String yColumn;
+    private String colorColumn;
     private String framework;
+    private String aggregationType;
+    private String groupBy;
     private Integer limit;
     private String whereClause;
     private String orderBy;

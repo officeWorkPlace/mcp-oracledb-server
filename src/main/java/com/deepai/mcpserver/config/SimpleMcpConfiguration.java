@@ -6,6 +6,7 @@ import com.deepai.mcpserver.service.OracleAdvancedAnalyticsService;
 import com.deepai.mcpserver.service.OracleAIService;
 import com.deepai.mcpserver.service.OracleEnterpriseSecurityService;
 import com.deepai.mcpserver.service.OracleEnterprisePerformanceService;
+import com.deepai.mcpserver.vtools.FinancialVisualizationMCPTools;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +58,8 @@ public class SimpleMcpConfiguration {
                                            OracleAIService oracleAIService,
                                            OracleEnterpriseSecurityService oracleEnterpriseSecurityService,
                                            OracleEnterprisePerformanceService oracleEnterprisePerformanceService,
-                                           OracleVisualizationService oracleVisualizationService) {
+                                           OracleVisualizationService oracleVisualizationService,
+                                           FinancialVisualizationMCPTools financialVisualizationMCPTools) {
         
         logger.info("🚀 Configuring Oracle MCP tools with exposure level: {}", toolsExposure);
         
@@ -85,7 +87,8 @@ public class SimpleMcpConfiguration {
                                oracleAIService,
                                oracleEnterpriseSecurityService,
                                oracleEnterprisePerformanceService,
-                               oracleVisualizationService)
+                               oracleVisualizationService,
+                               financialVisualizationMCPTools)
                     .build();
         }
     }

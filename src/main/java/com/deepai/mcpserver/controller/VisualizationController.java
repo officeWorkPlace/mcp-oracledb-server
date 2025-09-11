@@ -18,7 +18,7 @@ import com.deepai.mcpserver.model.DataAnalysis;
 import com.deepai.mcpserver.model.VisualizationRequest;
 import com.deepai.mcpserver.vservice.DataAnalysisService;
 import com.deepai.mcpserver.vservice.GenericDataService;
-import com.deepai.mcpserver.vservice.GenericVisualizationService;
+import com.deepai.mcpserver.vservice.VisualizationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class VisualizationController {
     
     @Autowired
-    private GenericVisualizationService visualizationService;
+    private VisualizationService visualizationService;
     
     @Autowired
     private DataAnalysisService analysisService;

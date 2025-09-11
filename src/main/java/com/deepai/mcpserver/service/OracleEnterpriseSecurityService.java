@@ -31,7 +31,7 @@ public class OracleEnterpriseSecurityService {
         this.sqlBuilder = sqlBuilder;
     }
 
-    @Tool(name = "manageVpdPolicy", description = "Manage Oracle Virtual Private Database (VPD) policies")
+    @Tool(name = "manage_vpd_policies", description = "Configure Oracle Virtual Private Database (VPD) row-level security policies to restrict data access based on user context and conditions")
     public Map<String, Object> manageVpdPolicy(
          String operation,
          String objectName,
@@ -136,7 +136,7 @@ public class OracleEnterpriseSecurityService {
         }
     }
 
-    @Tool(name = "configureDataRedaction", description = "Configure Oracle Data Redaction for sensitive data protection")
+    @Tool(name = "configure_data_redaction", description = "Configure Oracle Data Redaction to automatically mask sensitive data in query results for enhanced privacy and compliance")
     public Map<String, Object> configureDataRedaction(
          String operation,
          String tableName,
@@ -224,7 +224,7 @@ public class OracleEnterpriseSecurityService {
         }
     }
 
-    @Tool(name = "manageTdeEncryption", description = "Manage Oracle Transparent Data Encryption (TDE)")
+    @Tool(name = "manage_transparent_data_encryption", description = "Configure Oracle Transparent Data Encryption (TDE) for tablespaces and columns to encrypt sensitive data at rest")
     public Map<String, Object> manageTdeEncryption(
          String operation,
          String objectName,
@@ -316,7 +316,7 @@ public class OracleEnterpriseSecurityService {
         }
     }
 
-    @Tool(name = "manageDatabaseVault", description = "Manage Oracle Database Vault realms and policies")
+    @Tool(name = "manage_database_vault", description = "Configure Oracle Database Vault realms and policies to prevent privileged users from accessing application data and enforce separation of duties")
     public Map<String, Object> manageDatabaseVault(
          String operation,
          String realmName,
@@ -416,7 +416,7 @@ public class OracleEnterpriseSecurityService {
         }
     }
 
-    @Tool(name = "manageAuditPolicies", description = "Oracle Enterprise Security Feature")
+    @Tool(name = "manage_audit_policies", description = "Configure Oracle unified auditing policies to monitor database activities and ensure compliance with security regulations")
     public Map<String, Object> manageAuditPolicies(
          String operation,
          String policyName,
@@ -497,7 +497,7 @@ public class OracleEnterpriseSecurityService {
         }
     }
 
-    @Tool(name = "analyzePrivilegeUsage", description = "Oracle Enterprise Security Feature")
+    @Tool(name = "analyze_privilege_usage", description = "Analyze Oracle privilege usage patterns to identify unused privileges and implement principle of least privilege for enhanced security")
     public Map<String, Object> analyzePrivilegeUsage(
          String operation,
          String captureType,

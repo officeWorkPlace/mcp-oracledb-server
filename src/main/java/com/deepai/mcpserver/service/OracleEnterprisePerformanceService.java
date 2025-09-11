@@ -31,7 +31,7 @@ public class OracleEnterprisePerformanceService {
         this.sqlBuilder = sqlBuilder;
     }
 
-    @Tool(name = "manageParallelExecution", description = "Manage Oracle parallel execution for improved performance")
+    @Tool(name = "manage_parallel_execution", description = "Configure and optimize Oracle parallel execution to improve query performance on large datasets and multi-core systems")
     public Map<String, Object> manageParallelExecution(
          String operation,
          String sqlQuery,
@@ -131,7 +131,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageTablePartitioning", description = "Manage Oracle table partitioning for large datasets")
+    @Tool(name = "manage_table_partitioning", description = "Implement and manage Oracle table partitioning strategies for large datasets including range, hash, and list partitioning")
     public Map<String, Object> manageTablePartitioning(
          String operation,
          String tableName,
@@ -247,7 +247,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageMaterializedViews", description = "Manage Oracle materialized views for performance")
+    @Tool(name = "manage_materialized_views", description = "Create and manage Oracle materialized views for query performance optimization including refresh strategies and query rewrite")
     public Map<String, Object> manageMaterializedViews(
          String operation,
          String mvName,
@@ -363,7 +363,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "optimizeQueryPerformance", description = "Optimize Oracle SQL queries with hints and analysis")
+    @Tool(name = "optimize_sql_performance", description = "Analyze and optimize Oracle SQL query performance using execution plans, optimizer hints, and cost-based optimization")
     public Map<String, Object> optimizeQuery(
          String sqlQuery,
          String optimizationType,
@@ -484,7 +484,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageMemory", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "optimize_memory_usage", description = "Optimize Oracle memory usage including SGA and PGA configuration with automated memory management and advisor recommendations")
     public Map<String, Object> manageMemory(
          String operation,
          String memoryType,
@@ -602,7 +602,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageAwrReports", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "generate_awr_reports", description = "Generate and manage Oracle Automatic Workload Repository (AWR) reports for comprehensive database performance analysis and monitoring")
     public Map<String, Object> manageAwrReports(
          String operation,
          Integer beginSnapId,
@@ -723,7 +723,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageSqlPlanBaselines", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "manage_sql_plan_baselines", description = "Manage Oracle SQL Plan Management (SPM) baselines to ensure consistent query performance and prevent plan regressions")
     public Map<String, Object> manageSqlPlanBaselines(
          String operation,
          String sqlHandle,
@@ -850,7 +850,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageCompression", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "manage_data_compression", description = "Configure and manage Oracle Advanced Compression including table compression, index compression, and Hybrid Columnar Compression (HCC)")
     public Map<String, Object> manageCompression(
          String operation,
          String objectName,
@@ -991,7 +991,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "manageResourceManager", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "manage_resource_manager", description = "Configure Oracle Database Resource Manager to control CPU, memory, and I/O resource allocation across database sessions and applications")
     public Map<String, Object> manageResourceManager(
          String operation,
          String planName,
@@ -1134,7 +1134,7 @@ public class OracleEnterprisePerformanceService {
         }
     }
 
-    @Tool(name = "optimizeIoPerformance", description = "Oracle Enterprise Performance Feature")
+    @Tool(name = "optimize_io_performance", description = "Analyze and optimize Oracle I/O performance including tablespace configuration, buffer pool management, and storage optimization")
     public Map<String, Object> optimizeIoPerformance(
          String operation,
          String tableName,

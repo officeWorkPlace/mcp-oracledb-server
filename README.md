@@ -1,8 +1,8 @@
-﻿# MCP Oracle DB Server - Production Ready Implementation
+# 🚀 MCP Oracle DB Server - Production Ready Implementation
 
-> ** Oracle MCP Server with 55+ Tools (Enhanced) / 75+ Tools (Enterprise)**  
-> ** 41-92% More Capabilities than MongoDB Baseline**  
-> ** Spring Boot 3.4.5 + Spring AI 1.0.1 + Oracle 11g-23c**  
+> **Oracle MCP Server with 55+ Tools (Enhanced) / 75+ Tools (Enterprise)**  
+> **41-92% More Capabilities than MongoDB Baseline**  
+> **Spring Boot 3.4.5 + Spring AI 1.0.1 + Oracle 11g-23c**  
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/projects/jdk/17/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
@@ -12,27 +12,31 @@
 
 ---
 
-##  Table of Contents
+## 📋 Table of Contents
 
-- [ Overview](#-overview)
-- [ Features](#-features)
-- [ Tool Comparison](#-tool-comparison)
-- [ Quick Start](#-quick-start)
-- [ Configuration](#-configuration)
-- [ MCP Integration](#-mcp-integration)
-- [ Testing](#-testing)
-- [ Docker Deployment](#-docker-deployment)
-- [ Monitoring](#-monitoring)
-- [ Security](#-security)
-- [ Documentation](#-documentation)
+- [🔍 Overview](#-overview)
+- [⭐ Features](#-features)
+- [📊 Tool Comparison](#-tool-comparison)
+- [🚀 Quick Start](#-quick-start)
+- [⚙️ Configuration](#️-configuration)
+- [🔧 MCP Integration](#-mcp-integration)
+- [🧪 Testing](#-testing)
+- [🐳 Docker Deployment](#-docker-deployment)
+- [📈 Monitoring](#-monitoring)
+- [🔒 Security](#-security)
+- [📚 Documentation](#-documentation)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🔗 Related Projects](#-related-projects)
+- [🆘 Support](#-support)
 
 ---
 
-##  Overview
+## 🔍 Overview
 
 The **MCP Oracle DB Server** is a production-ready Model Context Protocol (MCP) server that provides comprehensive Oracle database operations with AI-enhanced capabilities. Built with Spring Boot 3.4.5 and Spring AI 1.0.1, it significantly exceeds the MongoDB MCP server baseline with **55+ tools (Enhanced Edition)** or **75+ tools (Enterprise Edition)**.
 
-### Architecture Highlights
+### 🏗️ Architecture Highlights
 
 - **Raw JDBC Performance**: Uses Spring JDBC Template for maximum Oracle performance
 - **Oracle-Specific Features**: Direct access to Oracle system views and enterprise features
@@ -40,7 +44,7 @@ The **MCP Oracle DB Server** is a production-ready Model Context Protocol (MCP) 
 - **Dynamic Feature Detection**: Automatically adapts to available Oracle features
 - **Enterprise-Grade**: Supports PDBs, AWR, partitioning, and advanced security
 
-### Key Differentiators vs MongoDB MCP Server
+### 🔄 Key Differentiators vs MongoDB MCP Server
 
 | Metric | MongoDB Baseline | Oracle Enhanced | Oracle Enterprise | Advantage |
 |--------|------------------|-----------------|-------------------|-----------|
@@ -50,7 +54,7 @@ The **MCP Oracle DB Server** is a production-ready Model Context Protocol (MCP) 
 | **AI Features** | 7 tools | 10 tools | 10 tools | +43% more |
 | **Enterprise** | 0 tools | 0 tools | 20 tools | Oracle-exclusive |
 
-### Why Raw JDBC Instead of JPA/Hibernate?
+### 🔎 Why Raw JDBC Instead of JPA/Hibernate?
 
 This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate for several architectural reasons:
 
@@ -63,7 +67,7 @@ This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate
 | **Multi-Version** | Complex version handling | Dynamic feature detection | ✅ Oracle 11g-23c support |
 | **AI Integration** | Fixed entity responses | Flexible JSON responses | ✅ Structured metadata |
 
-**Key Benefits:**
+**🌟 Key Benefits:**
 - **Direct Oracle System View Access**: Query `v$database`, `dba_users`, `all_tables` without ORM limitations
 - **Oracle-Specific SQL**: Use Oracle hints, connect by, analytical functions, and PL/SQL
 - **Enterprise Feature Support**: Access RMAN, AWR, Partitioning, and Database Vault
@@ -72,19 +76,19 @@ This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate
 
 ---
 
-##  Features
+## ⭐ Features
 
-###  **Enhanced Edition (55+ Tools)**
+### 💼 **Enhanced Edition (55+ Tools)**
 -  **Core Oracle Operations (25 tools):** Database, schema, user, and table management
 -  **Advanced Analytics (20 tools):** SQL analytics, CTEs, window functions, PL/SQL
 -  **AI-Powered Operations (10 tools):** Vector search, AI SQL generation, query optimization
 
-###  **Enterprise Edition (75+ Tools)**
+### 🏢 **Enterprise Edition (75+ Tools)**
 -  **Enhanced Edition (55 tools):** All enhanced features included
 -  **Enterprise Security (10 tools):** VPD, TDE, Database Vault, audit policies
 -  **Enterprise Performance (10 tools):** Partitioning, parallel execution, plan management
 
-###  **Technical Features**
+### 🛠️ **Technical Features**
 -  **Multi-Version Oracle Support:** Compatible with Oracle 11g through 23c
 -  **Dynamic @Tool Discovery:** Automatic tool registration with configurable exposure
 -  **Stdio MCP Transport:** Default protocol with REST fallback for testing
@@ -95,9 +99,9 @@ This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate
 
 ---
 
-##  Tool Comparison
+## 📊 Tool Comparison
 
-### Core Database Operations
+### 💾 Core Database Operations
 
 | Operation Category | MongoDB Tools | Oracle Enhanced | Oracle Enterprise | Oracle Advantage |
 |-------------------|---------------|-----------------|-------------------|------------------|
@@ -107,7 +111,7 @@ This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate
 | **Index Management** | 4 | 7 | 7 | B-tree, bitmap, function-based |
 | **Performance Analysis** | 4 | 7 | 17 | AWR, ADDM, SQL tuning advisor |
 
-### Advanced Analytics
+### 📈 Advanced Analytics
 
 | Analytics Feature | MongoDB | Oracle Enhanced | Oracle Enterprise |
 |------------------|---------|-----------------|-------------------|
@@ -118,16 +122,16 @@ This project deliberately uses **Spring JDBC Template** instead of JPA/Hibernate
 
 ---
 
-##  Quick Start
+## 🚀 Quick Start
 
-### Prerequisites
+### 📋 Prerequisites
 
 - **Java 17+** (OpenJDK or Oracle JDK)
 - **Maven 3.8+**
 - **Oracle Database** (11g, 12c, 18c, 19c, 21c, or 23c)
 - **Docker** (optional, for containerized deployment)
 
-### 1. Clone and Build
+### 1️⃣ Clone and Build
 
 \\\ash
 git clone https://github.com/officeWorkPlace/mcp-oracledb-server.git
@@ -140,7 +144,7 @@ mvn clean package -Penhanced
 mvn clean package -Penterprise
 \\\
 
-### 2. Configure Database Connection
+### 2️⃣ Configure Database Connection
 
 \\\properties
 # src/main/resources/application.properties
@@ -156,7 +160,7 @@ mcp.tools.exposure=public
 mcp.transport=stdio
 \\\
 
-### 3. Run the Server
+### 3️⃣ Run the Server
 
 \\\ash
 # Stdio MCP mode (default)
@@ -166,7 +170,7 @@ java -jar target/mcp-oracledb-server-1.0.0-PRODUCTION.jar
 java -jar target/mcp-oracledb-server-1.0.0-PRODUCTION.jar --spring.profiles.active=rest
 \\\
 
-### 4. Test Oracle Tools
+### 4️⃣ Test Oracle Tools
 
 \\\ash
 # List available Oracle tools
@@ -183,9 +187,9 @@ curl -X POST http://localhost:8080/v1/tools/oracle_list_databases \
 
 ---
 
-##  Configuration
+## ⚙️ Configuration
 
-### Profile-Based Configuration
+### 📝 Profile-Based Configuration
 
 #### Enhanced Edition (Default)
 \\\yaml
@@ -219,7 +223,7 @@ oracle:
         multitenant: 5
 \\\
 
-### Oracle-Specific Settings
+### 🔧 Oracle-Specific Settings
 
 \\\properties
 # Oracle feature detection
@@ -237,7 +241,7 @@ spring.datasource.hikari.data-source-properties.oracle.net.CONNECT_TIMEOUT=60000
 spring.datasource.hikari.data-source-properties.oracle.jdbc.ReadTimeout=60000
 \\\
 
-### Advanced Oracle Configuration
+### 🛠️ Advanced Oracle Configuration
 
 #### Oracle Version-Specific Settings
 
@@ -292,9 +296,9 @@ oracle.security.wallet.location=/path/to/wallet
 
 ---
 
-##  MCP Integration
+## 🔧 MCP Integration
 
-### Client Configuration
+### 🖥️ Client Configuration
 
 \\\json
 {
@@ -329,7 +333,7 @@ oracle.security.wallet.location=/path/to/wallet
 }
 \\\
 
-### Available MCP Tools
+### 🧰 Available MCP Tools
 
 <details>
 <summary><strong>Core Oracle Operations (25 tools)</strong></summary>
@@ -421,9 +425,9 @@ oracle.security.wallet.location=/path/to/wallet
 
 ---
 
-##  Testing
+## 🧪 Testing
 
-### Unit and Integration Tests
+### 🔍 Unit and Integration Tests
 
 \\\ash
 # Run all tests
@@ -436,7 +440,7 @@ mvn test -Dtest=OracleIntegrationTest
 mvn test -Dtest=AllOracleToolsValidationTest
 \\\
 
-### Testcontainers Integration
+### 🐋 Testcontainers Integration
 
 \\\java
 @Testcontainers
@@ -460,9 +464,9 @@ class OracleIntegrationTest {
 
 ---
 
-##  Docker Deployment
+## 🐳 Docker Deployment
 
-### Production Docker Build
+### 🏭 Production Docker Build
 
 \\\dockerfile
 # Multi-stage build for production
@@ -479,7 +483,7 @@ EXPOSE 8080
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app.jar"]
 \\\
 
-### Docker Compose Stack
+### 🔄 Docker Compose Stack
 
 \\\yaml
 version: '3.8'
@@ -525,9 +529,9 @@ volumes:
 
 ---
 
-##  Monitoring
+## 📈 Monitoring
 
-### Actuator Endpoints
+### 🔍 Actuator Endpoints
 
 \\\ash
 # Health check
@@ -540,7 +544,7 @@ curl http://localhost:8080/actuator/metrics
 curl http://localhost:8080/actuator/prometheus
 \\\
 
-### Grafana Dashboards
+### 📊 Grafana Dashboards
 
 Pre-configured dashboards for:
 - Oracle database performance metrics
@@ -548,7 +552,7 @@ Pre-configured dashboards for:
 - JVM and application metrics
 - Connection pool monitoring
 
-### Performance Monitoring
+### 🚀 Performance Monitoring
 
 #### Custom Oracle Metrics
 
@@ -583,16 +587,16 @@ java $JAVA_OPTS -jar mcp-oracledb-server-1.0.0-PRODUCTION.jar
 
 ---
 
-##  Security
+## 🔒 Security
 
-### Oracle Database Security
+### 🛡️ Oracle Database Security
 
 - **Connection Security:** TLS/SSL encryption support
 - **Authentication:** Oracle native authentication
 - **Authorization:** Role-based access control
 - **Audit Logging:** Oracle audit trail integration
 
-### Application Security
+### 🔐 Application Security
 
 - **Spring Security:** Baseline security configuration
 - **Input Validation:** SQL injection prevention
@@ -601,25 +605,25 @@ java $JAVA_OPTS -jar mcp-oracledb-server-1.0.0-PRODUCTION.jar
 
 ---
 
-##  Documentation
+## 📚 Documentation
 
-### API Reference
+### 📖 API Reference
 
 - **Tool Documentation:** Complete reference for all 55+ tools
 - **Configuration Guide:** Environment and profile setup
 - **Integration Examples:** MCP client integration patterns
 - **Troubleshooting:** Common issues and solutions
 
-### Oracle-Specific Guides
+### 📔 Oracle-Specific Guides
 
 - **Multi-Version Support:** Oracle 11g-23c compatibility
 - **PDB Operations:** Pluggable database management
 - **Performance Tuning:** Oracle-specific optimizations
 - **Enterprise Features:** VPD, TDE, and advanced security
 
-##  Troubleshooting
+## 🔧 Troubleshooting
 
-### Common Issues and Solutions
+### ❓ Common Issues and Solutions
 
 #### Oracle Connection Issues
 
@@ -687,11 +691,11 @@ oracle.jdbc.fetchSize=1000
 
 ---
 
-##  Contributing
+## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-### Development Setup
+### 💻 Development Setup
 
 \\\ash
 # Clone repository
@@ -706,13 +710,13 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
 ---
 
-##  License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-##  Related Projects
+## 🔗 Related Projects
 
 - **[MongoDB MCP Server](https://github.com/officeWorkPlace/spring-boot-ai-mongodb-mcp-server)** - Baseline reference (39 tools)
 - **[Global MCP Client](https://github.com/officeWorkPlace/global-mcp-client)** - Universal MCP client
@@ -720,7 +724,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-##  Support
+## 🆘 Support
 
 -  **Issues:** [GitHub Issues](https://github.com/officeWorkPlace/mcp-oracledb-server/issues)
 -  **Discussions:** [GitHub Discussions](https://github.com/officeWorkPlace/mcp-oracledb-server/discussions)
@@ -730,4 +734,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **MCP Oracle DB Server v1.0.0-PRODUCTION**  
 *Exceeding the MongoDB baseline with 41-92% more Oracle-specific capabilities*  
-*Built with  by officeWorkPlace*
+*Built with ❤️ by officeWorkPlace*

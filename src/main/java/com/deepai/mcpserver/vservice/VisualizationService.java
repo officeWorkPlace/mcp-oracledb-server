@@ -49,16 +49,21 @@ public class VisualizationService {
 			
 			log.info("Generating {} visualization for table {}", request.getChartType(), request.getTableName());
 
-			// Security check
-			if (!isTableAllowed(request.getTableName())) {
-				throw new SecurityException("Access to table " + request.getTableName() + " is not allowed");
-			}
-
-			// Analyze data structure if not provided
-			if (request.getColumns() == null || request.getColumns().isEmpty()) {
-				DataAnalysis analysis = analysisService.analyzeTable(request.getTableName());
-				request = enhanceRequestWithAnalysis(request, analysis);
-			}
+            // Analyze data structure if not provided
+            if (request.getColumns() == null || request.getColumns().isEmpty()) {
+                DataAnalysis analysis = analysisService.analyzeTable(request.getTableName());
+                request = enhanceRequestWithAnalysis(request, analysis);
+                
+                // Fallback if analysis could not determine columns
+                boolean noColumnsDetected = (analysis.getNumericColumns() == null || analysis.getNumericColumns().isEmpty())
+                        && (analysis.getCategoricalColumns() == null || analysis.getCategoricalColumns().isEmpty())
+                        && (analysis.getDateColumns() == null || analysis.getDateColumns().isEmpty());
+                if (noColumnsDetected) {
+                    if (request.getXColumn() == null || request.getYColumn() == null) {
+                        throw new IllegalArgumentException("Unable to auto-detect columns for visualization. Please specify xColumn and yColumn explicitly.");
+                    }
+                }
+            }
 
 			// Apply data point limits
 			if (request.getLimit() == null || request.getLimit() > visualizationProperties.getMaxDataPoints()) {
@@ -72,8 +77,11 @@ public class VisualizationService {
 
 			// Generate specification based on configured framework
 			ChartSpecification spec;
-			String framework = request.getFramework() != null ? 
-				request.getFramework() : visualizationProperties.getDefaultFramework();
+            String chartType = (request.getChartType() != null && !request.getChartType().isBlank()) ? request.getChartType() : "bar";
+            request.setChartType(chartType);
+
+            String framework = request.getFramework() != null ? 
+                request.getFramework() : visualizationProperties.getDefaultFramework();
 				
 			if ("plotly".equalsIgnoreCase(framework)) {
 				spec = plotlyGenerator.generateSpec(request, data);

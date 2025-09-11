@@ -1,0 +1,178 @@
+{
+  "dashboard": {
+    "title": "Custom Analytics Dashboard",
+    "subtitle": "Flexible Data Visualization Platform",
+    "theme": "dark",
+    "layout": "grid",
+    "refreshInterval": 30000,
+    "autoRefresh": true
+  },
+  "colors": {
+    "primary": "#6366f1",
+    "secondary": "#8b5cf6", 
+    "success": "#10b981",
+    "warning": "#f59e0b",
+    "danger": "#ef4444",
+    "background": "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+    "cardBackground": "rgba(255, 255, 255, 0.1)",
+    "textPrimary": "#f1f5f9",
+    "textSecondary": "#94a3b8",
+    "borderColor": "rgba(255, 255, 255, 0.1)"
+  },
+  "metrics": [
+    {
+      "id": "metric1",
+      "title": "Total Records",
+      "icon": "📊",
+      "type": "number",
+      "format": "comma",
+      "color": "primary",
+      "dataSource": "api",
+      "endpoint": "/api/metrics/total-records"
+    },
+    {
+      "id": "metric2", 
+      "title": "Success Rate",
+      "icon": "✅",
+      "type": "percentage",
+      "format": "percent",
+      "color": "success",
+      "dataSource": "api",
+      "endpoint": "/api/metrics/success-rate"
+    },
+    {
+      "id": "metric3",
+      "title": "Revenue",
+      "icon": "💰", 
+      "type": "currency",
+      "format": "currency",
+      "color": "warning",
+      "dataSource": "api",
+      "endpoint": "/api/metrics/revenue"
+    },
+    {
+      "id": "metric4",
+      "title": "Critical Issues",
+      "icon": "⚠️",
+      "type": "number",
+      "format": "number", 
+      "color": "danger",
+      "dataSource": "api",
+      "endpoint": "/api/metrics/critical-issues"
+    }
+  ],
+  "charts": [
+    {
+      "id": "mainChart",
+      "title": "Primary Analysis",
+      "icon": "📈",
+      "type": "bar",
+      "position": "full-width",
+      "height": 400,
+      "dataSource": "api",
+      "endpoint": "/api/charts/primary-data",
+      "refreshable": true,
+      "exportable": true,
+      "fullscreenable": true,
+      "insights": {
+        "enabled": true,
+        "autoGenerate": false,
+        "customInsights": [
+          "Peak performance observed during Q3 period",
+          "Significant growth trend in the last quarter", 
+          "Regional variations show interesting patterns"
+        ]
+      }
+    },
+    {
+      "id": "secondaryChart1",
+      "title": "Distribution Analysis",
+      "icon": "🎯", 
+      "type": "pie",
+      "position": "left",
+      "height": 350,
+      "dataSource": "api",
+      "endpoint": "/api/charts/distribution-data",
+      "refreshable": true,
+      "exportable": false
+    },
+    {
+      "id": "secondaryChart2",
+      "title": "Trend Comparison", 
+      "icon": "📊",
+      "type": "line",
+      "position": "right", 
+      "height": 350,
+      "dataSource": "api",
+      "endpoint": "/api/charts/trend-data",
+      "refreshable": true,
+      "exportable": false
+    }
+  ],
+  "dataSources": {
+    "api": {
+      "baseUrl": "http://localhost:3000",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN",
+        "Content-Type": "application/json"
+      },
+      "timeout": 10000
+    },
+    "database": {
+      "type": "oracle",
+      "connection": {
+        "host": "localhost",
+        "port": 1521,
+        "service": "XE",
+        "username": "YOUR_USERNAME",
+        "password": "YOUR_PASSWORD"
+      }
+    },
+    "csv": {
+      "uploadPath": "./data/uploads/",
+      "allowedExtensions": [".csv", ".xlsx", ".json"],
+      "maxFileSize": "10MB"
+    }
+  },
+  "controls": {
+    "dataSourceSelector": {
+      "enabled": true,
+      "options": ["sample", "api", "csv", "database"],
+      "default": "sample"
+    },
+    "chartTypeSelector": {
+      "enabled": true,
+      "options": ["bar", "line", "pie", "scatter", "area"],
+      "default": "bar"
+    },
+    "timeRangeSelector": {
+      "enabled": true,
+      "options": [
+        {"value": "7d", "label": "Last 7 Days"},
+        {"value": "30d", "label": "Last 30 Days"},
+        {"value": "90d", "label": "Last 90 Days"},
+        {"value": "1y", "label": "Last Year"}
+      ],
+      "default": "30d"
+    }
+  },
+  "features": {
+    "realTimeUpdates": true,
+    "darkMode": true,
+    "responsiveDesign": true,
+    "exportToImage": true,
+    "exportToPDF": true,
+    "fullscreenMode": true,
+    "customThemes": true,
+    "dataFiltering": true,
+    "drillDownAnalysis": false
+  },
+  "animations": {
+    "enabled": true,
+    "duration": 300,
+    "easing": "ease-out",
+    "loadingSpinners": true,
+    "hoverEffects": true,
+    "chartTransitions": true
+  }
+}

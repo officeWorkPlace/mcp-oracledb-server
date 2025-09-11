@@ -17,8 +17,10 @@ public class VegaLiteSpecGenerator {
     
     public ChartSpecification generateSpec(VisualizationRequest request, List<Map<String, Object>> data) {
         Map<String, Object> spec = new HashMap<>();
+        String chartType = (request.getChartType() != null && !request.getChartType().isBlank()) ? 
+            request.getChartType() : "bar";
         
-        switch (request.getChartType().toLowerCase()) {
+        switch (chartType.toLowerCase()) {
             case "bar":
                 spec = generateBarChart(request, data);
                 break;
@@ -34,7 +36,7 @@ public class VegaLiteSpecGenerator {
         
         return ChartSpecification.builder()
             .framework("vega-lite")
-            .chartType(request.getChartType())
+            .chartType(chartType)
             .specification(spec)
             .build();
     }

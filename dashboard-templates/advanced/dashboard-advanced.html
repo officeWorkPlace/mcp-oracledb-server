@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --danger: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            --dark-bg: #0a0e27;
+            --darker-bg: #070b20;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #b8bcc8;
+            --text-muted: #8892b0;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at center, #1a1f3e 0%, var(--dark-bg) 70%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        /* Main Container */
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 25px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-shadow: var(--glow);
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        /* Control Panel */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .control-group {
+            position: relative;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        select, input, .custom-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus, .custom-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            grid-column: span 2;
+            justify-content: flex-end;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        /* Advanced Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .metric-card.success::before { background: var(--success); }
+        .metric-card.warning::before { background: var(--warning); }
+        .metric-card.danger::before { background: var(--danger); }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .metric-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .metric-sparkline {
+            margin-top: 15px;
+            height: 40px;
+        }
+
+        /* Advanced Charts */
+        .charts-grid {
+            display: grid;
+            gap: 35px;
+        }
+
+        .chart-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .chart-container.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chart-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chart-title h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .chart-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            border-radius: 6px;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .chart-canvas {
+            position: relative;
+            height: 450px;
+            margin: 25px 0;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .chart-3d-container {
+            perspective: 1000px;
+        }
+
+        /* D3 Specific Styles */
+        .d3-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: var(--darker-bg);
+            color: var(--text-primary);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Loading States */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .chart-row { grid-template-columns: 1fr; }
+            .btn-group { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard { padding: 15px; }
+            .header h1 { font-size: 2.5rem; }
+            .controls { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Advanced Animations */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Real-time indicators */
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <h1><span class="live-indicator"></span>Advanced Analytics</h1>
+            <p>Real-time Data Intelligence Platform</p>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="dataSource">Data Source</label>
+                <select id="dataSource">
+                    <option value="realtime">Real-time Stream</option>
+                    <option value="api">REST API</option>
+                    <option value="websocket">WebSocket</option>
+                    <option value="database">Database</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="visualization">Visualization</label>
+                <select id="visualization">
+                    <option value="standard">Standard Charts</option>
+                    <option value="3d">3D Visualizations</option>
+                    <option value="heatmap">Heat Maps</option>
+                    <option value="network">Network Graph</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="timeframe">Time Frame</label>
+                <select id="timeframe">
+                    <option value="1h">Last Hour</option>
+                    <option value="6h">Last 6 Hours</option>
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="updateFreq">Update Frequency</label>
+                <select id="updateFreq">
+                    <option value="1">1 Second</option>
+                    <option value="5">5 Seconds</option>
+                    <option value="30">30 Seconds</option>
+                    <option value="60">1 Minute</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button onclick="toggleRealTime()">🔴 Live Mode</button>
+                <button onclick="exportDashboard()">📊 Export</button>
+                <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+            </div>
+        </div>
+
+        <!-- Advanced Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-trend trend-up">↗ +24%</div>
+                </div>
+                <div class="metric-value" id="metric-throughput">15.7K</div>
+                <div class="metric-label">Throughput/sec</div>
+                <div class="metric-sparkline">
+                    <canvas id="sparkline1"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card success">
+                <div class="metric-header">
+                    <div class="metric-icon">⚡</div>
+                    <div class="metric-trend trend-up">↗ +12%</div>
+                </div>
+                <div class="metric-value" id="metric-latency">2.1ms</div>
+                <div class="metric-label">Avg Latency</div>
+                <div class="metric-sparkline">
+                    <canvas id="sparkline2"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card warning">
+                <div class="metric-header">
+                    <div class="metric-icon">💾</div>
+                    <div class="metric-trend trend-down">↘ -8%</div>
+                </div>
+                <div class="metric-value" id="metric-memory">74.2%</div>
+                <div class="metric-label">Memory Usage</div>
+                <div class="metric-sparkline">
+                    <canvas id="sparkline3"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card danger">
+                <div class="metric-header">
+                    <div class="metric-icon">🔥</div>
+                    <div class="metric-trend trend-up">↗ +5%</div>
+                </div>
+                <div class="metric-value" id="metric-errors">0.3%</div>
+                <div class="metric-label">Error Rate</div>
+                <div class="metric-sparkline">
+                    <canvas id="sparkline4"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Charts -->
+        <div class="charts-grid">
+            <!-- Real-time Time Series -->
+            <div class="chart-container full-width">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <div class="chart-icon">📈</div>
+                        <h3>Real-time Performance Analytics</h3>
+                    </div>
+                    <div class="chart-actions">
+                        <button class="action-btn" onclick="toggleChartType('timeSeries')">Switch Type</button>
+                        <button class="action-btn" onclick="exportChart('timeSeriesChart')">Export</button>
+                    </div>
+                </div>
+                <div class="chart-canvas">
+                    <canvas id="timeSeriesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart Row -->
+            <div class="chart-row">
+                <!-- D3.js Network Visualization -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <div class="chart-icon">🕸️</div>
+                            <h3>Network Topology</h3>
+                        </div>
+                        <div class="chart-actions">
+                            <button class="action-btn" onclick="resetNetworkZoom()">Reset Zoom</button>
+                        </div>
+                    </div>
+                    <div class="chart-canvas">
+                        <svg id="networkChart" class="d3-chart"></svg>
+                    </div>
+                </div>
+
+                <!-- Heat Map -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <div class="chart-icon">🔥</div>
+                            <h3>Activity Heat Map</h3>
+                        </div>
+                        <div class="chart-actions">
+                            <button class="action-btn" onclick="updateHeatMap()">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="chart-canvas">
+                        <svg id="heatMapChart" class="d3-chart"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip"></div>
+
+    <script>
+        // Advanced Dashboard Configuration
+        class AdvancedDashboard {
+            constructor() {
+                this.charts = {};
+                this.realTimeMode = false;
+                this.updateInterval = null;
+                this.websocket = null;
+                this.config = {
+                    updateFrequency: 5000,
+                    maxDataPoints: 100,
+                    animations: true,
+                    realTimeUpdates: false
+                };
+                this.init();
+            }
+
+            init() {
+                this.createAnimatedBackground();
+                this.initializeCharts();
+                this.setupEventListeners();
+                this.startMetricsUpdates();
+                console.log('🚀 Advanced Dashboard initialized');
+            }
+
+            createAnimatedBackground() {
+                const bg = document.querySelector('.background-animation');
+                for (let i = 0; i < 15; i++) {
+                    const shape = document.createElement('div');
+                    shape.className = 'floating-shape';
+                    shape.style.left = Math.random() * 100 + '%';
+                    shape.style.width = shape.style.height = (Math.random() * 100 + 50) + 'px';
+                    shape.style.animationDelay = Math.random() * 20 + 's';
+                    shape.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    bg.appendChild(shape);
+                }
+            }
+
+            initializeCharts() {
+                this.createTimeSeriesChart();
+                this.createNetworkChart();
+                this.createHeatMapChart();
+                this.createSparklines();
+            }
+
+            createTimeSeriesChart() {
+                const ctx = document.getElementById('timeSeriesChart').getContext('2d');
+                
+                this.charts.timeSeries = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: 'Throughput',
+                            data: this.generateTimeSeriesData(),
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }, {
+                            label: 'Latency',
+                            data: this.generateTimeSeriesData(0.5),
+                            borderColor: '#f093fb',
+                            backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'minute'
+                                },
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#8892b0' }
+                            },
+                            y: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: '#8892b0' }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: { color: '#ffffff' }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+            }
+
+            createNetworkChart() {
+                const svg = d3.select('#networkChart');
+                const width = svg.node().getBoundingClientRect().width;
+                const height = svg.node().getBoundingClientRect().height;
+
+                svg.attr('width', width).attr('height', height);
+
+                // Sample network data
+                const nodes = [
+                    { id: 'server1', group: 1, value: 30 },
+                    { id: 'server2', group: 1, value: 25 },
+                    { id: 'database', group: 2, value: 40 },
+                    { id: 'cache', group: 2, value: 20 },
+                    { id: 'client1', group: 3, value: 15 },
+                    { id: 'client2', group: 3, value: 15 },
+                    { id: 'load_balancer', group: 1, value: 35 }
+                ];
+
+                const links = [
+                    { source: 'load_balancer', target: 'server1' },
+                    { source: 'load_balancer', target: 'server2' },
+                    { source: 'server1', target: 'database' },
+                    { source: 'server2', target: 'database' },
+                    { source: 'server1', target: 'cache' },
+                    { source: 'client1', target: 'load_balancer' },
+                    { source: 'client2', target: 'load_balancer' }
+                ];
+
+                const simulation = d3.forceSimulation(nodes)
+                    .force('link', d3.forceLink(links).id(d => d.id))
+                    .force('charge', d3.forceManyBody().strength(-300))
+                    .force('center', d3.forceCenter(width / 2, height / 2));
+
+                const link = svg.append('g')
+                    .selectAll('line')
+                    .data(links)
+                    .join('line')
+                    .attr('stroke', '#667eea')
+                    .attr('stroke-opacity', 0.6)
+                    .attr('stroke-width', 2);
+
+                const node = svg.append('g')
+                    .selectAll('circle')
+                    .data(nodes)
+                    .join('circle')
+                    .attr('r', d => d.value / 2)
+                    .attr('fill', d => d.group === 1 ? '#667eea' : d.group === 2 ? '#f093fb' : '#4facfe')
+                    .call(d3.drag()
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended));
+
+                const label = svg.append('g')
+                    .selectAll('text')
+                    .data(nodes)
+                    .join('text')
+                    .text(d => d.id)
+                    .attr('font-size', 12)
+                    .attr('fill', '#ffffff')
+                    .attr('text-anchor', 'middle')
+                    .attr('dy', 4);
+
+                simulation.on('tick', () => {
+                    link
+                        .attr('x1', d => d.source.x)
+                        .attr('y1', d => d.source.y)
+                        .attr('x2', d => d.target.x)
+                        .attr('y2', d => d.target.y);
+
+                    node
+                        .attr('cx', d => d.x)
+                        .attr('cy', d => d.y);
+
+                    label
+                        .attr('x', d => d.x)
+                        .attr('y', d => d.y);
+                });
+
+                function dragstarted(event) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    event.subject.fx = event.subject.x;
+                    event.subject.fy = event.subject.y;
+                }
+
+                function dragged(event) {
+                    event.subject.fx = event.x;
+                    event.subject.fy = event.y;
+                }
+
+                function dragended(event) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    event.subject.fx = null;
+                    event.subject.fy = null;
+                }
+            }
+
+            createHeatMapChart() {
+                const svg = d3.select('#heatMapChart');
+                const width = svg.node().getBoundingClientRect().width;
+                const height = svg.node().getBoundingClientRect().height;
+
+                svg.attr('width', width).attr('height', height);
+
+                // Generate heat map data
+                const data = [];
+                const hours = Array.from({length: 24}, (_, i) => i);
+                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+                days.forEach((day, dayIndex) => {
+                    hours.forEach((hour, hourIndex) => {
+                        data.push({
+                            day: day,
+                            hour: hour,
+                            value: Math.random() * 100,
+                            dayIndex: dayIndex,
+                            hourIndex: hourIndex
+                        });
+                    });
+                });
+
+                const cellSize = Math.min(width / 24, height / 7);
+                const colorScale = d3.scaleSequential(d3.interpolateViridis).domain([0, 100]);
+
+                const cells = svg.selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('x', d => d.hourIndex * cellSize)
+                    .attr('y', d => d.dayIndex * cellSize)
+                    .attr('width', cellSize - 1)
+                    .attr('height', cellSize - 1)
+                    .attr('fill', d => colorScale(d.value))
+                    .on('mouseover', function(event, d) {
+                        const tooltip = d3.select('.tooltip');
+                        tooltip.style('opacity', 1)
+                            .html(`Day: ${d.day}<br>Hour: ${d.hour}:00<br>Value: ${d.value.toFixed(1)}`)
+                            .style('left', event.pageX + 10 + 'px')
+                            .style('top', event.pageY - 10 + 'px');
+                    })
+                    .on('mouseout', function() {
+                        d3.select('.tooltip').style('opacity', 0);
+                    });
+            }
+
+            createSparklines() {
+                ['sparkline1', 'sparkline2', 'sparkline3', 'sparkline4'].forEach((id, index) => {
+                    const ctx = document.getElementById(id).getContext('2d');
+                    this.charts[id] = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: Array.from({length: 20}, (_, i) => i),
+                            datasets: [{
+                                data: Array.from({length: 20}, () => Math.random() * 100),
+                                borderColor: ['#667eea', '#10b981', '#f59e0b', '#ef4444'][index],
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: { display: false },
+                                y: { display: false }
+                            }
+                        }
+                    });
+                });
+            }
+
+            generateTimeSeriesData(multiplier = 1) {
+                const now = new Date();
+                const data = [];
+                for (let i = 60; i >= 0; i--) {
+                    data.push({
+                        x: new Date(now.getTime() - i * 60000),
+                        y: Math.random() * 100 * multiplier + 50
+                    });
+                }
+                return data;
+            }
+
+            setupEventListeners() {
+                document.getElementById('updateFreq').addEventListener('change', (e) => {
+                    this.config.updateFrequency = parseInt(e.target.value) * 1000;
+                    if (this.realTimeMode) {
+                        this.stopRealTimeUpdates();
+                        this.startRealTimeUpdates();
+                    }
+                });
+            }
+
+            startMetricsUpdates() {
+                setInterval(() => {
+                    this.updateMetrics();
+                    this.updateSparklines();
+                }, this.config.updateFrequency);
+            }
+
+            updateMetrics() {
+                document.getElementById('metric-throughput').textContent = 
+                    (Math.random() * 10 + 10).toFixed(1) + 'K';
+                document.getElementById('metric-latency').textContent = 
+                    (Math.random() * 5 + 1).toFixed(1) + 'ms';
+                document.getElementById('metric-memory').textContent = 
+                    (Math.random() * 30 + 60).toFixed(1) + '%';
+                document.getElementById('metric-errors').textContent = 
+                    (Math.random() * 1).toFixed(2) + '%';
+            }
+
+            updateSparklines() {
+                Object.keys(this.charts).forEach(chartId => {
+                    if (chartId.includes('sparkline')) {
+                        const chart = this.charts[chartId];
+                        chart.data.datasets[0].data.shift();
+                        chart.data.datasets[0].data.push(Math.random() * 100);
+                        chart.update('none');
+                    }
+                });
+            }
+
+            toggleRealTime() {
+                this.realTimeMode = !this.realTimeMode;
+                const btn = event.target;
+                
+                if (this.realTimeMode) {
+                    btn.textContent = '🟢 Live Mode';
+                    btn.classList.add('pulse');
+                    this.startRealTimeUpdates();
+                } else {
+                    btn.textContent = '🔴 Live Mode';
+                    btn.classList.remove('pulse');
+                    this.stopRealTimeUpdates();
+                }
+            }
+
+            startRealTimeUpdates() {
+                this.updateInterval = setInterval(() => {
+                    this.updateTimeSeriesChart();
+                    this.updateMetrics();
+                }, this.config.updateFrequency);
+            }
+
+            stopRealTimeUpdates() {
+                if (this.updateInterval) {
+                    clearInterval(this.updateInterval);
+                    this.updateInterval = null;
+                }
+            }
+
+            updateTimeSeriesChart() {
+                const chart = this.charts.timeSeries;
+                const now = new Date();
+                
+                chart.data.datasets.forEach(dataset => {
+                    dataset.data.shift();
+                    dataset.data.push({
+                        x: now,
+                        y: Math.random() * 100 + 50
+                    });
+                });
+                
+                chart.update('none');
+            }
+        }
+
+        // Global functions
+        window.toggleRealTime = function() {
+            dashboard.toggleRealTime();
+        };
+
+        window.exportDashboard = function() {
+            console.log('Exporting dashboard...');
+            // Implement export functionality
+        };
+
+        window.toggleFullscreen = function() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        };
+
+        window.resetNetworkZoom = function() {
+            console.log('Resetting network zoom...');
+        };
+
+        window.updateHeatMap = function() {
+            dashboard.createHeatMapChart();
+        };
+
+        // Initialize dashboard
+        let dashboard;
+        document.addEventListener('DOMContentLoaded', function() {
+            dashboard = new AdvancedDashboard();
+        });
+    </script>
+</body>
+</html>

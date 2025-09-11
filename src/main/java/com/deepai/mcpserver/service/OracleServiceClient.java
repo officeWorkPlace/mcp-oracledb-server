@@ -41,7 +41,7 @@ public class OracleServiceClient {
 
     // ========== DATABASE MANAGEMENT (7 TOOLS) ==========
 
-    @Tool(name = "listDatabases", description = "List Oracle databases including CDBs and PDBs")
+    @Tool(name = "get_all_databases", description = "Retrieve comprehensive list of Oracle databases including Container Databases (CDBs) and Pluggable Databases (PDBs) with status information")
     public Map<String, Object> listDatabases(
         @ToolParam(description = "Include Pluggable Databases (PDBs) in results", required = false) Boolean includePdbs,
         @ToolParam(description = "Include database status information", required = false) Boolean includeStatus) {
@@ -110,7 +110,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "createDatabase", description = "Create Oracle database or PDB")
+    @Tool(name = "create_oracle_database", description = "Create new Oracle database or Pluggable Database (PDB) with specified configuration and storage requirements")
     public Map<String, Object> createDatabase(
          @ToolParam(description = "Name of the database to create", required = true) String databaseName,
          @ToolParam(description = "Type of database: traditional or pdb", required = false) String createType,
@@ -143,7 +143,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "dropDatabase", description = "Drop Oracle database with safety checks")
+    @Tool(name = "drop_oracle_database", description = "Safely drop Oracle database with built-in safety checks to prevent accidental deletion of system databases")
     public Map<String, Object> dropDatabase(
          @ToolParam(description = "Name of the database to drop", required = true) String databaseName,
          @ToolParam(description = "Force drop including datafiles", required = false) Boolean force) {
@@ -176,7 +176,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "getDatabaseStats", description = "Get comprehensive Oracle database statistics")
+    @Tool(name = "analyze_database_statistics", description = "Analyze comprehensive Oracle database statistics including table counts, user counts, indexes, and storage metrics with AWR data support")
     @Transactional(readOnly = true)
     public Map<String, Object> getDatabaseStats(
          @ToolParam(description = "Include AWR (Automatic Workload Repository) data", required = false) Boolean includeAwrData) {
@@ -277,7 +277,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "getDatabaseSize", description = "Analyze Oracle database size and tablespace usage")
+    @Tool(name = "analyze_database_storage", description = "Analyze Oracle database storage usage including total size, tablespace breakdown, and datafile distribution for capacity planning")
     public Map<String, Object> getDatabaseSize(
          @ToolParam(description = "Include detailed tablespace breakdown", required = false) Boolean includeTablespaces) {
 
@@ -317,7 +317,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "performBackup", description = "Perform Oracle database backup using RMAN")
+    @Tool(name = "create_database_backup", description = "Create Oracle database backup using Recovery Manager (RMAN) with configurable backup types and destinations")
     public Map<String, Object> performBackup(
          String backupType,
          String backupLocation) {
@@ -350,7 +350,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "managePdb", description = "Manage Oracle Pluggable Databases (PDBs)")
+    @Tool(name = "manage_pluggable_database", description = "Manage Oracle Pluggable Database (PDB) operations including create, open, close, and drop operations for multitenant architecture")
     public Map<String, Object> managePdb(
          String operation,
          String pdbName,
@@ -399,7 +399,7 @@ public class OracleServiceClient {
 
     // ========== SCHEMA/USER MANAGEMENT (10 TOOLS) ==========
 
-    @Tool(name = "listSchemas", description = "List all Oracle schemas/users with detailed information")
+    @Tool(name = "get_all_schemas", description = "Retrieve all Oracle schemas and users with detailed information including creation dates, account status, and privileges")
     public Map<String, Object> listSchemas(
          @ToolParam(description = "Include system schemas in results", required = false) Boolean includeSystemSchemas) {
 
@@ -483,7 +483,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "createSchema", description = "Create new Oracle schema with tablespace and quotas")
+    @Tool(name = "create_database_schema", description = "Create new Oracle database schema with specified tablespace assignment and storage quotas for organized data management")
     public Map<String, Object> createSchema(
          String schemaName,
          String password,
@@ -521,7 +521,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "createUser", description = "Create new Oracle database user with privileges")
+    @Tool(name = "create_database_user", description = "Create new Oracle database user with configurable privileges, tablespace assignments, and security settings")
     public Map<String, Object> createUser(
          @ToolParam(description = "Username for new user", required = true) String username,
          @ToolParam(description = "Password for user", required = true) String password,
@@ -569,7 +569,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "grantPrivileges", description = "Grant system or object privileges to Oracle users")
+    @Tool(name = "grant_user_privileges", description = "Grant system or object-level privileges to Oracle users for controlling database access and operations")
     public Map<String, Object> grantPrivileges(
          String username,
          String privilegeType,
@@ -609,7 +609,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "revokePrivileges", description = "Revoke privileges from Oracle users")
+    @Tool(name = "revoke_user_privileges", description = "Revoke previously granted privileges from Oracle users to restrict database access and maintain security")
     public Map<String, Object> revokePrivileges(
          String username,
          String privilegeType,
@@ -649,7 +649,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "manageUserSessions", description = "List and manage Oracle user sessions")
+    @Tool(name = "manage_active_sessions", description = "Monitor and manage active Oracle user sessions including listing sessions and terminating problematic connections")
     public Map<String, Object> manageUserSessions(
          String operation,
          String username,
@@ -703,7 +703,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "lockAccount", description = "Lock Oracle user account for security")
+    @Tool(name = "lock_user_account", description = "Lock Oracle user account for security purposes to prevent unauthorized access while maintaining data integrity")
     public Map<String, Object> lockAccount(
          String username,
          String reason) {
@@ -727,7 +727,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "unlockAccount", description = "Unlock Oracle user account and optionally reset password")
+    @Tool(name = "unlock_user_account", description = "Unlock Oracle user account and optionally reset password to restore database access for legitimate users")
     public Map<String, Object> unlockAccount(
          String username,
          Boolean resetPassword,
@@ -758,7 +758,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "manageUserProfiles", description = "Create and manage Oracle user profiles")
+    @Tool(name = "manage_user_profiles", description = "Create and manage Oracle user profiles to enforce consistent security policies and resource limits across database users")
     public Map<String, Object> manageUserProfiles(
          String operation,
          String profileName,
@@ -798,7 +798,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "configurePasswordPolicies", description = "Configure Oracle password policies and security settings")
+    @Tool(name = "configure_password_policies", description = "Configure Oracle password policies and security settings including complexity requirements, expiration, and failed login attempts")
     public Map<String, Object> configurePasswordPolicies(
          String profileName,
          Integer passwordLifeDays,
@@ -847,7 +847,7 @@ public class OracleServiceClient {
 
     // ========== TABLE OPERATIONS (8 TOOLS) ==========
 
-    @Tool(name = "listTables", description = "List all tables in Oracle database with metadata")
+    @Tool(name = "get_all_tables", description = "Retrieve all tables in Oracle database with comprehensive metadata including owner, tablespace, row counts, and analysis statistics")
     public Map<String, Object> listTables(
          @ToolParam(description = "Schema name to filter tables", required = false) String schemaName,
          @ToolParam(description = "Include system tables", required = false) Boolean includeSystemTables) {
@@ -892,7 +892,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "createTable", description = "Create new Oracle table with columns and constraints")
+    @Tool(name = "create_database_table", description = "Create new Oracle database table with defined columns, data types, constraints, and tablespace assignment")
     public Map<String, Object> createTable(
          String tableName,
          List<Map<String, Object>> columns,
@@ -919,7 +919,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "describeTable", description = "Describe Oracle table structure and constraints")
+    @Tool(name = "analyze_table_structure", description = "Analyze Oracle table structure showing detailed column definitions, data types, constraints, and relationships")
     public Map<String, Object> describeTable(
          String tableName,
          String schemaName) {
@@ -998,7 +998,7 @@ public class OracleServiceClient {
 //        }
 //    }
     
-    @Tool(name = "insertRecords", description = "Insert multiple records into Oracle table")
+    @Tool(name = "insert_table_records", description = "Insert multiple records into Oracle table with batch processing and error handling for efficient data loading")
     public Map<String, Object> insertRecords(
             String tableName,
             List<Map<String, Object>> records) {
@@ -1048,7 +1048,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "queryRecords", description = "Query records from Oracle table with filters")
+    @Tool(name = "query_table_records", description = "Query and retrieve records from Oracle table with flexible filtering, sorting, and pagination support")
     public Map<String, Object> queryRecords(
          String tableName,
          List<String> columns,
@@ -1121,7 +1121,7 @@ public class OracleServiceClient {
 //        }
 //    }
     
-    @Tool(name = "updateRecords", description = "Update records in Oracle table")
+    @Tool(name = "update_table_records", description = "Update existing records in Oracle table with conditional WHERE clauses and validation for safe data modification")
     public Map<String, Object> updateRecords(
             String tableName,
             Map<String, Object> updateData,
@@ -1178,7 +1178,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "deleteRecords", description = "Delete records from Oracle table with referential integrity checks")
+    @Tool(name = "delete_table_records", description = "Delete records from Oracle table with referential integrity checks and cascade options for safe data removal")
     public Map<String, Object> deleteRecords(
          String tableName,
          String whereClause,
@@ -1220,7 +1220,7 @@ public class OracleServiceClient {
         }
     }
 
-    @Tool(name = "truncateTable", description = "Truncate Oracle table for fast data clearing")
+    @Tool(name = "truncate_table_data", description = "Quickly truncate Oracle table to remove all data while preserving table structure and optionally managing storage")
     public Map<String, Object> truncateTable(
          String tableName,
          Boolean reuseStorage) {

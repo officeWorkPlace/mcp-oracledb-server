@@ -1,9 +1,9 @@
 package com.deepai.mcpserver.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Component
 @ConfigurationProperties(prefix = "oracle.visualization")
 public class VisualizationProperties {
 

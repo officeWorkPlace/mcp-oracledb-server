@@ -34,16 +34,29 @@ public class OracleSchemaDiscovery {
         }
 
         try {
+            // GENERIC FIX: More flexible schema query that works across different Oracle setups
             String sql = """
                 SELECT column_name, data_type, data_length, data_precision, data_scale,
                        nullable, data_default, column_id
-                FROM all_tab_columns 
-                WHERE table_name = ? 
-                AND owner IN (USER, 'C##DEEPAI') 
-                ORDER BY column_id
+                FROM (
+                    SELECT column_name, data_type, data_length, data_precision, data_scale,
+                           nullable, data_default, column_id
+                    FROM user_tab_columns WHERE table_name = ?
+                    UNION ALL
+                    SELECT column_name, data_type, data_length, data_precision, data_scale,
+                           nullable, data_default, column_id
+                    FROM all_tab_columns 
+                    WHERE table_name = ? AND owner IN (SELECT USER FROM DUAL)
+                    UNION ALL
+                    SELECT column_name, data_type, data_length, data_precision, data_scale,
+                           nullable, data_default, column_id
+                    FROM all_tab_columns 
+                    WHERE table_name = ? AND owner = 'C##DEEPAI'
+                ) ORDER BY column_id
                 """;
 
-            List<Map<String, Object>> columns = jdbcTemplate.queryForList(sql, tableName.toUpperCase());
+            List<Map<String, Object>> columns = jdbcTemplate.queryForList(sql, 
+                tableName.toUpperCase(), tableName.toUpperCase(), tableName.toUpperCase());
             
             List<ColumnInfo> columnInfos = columns.stream()
                 .map(this::mapToColumnInfo)

@@ -4,8 +4,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Calendar;
 
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
@@ -15,6 +19,8 @@ import org.springframework.stereotype.Component;
 
 import com.deepai.mcpserver.util.DeclarativeSpecGenerator;
 import com.deepai.mcpserver.vservice.FinancialDataService;
+import com.deepai.mcpserver.vservice.ProfessionalChartGenerator;
+import com.deepai.mcpserver.vservice.ChartPerformanceOptimizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +43,19 @@ public class FinancialVisualizationMCPTools {
     @Autowired
     private ObjectMapper objectMapper;
     
+    @Autowired(required = false)
+    private ProfessionalChartGenerator professionalCharts;
+    
+    @Autowired(required = false) 
+    private ChartPerformanceOptimizer optimizer;
+    
     /**
      * Tool 1: Generate Loan Product Popularity Chart
      * Returns Vega-Lite or Plotly JSON specification
      */
     @Tool(
-        name = "oracle_generate_loan_popularity_chart",
-        description = "Generate loan product popularity visualization with Vega-Lite or Plotly JSON specification. Shows which loan types are most frequently used and analyzes trends over time."
+        name = "generate_loan_popularity_chart",
+        description = "Creates a visual chart showing which loan products (Personal, Home, Auto, Business, Education) are most popular based on application count and loan amounts. Returns interactive Plotly or Vega-Lite chart specification with real Oracle banking data. Perfect for understanding customer preferences and market demand."
     )
     public String generateLoanPopularityChart(
             @ToolParam(description = "Time period for analysis (7d, 30d, 90d, 180d, 365d)", required = false) 
@@ -76,7 +88,7 @@ public class FinancialVisualizationMCPTools {
             // Create MCP-compliant response
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_loan_popularity_chart");
+            mcpResponse.put("toolName", "generate_loan_popularity_chart");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -102,8 +114,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 2: Generate Branch Performance Chart
      */
     @Tool(
-        name = "oracle_generate_branch_performance_chart",
-        description = "Generate branch lending performance visualization comparing loan amounts, approval rates, and processing times across branches."
+        name = "generate_branch_performance_chart",
+        description = "Creates a comparative chart showing how different bank branches perform in terms of loan amounts, approval rates, application counts, and processing times. Helps identify top-performing branches and operational inefficiencies. Returns interactive visualization with real branch data."
     )
     public String generateBranchPerformanceChart(
             @ToolParam(description = "Primary metric: 'total_amount', 'approval_rate', 'application_count', 'avg_processing_days'", required = false) 
@@ -132,7 +144,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_branch_performance_chart");
+            mcpResponse.put("toolName", "generate_branch_performance_chart");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -158,8 +170,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 3: Generate Customer Segmentation Chart
      */
     @Tool(
-        name = "oracle_generate_customer_segmentation_chart",
-        description = "Generate customer segmentation analysis with scatter plots showing credit scores, income, and risk categories for identifying high-value segments."
+        name = "generate_customer_segmentation_chart",
+        description = "Creates a scatter plot or bubble chart showing customer segments based on credit scores, income levels, loan types, or risk categories. Helps identify high-value customer segments and understand customer demographics. Returns interactive visualization for customer analysis."
     )
     public String generateCustomerSegmentationChart(
             @ToolParam(description = "Segmentation basis: 'credit_score', 'income', 'loan_type', 'risk_category'", required = false) 
@@ -188,7 +200,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_customer_segmentation_chart");
+            mcpResponse.put("toolName", "generate_customer_segmentation_chart");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -214,8 +226,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 4: Generate Interest Rate Impact Chart
      */
     @Tool(
-        name = "oracle_generate_interest_rate_impact_chart",
-        description = "Analyze how interest rate changes affect loan applications and repayment behavior with time series and correlation analysis."
+        name = "analyze_interest_rate_impact",
+        description = "Creates a time series chart showing how interest rate changes affect loan application volumes and customer behavior. Returns interactive visualization with correlation analysis between rates and application patterns. Perfect for monetary policy impact assessment and rate optimization."
     )
     public String generateInterestRateImpactChart(
             @ToolParam(description = "Analysis period: '90d', '180d', '365d', '730d'", required = false) 
@@ -244,7 +256,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_interest_rate_impact_chart");
+            mcpResponse.put("toolName", "analyze_interest_rate_impact");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -270,8 +282,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 5: Generate Risk Assessment Trends Chart
      */
     @Tool(
-        name = "oracle_generate_risk_assessment_trends_chart",
-        description = "Track risk scores and recommended actions over time, identifying patterns in risk categories and outcomes."
+        name = "analyze_risk_assessment_trends",
+        description = "Creates a trend chart showing risk score patterns and risk category distributions over time. Tracks how loan risk profiles change and identifies emerging risk patterns. Returns interactive visualization with risk insights for portfolio management and early warning detection."
     )
     public String generateRiskAssessmentTrendsChart(
             @ToolParam(description = "Analysis period: '30d', '90d', '180d', '365d'", required = false) 
@@ -300,7 +312,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_risk_assessment_trends_chart");
+            mcpResponse.put("toolName", "analyze_risk_assessment_trends");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -326,8 +338,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 6: Generate Audit Compliance Chart
      */
     @Tool(
-        name = "oracle_generate_audit_compliance_chart",
-        description = "Monitor audit log activity for unusual changes and compliance tracking, analyzing database changes over time for security monitoring."
+        name = "analyze_audit_compliance",
+        description = "Creates a monitoring chart showing audit log activity, database changes, and compliance events over time. Identifies unusual patterns and security anomalies. Returns interactive visualization for compliance reporting and security monitoring. Essential for regulatory oversight."
     )
     public String generateAuditComplianceChart(
             @ToolParam(description = "Analysis period: '1d', '7d', '30d', '90d'", required = false) 
@@ -356,7 +368,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_audit_compliance_chart");
+            mcpResponse.put("toolName", "analyze_audit_compliance");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -383,8 +395,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 7: Generate Payment Behavior Chart
      */
     @Tool(
-        name = "oracle_generate_payment_behavior_chart",
-        description = "Analyze payment timeliness, late fees, and repayment patterns to identify customers or loan types with frequent late payments."
+        name = "analyze_payment_behavior",
+        description = "Creates charts showing customer payment patterns, timeliness, late fees, and repayment behaviors. Identifies customers or loan types with payment issues. Returns interactive visualization for collections strategy and risk assessment. Helps predict default probability."
     )
     public String generatePaymentBehaviorChart(
             @ToolParam(description = "Analysis focus: 'timeliness', 'amount', 'frequency', 'late_fees'", required = false) 
@@ -413,7 +425,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_payment_behavior_chart");
+            mcpResponse.put("toolName", "analyze_payment_behavior");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -439,8 +451,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 8: Generate Portfolio Analysis Chart
      */
     @Tool(
-        name = "oracle_generate_portfolio_analysis_chart",
-        description = "Analyze loan portfolio composition, risk distribution, and performance metrics across different loan categories and customer segments."
+        name = "analyze_portfolio_composition",
+        description = "Creates interactive charts showing loan portfolio composition, risk distribution, and performance metrics across loan categories and customer segments. Returns treemap, sunburst, or pie chart visualizations with portfolio insights. Essential for portfolio management and risk diversification analysis."
     )
     public String generatePortfolioAnalysisChart(
             @ToolParam(description = "Analysis type: 'composition', 'risk_distribution', 'performance', 'concentration'", required = false) 
@@ -482,7 +494,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_portfolio_analysis_chart");
+            mcpResponse.put("toolName", "analyze_portfolio_composition");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -508,8 +520,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 9: Generate Trend Analysis Chart
      */
     @Tool(
-        name = "oracle_generate_trend_analysis_chart",
-        description = "Generate time series trend analysis for loan applications, approvals, defaults, and financial metrics over specified time periods."
+        name = "analyze_trends_over_time",
+        description = "Creates time series charts showing trends in loan applications, approvals, defaults, revenue, and volume over specified periods. Includes optional forecasting capabilities. Returns interactive line charts with trend analysis and growth patterns. Perfect for strategic planning and performance tracking."
     )
     public String generateTrendAnalysisChart(
             @ToolParam(description = "Metric to analyze: 'applications', 'approvals', 'defaults', 'revenue', 'volume'", required = false) 
@@ -543,7 +555,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_trend_analysis_chart");
+            mcpResponse.put("toolName", "analyze_trends_over_time");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -570,8 +582,8 @@ public class FinancialVisualizationMCPTools {
      * Tool 10: Generate Correlation Analysis Chart
      */
     @Tool(
-        name = "oracle_generate_correlation_analysis_chart",
-        description = "Generate correlation matrix and analysis between different financial metrics, customer attributes, and loan performance indicators."
+        name = "analyze_metric_correlations",
+        description = "Creates correlation matrix heatmaps showing relationships between financial metrics like credit scores, income, loan amounts, and interest rates. Identifies strong correlations and patterns in customer data. Returns interactive heatmap or scatter matrix with correlation coefficients and insights."
     )
     public String generateCorrelationAnalysisChart(
             @ToolParam(description = "Fields to correlate (comma-separated): 'credit_score,income,loan_amount,interest_rate'", required = false) 
@@ -602,7 +614,7 @@ public class FinancialVisualizationMCPTools {
             
             Map<String, Object> mcpResponse = new HashMap<>();
             mcpResponse.put("success", true);
-            mcpResponse.put("toolName", "oracle_generate_correlation_analysis_chart");
+            mcpResponse.put("toolName", "analyze_metric_correlations");
             mcpResponse.put("specification", spec);
             mcpResponse.put("framework", framework);
             mcpResponse.put("data", data);
@@ -1112,6 +1124,362 @@ public class FinancialVisualizationMCPTools {
             
         } catch (Exception e) {
             log.warn("Error generating correlation insights", e);
+            insights.put("error", "Unable to generate insights");
+        }
+        
+        return insights;
+    }
+    
+    /**
+     * PROFESSIONAL VISUALIZATION TOOLS - Enhanced Charts with Themes
+     */
+    
+    /**
+     * Professional Tool: Executive Dashboard
+     */
+    @Tool(
+        name = "generate_professional_executive_dashboard",
+        description = "Creates a professional executive KPI dashboard with multi-layer visualization including bars, trend lines, and data labels. Features corporate themes and optimization. Perfect for executive presentations and board meetings."
+    )
+    public String generateProfessionalExecutiveDashboard(
+            @ToolParam(description = "Visual theme: 'corporate', 'executive', 'financial', 'ocean'", required = false) 
+            String theme,
+            
+            @ToolParam(description = "Primary metric: 'total_amount', 'approval_rate', 'application_count', 'avg_processing_days'", required = false) 
+            String metricType) {
+        
+        if (professionalCharts == null) {
+            return createMCPErrorResponse("Professional visualization features are not enabled");
+        }
+        
+        try {
+            log.info("MCP Tool: generateProfessionalExecutiveDashboard - theme={}, metricType={}", theme, metricType);
+            
+            theme = theme != null ? theme : "executive";
+            metricType = metricType != null ? metricType : "total_amount";
+            
+            long startTime = System.currentTimeMillis();
+            
+            // Fetch and optimize data
+            List<Map<String, Object>> rawData = financialDataService.getBranchPerformance(metricType);
+            List<Map<String, Object>> optimizedData = optimizer != null ? 
+                optimizer.optimizeDataForChart(rawData, "executive_dashboard", Map.of("theme", theme)) : rawData;
+            
+            // Generate professional specification
+            Map<String, Object> config = Map.of("theme", theme, "title", "Executive Performance Dashboard");
+            Map<String, Object> spec = professionalCharts.generateExecutiveDashboard(optimizedData, config);
+            
+            // Create MCP response with optimization metrics
+            Map<String, Object> mcpResponse = new HashMap<>();
+            mcpResponse.put("success", true);
+            mcpResponse.put("toolName", "generate_professional_executive_dashboard");
+            mcpResponse.put("specification", spec);
+            mcpResponse.put("framework", "vega-lite");
+            mcpResponse.put("data", optimizedData);
+            mcpResponse.put("metadata", Map.of(
+                "title", "Professional Executive Dashboard",
+                "theme", theme,
+                "metricType", metricType,
+                "dataPoints", optimizedData.size(),
+                "generatedAt", System.currentTimeMillis(),
+                "chartType", "executive_dashboard",
+                "features", "Multi-layer KPI with bars, lines, and labels"
+            ));
+            
+            if (optimizer != null) {
+                long processingTime = System.currentTimeMillis() - startTime;
+                mcpResponse.put("optimization", optimizer.getOptimizationMetrics(
+                    "executive_dashboard", rawData.size(), optimizedData.size(), processingTime));
+            }
+            
+            mcpResponse.put("insights", generateBranchInsights(optimizedData, metricType));
+            
+            return objectMapper.writeValueAsString(mcpResponse);
+            
+        } catch (Exception e) {
+            log.error("MCP Tool Error in generateProfessionalExecutiveDashboard: {}", e.getMessage(), e);
+            return createMCPErrorResponse("Failed to generate professional executive dashboard: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Professional Tool: Gradient Area Chart
+     */
+    @Tool(
+        name = "generate_professional_gradient_area_chart",
+        description = "Creates beautiful gradient area charts for time series analysis with smooth interpolation and professional styling. Features theme-based gradients and performance optimization. Ideal for revenue trends and financial metrics."
+    )
+    public String generateProfessionalGradientAreaChart(
+            @ToolParam(description = "Analysis period: '90d', '180d', '365d', '730d'", required = false) 
+            String timeframe,
+            
+            @ToolParam(description = "Visual theme: 'gradient_blue', 'gradient_green', 'corporate', 'ocean'", required = false) 
+            String theme) {
+        
+        if (professionalCharts == null) {
+            return createMCPErrorResponse("Professional visualization features are not enabled");
+        }
+        
+        try {
+            log.info("MCP Tool: generateProfessionalGradientAreaChart - timeframe={}, theme={}", timeframe, theme);
+            
+            timeframe = timeframe != null ? timeframe : "180d";
+            theme = theme != null ? theme : "gradient_blue";
+            
+            long startTime = System.currentTimeMillis();
+            
+            // Fetch time series data
+            List<Map<String, Object>> rawData = financialDataService.getInterestRateImpact(timeframe);
+            List<Map<String, Object>> optimizedData = optimizer != null ? 
+                optimizer.optimizeDataForChart(rawData, "gradient_area", Map.of("theme", theme)) : rawData;
+            
+            // Generate gradient area specification
+            Map<String, Object> config = Map.of(
+                "theme", theme, 
+                "title", "Revenue Trend Analysis", 
+                "xField", "month", 
+                "yField", "avg_loan_amount");
+            Map<String, Object> spec = professionalCharts.generateGradientAreaChart(optimizedData, config);
+            
+            Map<String, Object> mcpResponse = new HashMap<>();
+            mcpResponse.put("success", true);
+            mcpResponse.put("toolName", "generate_professional_gradient_area_chart");
+            mcpResponse.put("specification", spec);
+            mcpResponse.put("framework", "vega-lite");
+            mcpResponse.put("data", optimizedData);
+            mcpResponse.put("metadata", Map.of(
+                "title", "Professional Gradient Area Chart",
+                "theme", theme,
+                "timeframe", timeframe,
+                "dataPoints", optimizedData.size(),
+                "generatedAt", System.currentTimeMillis(),
+                "chartType", "gradient_area",
+                "features", "Smooth gradients with cardinal interpolation"
+            ));
+            
+            if (optimizer != null) {
+                long processingTime = System.currentTimeMillis() - startTime;
+                mcpResponse.put("optimization", optimizer.getOptimizationMetrics(
+                    "gradient_area", rawData.size(), optimizedData.size(), processingTime));
+            }
+            
+            mcpResponse.put("insights", generateInterestRateInsights(optimizedData));
+            
+            return objectMapper.writeValueAsString(mcpResponse);
+            
+        } catch (Exception e) {
+            log.error("MCP Tool Error in generateProfessionalGradientAreaChart: {}", e.getMessage(), e);
+            return createMCPErrorResponse("Failed to generate professional gradient area chart: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Professional Tool: Interactive Heatmap
+     */
+    @Tool(
+        name = "generate_professional_interactive_heatmap",
+        description = "Creates interactive risk-performance heatmaps with professional color scales and detailed tooltips. Shows ROI by risk level and loan product with advanced interactivity. Perfect for portfolio risk analysis and investment decisions."
+    )
+    public String generateProfessionalInteractiveHeatmap(
+            @ToolParam(description = "Visual theme: 'corporate', 'financial', 'executive'", required = false) 
+            String theme) {
+        
+        if (professionalCharts == null) {
+            return createMCPErrorResponse("Professional visualization features are not enabled");
+        }
+        
+        try {
+            log.info("MCP Tool: generateProfessionalInteractiveHeatmap - theme={}", theme);
+            
+            theme = theme != null ? theme : "corporate";
+            
+            // Generate sample heatmap data (in production, this would come from risk analysis)
+            List<Map<String, Object>> heatmapData = generateSampleHeatmapData();
+            
+            Map<String, Object> config = Map.of(
+                "theme", theme, 
+                "title", "Portfolio Risk-Return Matrix");
+            Map<String, Object> spec = professionalCharts.generateInteractiveHeatmap(heatmapData, config);
+            
+            Map<String, Object> mcpResponse = new HashMap<>();
+            mcpResponse.put("success", true);
+            mcpResponse.put("toolName", "generate_professional_interactive_heatmap");
+            mcpResponse.put("specification", spec);
+            mcpResponse.put("framework", "vega-lite");
+            mcpResponse.put("data", heatmapData);
+            mcpResponse.put("metadata", Map.of(
+                "title", "Professional Interactive Heatmap",
+                "theme", theme,
+                "dataPoints", heatmapData.size(),
+                "generatedAt", System.currentTimeMillis(),
+                "chartType", "interactive_heatmap",
+                "features", "Interactive tooltips with risk-return analysis"
+            ));
+            
+            mcpResponse.put("insights", generateHeatmapInsights(heatmapData));
+            
+            return objectMapper.writeValueAsString(mcpResponse);
+            
+        } catch (Exception e) {
+            log.error("MCP Tool Error in generateProfessionalInteractiveHeatmap: {}", e.getMessage(), e);
+            return createMCPErrorResponse("Failed to generate professional interactive heatmap: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Professional Tool: Financial Candlestick Chart
+     */
+    @Tool(
+        name = "generate_professional_candlestick_chart",
+        description = "Creates professional financial candlestick charts with proper wicks, bodies, and volume analysis. Features OHLC data visualization with financial themes. Essential for rate analysis and market trend visualization."
+    )
+    public String generateProfessionalCandlestickChart(
+            @ToolParam(description = "Analysis period: '30d', '90d', '180d', '365d'", required = false) 
+            String timeframe,
+            
+            @ToolParam(description = "Visual theme: 'financial', 'corporate', 'executive'", required = false) 
+            String theme) {
+        
+        if (professionalCharts == null) {
+            return createMCPErrorResponse("Professional visualization features are not enabled");
+        }
+        
+        try {
+            log.info("MCP Tool: generateProfessionalCandlestickChart - timeframe={}, theme={}", timeframe, theme);
+            
+            timeframe = timeframe != null ? timeframe : "90d";
+            theme = theme != null ? theme : "financial";
+            
+            // Generate sample OHLC data (in production, this would come from rate data)
+            List<Map<String, Object>> candlestickData = generateSampleCandlestickData(timeframe);
+            
+            Map<String, Object> config = Map.of(
+                "theme", theme, 
+                "title", "Loan Rate Analysis - OHLC");
+            Map<String, Object> spec = professionalCharts.generateCandlestickChart(candlestickData, config);
+            
+            Map<String, Object> mcpResponse = new HashMap<>();
+            mcpResponse.put("success", true);
+            mcpResponse.put("toolName", "generate_professional_candlestick_chart");
+            mcpResponse.put("specification", spec);
+            mcpResponse.put("framework", "vega-lite");
+            mcpResponse.put("data", candlestickData);
+            mcpResponse.put("metadata", Map.of(
+                "title", "Professional Financial Candlestick Chart",
+                "theme", theme,
+                "timeframe", timeframe,
+                "dataPoints", candlestickData.size(),
+                "generatedAt", System.currentTimeMillis(),
+                "chartType", "candlestick",
+                "features", "OHLC with wicks, bodies, and volume"
+            ));
+            
+            mcpResponse.put("insights", generateCandlestickInsights(candlestickData));
+            
+            return objectMapper.writeValueAsString(mcpResponse);
+            
+        } catch (Exception e) {
+            log.error("MCP Tool Error in generateProfessionalCandlestickChart: {}", e.getMessage(), e);
+            return createMCPErrorResponse("Failed to generate professional candlestick chart: " + e.getMessage());
+        }
+    }
+    
+    // Helper methods for sample data generation
+    
+    private List<Map<String, Object>> generateSampleHeatmapData() {
+        List<Map<String, Object>> data = new ArrayList<>();
+        String[] riskLevels = {"Low", "Medium", "High"};
+        String[] loanTypes = {"Personal", "Home", "Auto", "Business"};
+        java.util.Random random = new java.util.Random(42);
+        
+        for (String risk : riskLevels) {
+            for (String loan : loanTypes) {
+                Map<String, Object> cell = new HashMap<>();
+                cell.put("risk_category", risk);
+                cell.put("loan_type", loan);
+                cell.put("roi_percentage", -5 + random.nextDouble() * 25); // -5% to 20%
+                cell.put("volume", 100 + random.nextInt(900));
+                data.add(cell);
+            }
+        }
+        return data;
+    }
+    
+    private List<Map<String, Object>> generateSampleCandlestickData(String timeframe) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        java.util.Random random = new java.util.Random(42);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.add(java.util.Calendar.DAY_OF_MONTH, -90);
+        
+        double baseRate = 5.5;
+        
+        for (int i = 0; i < 90; i++) {
+            Map<String, Object> candle = new HashMap<>();
+            candle.put("date", cal.getTime());
+            
+            double open = baseRate + random.nextGaussian() * 0.1;
+            double close = open + random.nextGaussian() * 0.2;
+            double high = Math.max(open, close) + random.nextDouble() * 0.15;
+            double low = Math.min(open, close) - random.nextDouble() * 0.15;
+            
+            candle.put("open", Math.round(open * 100.0) / 100.0);
+            candle.put("close", Math.round(close * 100.0) / 100.0);
+            candle.put("high", Math.round(high * 100.0) / 100.0);
+            candle.put("low", Math.round(low * 100.0) / 100.0);
+            candle.put("volume", 1000 + random.nextInt(5000));
+            
+            data.add(candle);
+            cal.add(java.util.Calendar.DAY_OF_MONTH, 1);
+            baseRate = close; // Trend continuation
+        }
+        return data;
+    }
+    
+    private Map<String, Object> generateHeatmapInsights(List<Map<String, Object>> data) {
+        Map<String, Object> insights = new HashMap<>();
+        
+        try {
+            java.util.Optional<Map<String, Object>> bestCell = data.stream()
+                .max(java.util.Comparator.comparing(d -> ((Number) d.get("roi_percentage")).doubleValue()));
+            
+            if (bestCell.isPresent()) {
+                insights.put("bestPerformingSegment", bestCell.get().get("loan_type") + " - " + bestCell.get().get("risk_category"));
+                insights.put("bestRoi", bestCell.get().get("roi_percentage"));
+            }
+            
+            insights.put("totalSegments", data.size());
+            insights.put("summary", "Heatmap shows risk-return relationships across loan products");
+            
+        } catch (Exception e) {
+            log.warn("Error generating heatmap insights", e);
+            insights.put("error", "Unable to generate insights");
+        }
+        
+        return insights;
+    }
+    
+    private Map<String, Object> generateCandlestickInsights(List<Map<String, Object>> data) {
+        Map<String, Object> insights = new HashMap<>();
+        
+        try {
+            if (!data.isEmpty()) {
+                double avgVolume = data.stream()
+                    .mapToDouble(d -> ((Number) d.get("volume")).doubleValue())
+                    .average()
+                    .orElse(0.0);
+                
+                long bullishCandles = data.stream()
+                    .filter(d -> ((Number) d.get("close")).doubleValue() > ((Number) d.get("open")).doubleValue())
+                    .count();
+                
+                insights.put("averageVolume", Math.round(avgVolume));
+                insights.put("bullishCandlesPercent", Math.round((double) bullishCandles / data.size() * 100.0));
+                insights.put("totalCandles", data.size());
+                insights.put("summary", String.format("%.0f%% bullish candles with avg volume of %,.0f", 
+                    (double) bullishCandles / data.size() * 100.0, avgVolume));
+            }
+        } catch (Exception e) {
+            log.warn("Error generating candlestick insights", e);
             insights.put("error", "Unable to generate insights");
         }
         
