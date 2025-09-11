@@ -1,120 +1,126 @@
 package com.deepai.mcpserver.vtools;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import com.deepai.mcpserver.model.DataAnalysis;
-import com.deepai.mcpserver.vservice.DataAnalysisService;
+import com.deepai.mcpserver.config.VisualizationProperties;
+import com.deepai.mcpserver.vservice.VisualizationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@ConditionalOnProperty(name = "oracle.visualization.enabled", havingValue = "true")
 public class AnalyzeTableTool {
     
     @Autowired
-    private DataAnalysisService analysisService;
+    private VisualizationService visualizationService;
     
-    @Tool(description = "Analyze Oracle table structure and suggest optimal visualization strategies. Returns column types, statistics, and chart recommendations.")
-    public Map<String, Object> analyzeTableForVisualization(
-            @ToolParam(description = "Oracle table name to analyze", required = true) 
-            String tableName,
-            
-            @ToolParam(description = "Include sample data in analysis", required = false) 
-            Boolean includeSampleData) {
-        
+    @Autowired
+    private VisualizationProperties visualizationProperties;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    /**
+     * Analyze table structure for visualization with enhanced security
+     */
+    public String analyzeTable(String tableName, String schemaName) {
         try {
-            log.info("Analyzing table: {}", tableName);
+            log.info("Analyzing table for visualization: {}", tableName);
             
-            DataAnalysis analysis = analysisService.analyzeTable(tableName);
+            String fullTableName = schemaName != null ? schemaName + "." + tableName : tableName;
             
-            Map<String, Object> result = new HashMap<>();
-            result.put("status", "success");
-            result.put("tableName", tableName);
-            result.put("analysis", Map.of(
-                "totalColumns", analysis.getColumnTypes().size(),
-                "columnTypes", analysis.getColumnTypes(),
-                "numericColumns", analysis.getNumericColumns(),
-                "categoricalColumns", analysis.getCategoricalColumns(),
-                "dateColumns", analysis.getDateColumns(),
-                "statistics", analysis.getStatistics(),
-                "suggestedChartTypes", analysis.getSuggestedChartTypes()
-            ));
-            
-            // Add sample data if requested
-            if (Boolean.TRUE.equals(includeSampleData) && analysis.getData() != null) {
-                result.put("sampleData", analysis.getData().stream().limit(5).toArray());
+            // Security check using properties
+            if (!isTableAllowed(fullTableName)) {
+                return createErrorResponse("Access to table " + fullTableName + " is not allowed");
             }
             
-            // Add visualization recommendations
-            result.put("recommendations", generateVisualizationRecommendations(analysis));
+            // Use enhanced visualization service
+            Map<String, Object> analysis = visualizationService.analyzeTableForVisualization(fullTableName);
             
-            return result;
+            // Add configuration info to response
+            Map<String, Object> enhancedAnalysis = new HashMap<>(analysis);
+            enhancedAnalysis.put("configuration", getConfigurationInfo());
+            enhancedAnalysis.put("securityApplied", visualizationProperties.getSecurity().isSqlInjectionProtection());
+            enhancedAnalysis.put("toolInfo", Map.of(
+                "toolName", "AnalyzeTableTool",
+                "version", "2.0",
+                "enhanced", true
+            ));
             
+            return createSuccessResponse(enhancedAnalysis);
+            
+        } catch (SecurityException e) {
+            log.warn("Security violation in AnalyzeTableTool: {}", e.getMessage());
+            return createErrorResponse("Security: " + e.getMessage());
         } catch (Exception e) {
-            log.error("Error analyzing table", e);
-            return Map.of(
-                "status", "error",
-                "message", "Failed to analyze table: " + e.getMessage(),
-                "errorType", e.getClass().getSimpleName()
-            );
+            log.error("Error analyzing table for visualization: {}", tableName, e);
+            return createErrorResponse("Failed to analyze table: " + e.getMessage());
         }
     }
     
-    private List<Map<String, Object>> generateVisualizationRecommendations(DataAnalysis analysis) {
-        List<Map<String, Object>> recommendations = new ArrayList<>();
-        
-        // Bar chart recommendation
-        if (!analysis.getCategoricalColumns().isEmpty() && !analysis.getNumericColumns().isEmpty()) {
-            recommendations.add(Map.of(
-                "chartType", "bar",
-                "description", "Bar chart showing " + analysis.getNumericColumns().get(0) + " by " + analysis.getCategoricalColumns().get(0),
-                "xColumn", analysis.getCategoricalColumns().get(0),
-                "yColumn", analysis.getNumericColumns().get(0),
-                "confidence", "high"
-            ));
+    /**
+     * Security check using visualization properties
+     */
+    private boolean isTableAllowed(String tableName) {
+        if (!visualizationProperties.getSecurity().isSqlInjectionProtection()) {
+            return true;
         }
         
-        // Line chart recommendation
-        if (!analysis.getDateColumns().isEmpty() && !analysis.getNumericColumns().isEmpty()) {
-            recommendations.add(Map.of(
-                "chartType", "line",
-                "description", "Time series showing " + analysis.getNumericColumns().get(0) + " over " + analysis.getDateColumns().get(0),
-                "xColumn", analysis.getDateColumns().get(0),
-                "yColumn", analysis.getNumericColumns().get(0),
-                "confidence", "high"
-            ));
-        }
+        Pattern allowedPattern = Pattern.compile(visualizationProperties.getSecurity().getAllowedTablesPattern());
+        Pattern blockedPattern = Pattern.compile(visualizationProperties.getSecurity().getBlockedTablesPattern());
         
-        // Scatter plot recommendation
-        if (analysis.getNumericColumns().size() >= 2) {
-            recommendations.add(Map.of(
-                "chartType", "scatter",
-                "description", "Scatter plot showing correlation between " + analysis.getNumericColumns().get(0) + " and " + analysis.getNumericColumns().get(1),
-                "xColumn", analysis.getNumericColumns().get(0),
-                "yColumn", analysis.getNumericColumns().get(1),
-                "confidence", "medium"
-            ));
+        return allowedPattern.matcher(tableName.toUpperCase()).matches() && 
+               !blockedPattern.matcher(tableName.toUpperCase()).matches();
+    }
+    
+    private Map<String, Object> getConfigurationInfo() {
+        Map<String, Object> config = new HashMap<>();
+        config.put("maxDataPoints", visualizationProperties.getMaxDataPoints());
+        config.put("framework", visualizationProperties.getDefaultFramework());
+        config.put("autoDetectColumns", visualizationProperties.isAutoDetectColumns());
+        config.put("chartConfig", Map.of(
+            "width", visualizationProperties.getChart().getDefault().getWidth(),
+            "height", visualizationProperties.getChart().getDefault().getHeight(),
+            "responsive", visualizationProperties.getChart().isResponsive(),
+            "animation", visualizationProperties.getChart().getAnimation().isEnabled()
+        ));
+        config.put("cacheEnabled", visualizationProperties.getCache().isEnabled());
+        config.put("cacheTtl", visualizationProperties.getCache().getTtl());
+        return config;
+    }
+    
+    private String createSuccessResponse(Map<String, Object> data) {
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("data", data);
+            response.put("timestamp", System.currentTimeMillis());
+            return objectMapper.writeValueAsString(response);
+        } catch (Exception e) {
+            log.error("Error creating success response", e);
+            return createErrorResponse("Failed to create response");
         }
-        
-        // Heatmap recommendation
-        if (analysis.getCategoricalColumns().size() >= 2) {
-            recommendations.add(Map.of(
-                "chartType", "heatmap",
-                "description", "Heatmap showing relationship between " + analysis.getCategoricalColumns().get(0) + " and " + analysis.getCategoricalColumns().get(1),
-                "xColumn", analysis.getCategoricalColumns().get(0),
-                "yColumn", analysis.getCategoricalColumns().get(1),
-                "confidence", "medium"
-            ));
+    }
+    
+    private String createErrorResponse(String message) {
+        try {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("error", message);
+            error.put("timestamp", System.currentTimeMillis());
+            error.put("tool", "AnalyzeTableTool");
+            return objectMapper.writeValueAsString(error);
+        } catch (Exception e) {
+            log.error("Error creating error response", e);
+            return "{\"success\":false,\"error\":\"Failed to create error response\"}";
         }
-        
-        return recommendations;
     }
 }

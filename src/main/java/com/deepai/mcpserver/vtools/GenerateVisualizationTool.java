@@ -3,131 +3,195 @@ package com.deepai.mcpserver.vtools;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import com.deepai.mcpserver.config.VisualizationProperties;
 import com.deepai.mcpserver.model.ChartSpecification;
 import com.deepai.mcpserver.model.VisualizationRequest;
 import com.deepai.mcpserver.vservice.VisualizationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@ConditionalOnProperty(name = "oracle.visualization.enabled", havingValue = "true")
 public class GenerateVisualizationTool {
     
     @Autowired
     private VisualizationService visualizationService;
-            
-    @Tool(description = "Generate interactive visualizations from any Oracle table or query data. Supports Plotly and Vega-Lite frameworks with automatic data type detection.")
-    public Map<String, Object> generateVisualization(
-            @ToolParam(description = "Oracle table name to visualize (e.g., 'C##LOAN_SCHEMA.LOAN_APPLICATIONS')", required = true) 
-            String tableName,
-            
-            @ToolParam(description = "Type of chart to generate (bar, line, scatter, pie, heatmap, combo)", required = false) 
-            String chartType,
-            
-            @ToolParam(description = "Visualization framework to use (plotly, vega-lite)", required = false) 
-            String framework,
-            
-            @ToolParam(description = "Column for X-axis (auto-detected if not provided)", required = false) 
-            String xColumn,
-            
-            @ToolParam(description = "Column for Y-axis (auto-detected if not provided)", required = false) 
-            String yColumn,
-            
-            @ToolParam(description = "Column for color mapping (optional)", required = false) 
-            String colorColumn,
-            
-            @ToolParam(description = "SQL WHERE clause to filter data (optional)", required = false) 
-            String whereClause,
-            
-            @ToolParam(description = "Column to group by for aggregation (optional)", required = false) 
-            String groupBy,
-            
-            @ToolParam(description = "Aggregation function for grouped data (COUNT, SUM, AVG, MIN, MAX)", required = false) 
-            String aggregationType,
-            
-            @ToolParam(description = "Maximum number of records to visualize (default: 1000)", required = false) 
-            Integer limit) {
-        
+    
+    @Autowired
+    private VisualizationProperties visualizationProperties;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    /**
+     * Generate visualization with enhanced configuration and security
+     */
+    public String generateVisualization(String tableName, String chartType, 
+                                       String xColumn, String yColumn, 
+                                       String schemaName, String framework) {
         try {
-            log.info("Executing generic visualization tool for table: {}", tableName);
+            log.info("Generating {} visualization for table: {}", chartType, tableName);
             
+            String fullTableName = schemaName != null ? schemaName + "." + tableName : tableName;
+            
+            // Security check
+            if (!isTableAllowed(fullTableName)) {
+                return createErrorResponse("Access to table " + fullTableName + " is not allowed");
+            }
+            
+            // Build visualization request with enhanced configuration
             VisualizationRequest request = VisualizationRequest.builder()
-                .tableName(tableName)
+                .tableName(fullTableName)
                 .chartType(chartType != null ? chartType : "bar")
-                .framework(framework != null ? framework : "plotly")
                 .xColumn(xColumn)
                 .yColumn(yColumn)
-                .colorColumn(colorColumn)
-                .whereClause(whereClause)
-                .groupBy(groupBy)
-                .aggregationType(aggregationType)
-                .limit(limit != null ? limit : 1000)
+                .framework(framework != null ? framework : visualizationProperties.getDefaultFramework())
+                .limit(visualizationProperties.getMaxDataPoints())
                 .build();
             
-            ChartSpecification chart = visualizationService.generateVisualization(request);
+            // Generate visualization using enhanced service
+            ChartSpecification chartSpec = visualizationService.generateVisualization(request);
             
-            return Map.of(
-                "status", "success",
-                "visualization", Map.of(
-                    "framework", chart.getFramework(),
-                    "chartType", chart.getChartType(),
-                    "specification", chart.getSpecification(),
-                    "metadata", chart.getMetadata()
-                ),
-                "renderingInstructions", generateRenderingInstructions(chart),
-                "dataSource", Map.of(
-                    "table", request.getTableName(),
-                    "rowCount", chart.getMetadata().get("rowCount")
-                )
-            );
+            // Create enhanced response
+            Map<String, Object> enhancedResponse = new HashMap<>();
+            enhancedResponse.put("specification", chartSpec);
+            enhancedResponse.put("configuration", getVisualizationConfiguration());
+            enhancedResponse.put("request", Map.of(
+                "tableName", fullTableName,
+                "chartType", request.getChartType(),
+                "framework", request.getFramework(),
+                "xColumn", request.getXColumn(),
+                "yColumn", request.getYColumn()
+            ));
+            enhancedResponse.put("toolInfo", Map.of(
+                "toolName", "GenerateVisualizationTool",
+                "version", "2.0",
+                "enhanced", true
+            ));
             
+            return createSuccessResponse(enhancedResponse);
+            
+        } catch (SecurityException e) {
+            log.warn("Security violation in GenerateVisualizationTool: {}", e.getMessage());
+            return createErrorResponse("Security: " + e.getMessage());
         } catch (Exception e) {
-            log.error("Error executing generic visualization tool", e);
-            return Map.of(
-                "status", "error",
-                "message", "Failed to generate visualization: " + e.getMessage(),
-                "errorType", e.getClass().getSimpleName()
-            );
+            log.error("Error generating visualization for table: {}", tableName, e);
+            return createErrorResponse("Failed to generate visualization: " + e.getMessage());
         }
     }
     
-    private Map<String, Object> generateRenderingInstructions(ChartSpecification chart) {
-        Map<String, Object> instructions = new HashMap<>();
-        
-        if ("plotly".equals(chart.getFramework())) {
-            instructions.put("library", "Plotly.js");
-            instructions.put("cdn", "https://cdn.plot.ly/plotly-latest.min.js");
-            instructions.put("htmlTemplate", """
-                <div id="chart" style="width:100%;height:400px;"></div>
-                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-                <script>
-                  const spec = %s;
-                  Plotly.newPlot('chart', spec.data, spec.layout, {responsive: true});
-                </script>
-                """.formatted("/* INSERT_SPECIFICATION_HERE */"));
-            instructions.put("jsCode", "Plotly.newPlot('chart', specification.data, specification.layout, {responsive: true});");
-        } else {
-            instructions.put("library", "Vega-Lite");
-            instructions.put("cdn", "https://cdn.jsdelivr.net/npm/vega-lite@5");
-            instructions.put("htmlTemplate", """
-                <div id="chart"></div>
-                <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-                <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-                <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-                <script>
-                  const spec = %s;
-                  vegaEmbed('#chart', spec);
-                </script>
-                """.formatted("/* INSERT_SPECIFICATION_HERE */"));
-            instructions.put("jsCode", "vegaEmbed('#chart', specification);");
+    /**
+     * Generate multiple visualizations for comparison
+     */
+    public String generateComparisonVisualizations(String[] tableNames, String chartType, 
+                                                  String schemaName, String framework) {
+        try {
+            log.info("Generating comparison visualizations for {} tables", tableNames.length);
+            
+            Map<String, Object> comparisons = new HashMap<>();
+            
+            for (String tableName : tableNames) {
+                String fullTableName = schemaName != null ? schemaName + "." + tableName : tableName;
+                
+                if (isTableAllowed(fullTableName)) {
+                    try {
+                        ChartSpecification chart = visualizationService.generateSmartVisualization(fullTableName, null, null);
+                        comparisons.put(tableName, chart);
+                    } catch (Exception e) {
+                        log.warn("Failed to generate chart for table {}: {}", fullTableName, e.getMessage());
+                        comparisons.put(tableName, Map.of("error", e.getMessage()));
+                    }
+                } else {
+                    log.warn("Table {} not allowed for comparison", fullTableName);
+                    comparisons.put(tableName, Map.of("error", "Access not allowed"));
+                }
+            }
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("comparisons", comparisons);
+            response.put("configuration", getVisualizationConfiguration());
+            response.put("summary", Map.of(
+                "totalTables", tableNames.length,
+                "successfulCharts", comparisons.size(),
+                "chartType", chartType,
+                "framework", framework != null ? framework : visualizationProperties.getDefaultFramework()
+            ));
+            
+            return createSuccessResponse(response);
+            
+        } catch (Exception e) {
+            log.error("Error generating comparison visualizations", e);
+            return createErrorResponse("Failed to generate comparison visualizations: " + e.getMessage());
+        }
+    }
+    
+    private boolean isTableAllowed(String tableName) {
+        if (!visualizationProperties.getSecurity().isSqlInjectionProtection()) {
+            return true;
         }
         
-        return instructions;
+        Pattern allowedPattern = Pattern.compile(visualizationProperties.getSecurity().getAllowedTablesPattern());
+        Pattern blockedPattern = Pattern.compile(visualizationProperties.getSecurity().getBlockedTablesPattern());
+        
+        return allowedPattern.matcher(tableName.toUpperCase()).matches() && 
+               !blockedPattern.matcher(tableName.toUpperCase()).matches();
+    }
+    
+    private Map<String, Object> getVisualizationConfiguration() {
+        Map<String, Object> config = new HashMap<>();
+        config.put("framework", visualizationProperties.getDefaultFramework());
+        config.put("maxDataPoints", visualizationProperties.getMaxDataPoints());
+        config.put("autoDetectColumns", visualizationProperties.isAutoDetectColumns());
+        config.put("chartSettings", Map.of(
+            "width", visualizationProperties.getChart().getDefault().getWidth(),
+            "height", visualizationProperties.getChart().getDefault().getHeight(),
+            "responsive", visualizationProperties.getChart().isResponsive(),
+            "animation", visualizationProperties.getChart().getAnimation().isEnabled()
+        ));
+        config.put("performance", Map.of(
+            "queryTimeout", visualizationProperties.getPerformance().getQueryTimeout(),
+            "fetchSize", visualizationProperties.getPerformance().getFetchSize(),
+            "maxConcurrentRequests", visualizationProperties.getPerformance().getMaxConcurrentRequests()
+        ));
+        config.put("caching", Map.of(
+            "enabled", visualizationProperties.getCache().isEnabled(),
+            "ttl", visualizationProperties.getCache().getTtl()
+        ));
+        return config;
+    }
+    
+    private String createSuccessResponse(Map<String, Object> data) {
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("visualization", data);
+            response.put("timestamp", System.currentTimeMillis());
+            return objectMapper.writeValueAsString(response);
+        } catch (Exception e) {
+            log.error("Error creating success response", e);
+            return createErrorResponse("Failed to create response");
+        }
+    }
+    
+    private String createErrorResponse(String message) {
+        try {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("error", message);
+            error.put("timestamp", System.currentTimeMillis());
+            error.put("tool", "GenerateVisualizationTool");
+            return objectMapper.writeValueAsString(error);
+        } catch (Exception e) {
+            log.error("Error creating error response", e);
+            return "{\"success\":false,\"error\":\"Failed to create error response\"}";
+        }
     }
 }

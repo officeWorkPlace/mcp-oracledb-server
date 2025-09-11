@@ -3,7 +3,7 @@ package com.deepai.mcpserver.config;
 import java.util.concurrent.Executor;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableCaching
 @EnableAsync
+@EnableConfigurationProperties(VisualizationProperties.class)
 @ConditionalOnProperty(name = "oracle.visualization.enabled", havingValue = "true", matchIfMissing = true)
 public class VisualizationConfig {
     
@@ -27,7 +28,8 @@ public class VisualizationConfig {
             "columnMetadata",
             "queryResults",
             "dashboardData",
-            "performanceMetrics"
+            "performanceMetrics",
+            "visualizationCache"
         );
         return cacheManager;
     }
@@ -39,18 +41,20 @@ public class VisualizationConfig {
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(100);
         executor.setThreadNamePrefix("viz-");
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(60);
         executor.initialize();
         return executor;
     }
     
     @Bean
-    @ConfigurationProperties(prefix = "oracle.visualization")
-    public VisualizationProperties visualizationProperties() {
-        return new VisualizationProperties();
-    }
-    
-    @Bean
     public RestTemplate visualizationRestTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        // Configure timeout settings
+        restTemplate.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().add("User-Agent", "Oracle-MCP-Visualization-Service");
+            return execution.execute(request, body);
+        });
+        return restTemplate;
     }
 }

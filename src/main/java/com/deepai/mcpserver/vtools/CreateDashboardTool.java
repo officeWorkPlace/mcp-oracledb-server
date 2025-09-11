@@ -1,204 +1,171 @@
 package com.deepai.mcpserver.vtools;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.regex.Pattern;
 
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import com.deepai.mcpserver.model.ChartSpecification;
+import com.deepai.mcpserver.config.VisualizationProperties;
 import com.deepai.mcpserver.vservice.VisualizationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@ConditionalOnProperty(name = "oracle.visualization.enabled", havingValue = "true")
 public class CreateDashboardTool {
     
     @Autowired
     private VisualizationService visualizationService;
     
-    @Tool(description = "Create comprehensive dashboard with multiple visualizations from Oracle table data. Generates executive, operational, or analytical dashboards.")
-    public Map<String, Object> createDashboard(
-            @ToolParam(description = "Type of dashboard (executive, operational, analytical)", required = true) 
-            String dashboardType,
-            
-            @ToolParam(description = "Primary Oracle table for dashboard data", required = true) 
-            String primaryTable,
-            
-            @ToolParam(description = "Visualization framework (plotly, vega-lite)", required = false) 
-            String framework,
-            
-            @ToolParam(description = "Additional tables to include (comma-separated)", required = false) 
-            String additionalTables) {
-        
+    @Autowired
+    private VisualizationProperties visualizationProperties;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    /**
+     * Create dashboard with multiple charts using enhanced configuration
+     */
+    public String createDashboard(String dashboardName, String[] tableNames, 
+                                 String[] chartTypes, String schemaName) {
         try {
-            log.info("Creating {} dashboard for table: {}", dashboardType, primaryTable);
+            log.info("Creating dashboard: {} with {} tables", dashboardName, tableNames.length);
             
-            List<Map<String, Object>> dashboardCharts = generateDashboardCharts(dashboardType, primaryTable, framework);
+            // Validate input
+            if (tableNames == null || tableNames.length == 0) {
+                return createErrorResponse("No tables provided for dashboard creation");
+            }
             
-            return Map.of(
-                "status", "success",
-                "dashboard", Map.of(
-                    "type", dashboardType,
-                    "framework", framework != null ? framework : "plotly",
-                    "primaryTable", primaryTable,
-                    "charts", dashboardCharts,
-                    "layoutConfig", generateLayoutConfig(dashboardType),
-                    "refreshInterval", getDashboardRefreshInterval(dashboardType)
-                ),
-                "htmlTemplate", generateDashboardHtml(dashboardCharts, dashboardType)
-            );
+            if (chartTypes == null || chartTypes.length == 0) {
+                chartTypes = new String[tableNames.length];
+                Arrays.fill(chartTypes, "auto"); // Use auto-detection
+            }
+            
+            // Security check for all tables
+            List<String> allowedTables = new ArrayList<>();
+            for (String tableName : tableNames) {
+                String fullTableName = schemaName != null ? schemaName + "." + tableName : tableName;
+                if (isTableAllowed(fullTableName)) {
+                    allowedTables.add(fullTableName);
+                } else {
+                    log.warn("Table {} not allowed for dashboard creation", fullTableName);
+                }
+            }
+            
+            if (allowedTables.isEmpty()) {
+                return createErrorResponse("No allowed tables found for dashboard creation");
+            }
+            
+            // Create dashboard using enhanced service
+            List<String> allowedChartTypes = Arrays.asList(chartTypes).subList(0, Math.min(chartTypes.length, allowedTables.size()));
+            Map<String, Object> dashboard = visualizationService.createDashboard(
+                dashboardName, allowedTables, allowedChartTypes, schemaName);
+            
+            // Add enhanced metadata
+            Map<String, Object> enhancedDashboard = new HashMap<>(dashboard);
+            enhancedDashboard.put("configuration", getDashboardConfiguration());
+            enhancedDashboard.put("securityInfo", Map.of(
+                "tablesRequested", tableNames.length,
+                "tablesAllowed", allowedTables.size(),
+                "securityEnabled", visualizationProperties.getSecurity().isSqlInjectionProtection()
+            ));
+            enhancedDashboard.put("toolInfo", Map.of(
+                "toolName", "CreateDashboardTool",
+                "version", "2.0",
+                "enhanced", true
+            ));
+            
+            return createSuccessResponse(enhancedDashboard);
+            
+        } catch (SecurityException e) {
+            log.warn("Security violation in CreateDashboardTool: {}", e.getMessage());
+            return createErrorResponse("Security: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Error creating dashboard: {}", dashboardName, e);
+            return createErrorResponse("Failed to create dashboard: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Create a performance dashboard with predefined charts
+     */
+    public String createPerformanceDashboard(String schemaName) {
+        try {
+            log.info("Creating performance dashboard for schema: {}", schemaName);
+            
+            // Define performance-related tables and chart types
+            String[] performanceTables = {
+                "V$SESSION", "V$SQL", "V$SYSSTAT", "V$SYSTEM_EVENT"
+            };
+            String[] chartTypes = {"bar", "line", "pie", "scatter"};
+            
+            return createDashboard("Performance Dashboard", performanceTables, chartTypes, schemaName);
             
         } catch (Exception e) {
-            log.error("Error creating dashboard", e);
-            return Map.of(
-                "status", "error",
-                "message", "Failed to create dashboard: " + e.getMessage(),
-                "errorType", e.getClass().getSimpleName()
-            );
+            log.error("Error creating performance dashboard", e);
+            return createErrorResponse("Failed to create performance dashboard: " + e.getMessage());
         }
     }
     
-    private List<Map<String, Object>> generateDashboardCharts(String dashboardType, String primaryTable, String framework) {
-        List<Map<String, Object>> charts = new ArrayList<>();
-        String fw = framework != null ? framework : "plotly";
-        
-        switch (dashboardType.toLowerCase()) {
-            case "executive":
-                charts.add(createChart(primaryTable, "bar", "Executive Overview", fw));
-                charts.add(createChart(primaryTable, "line", "Trend Analysis", fw));
-                charts.add(createChart(primaryTable, "pie", "Distribution", fw));
-                break;
-            case "operational":
-                charts.add(createChart(primaryTable, "bar", "Operational Metrics", fw));
-                charts.add(createChart(primaryTable, "scatter", "Performance Analysis", fw));
-                charts.add(createChart(primaryTable, "heatmap", "Activity Matrix", fw));
-                break;
-            case "analytical":
-                charts.add(createChart(primaryTable, "scatter", "Correlation Analysis", fw));
-                charts.add(createChart(primaryTable, "line", "Time Series", fw));
-                charts.add(createChart(primaryTable, "heatmap", "Pattern Analysis", fw));
-                charts.add(createChart(primaryTable, "bar", "Categorical Breakdown", fw));
-                break;
-            default:
-                charts.add(createChart(primaryTable, "bar", "Data Overview", fw));
+    private boolean isTableAllowed(String tableName) {
+        if (!visualizationProperties.getSecurity().isSqlInjectionProtection()) {
+            return true;
         }
         
-        return charts;
+        Pattern allowedPattern = Pattern.compile(visualizationProperties.getSecurity().getAllowedTablesPattern());
+        Pattern blockedPattern = Pattern.compile(visualizationProperties.getSecurity().getBlockedTablesPattern());
+        
+        return allowedPattern.matcher(tableName.toUpperCase()).matches() && 
+               !blockedPattern.matcher(tableName.toUpperCase()).matches();
     }
     
-    private Map<String, Object> createChart(String tableName, String chartType, String title, String framework) {
+    private Map<String, Object> getDashboardConfiguration() {
+        Map<String, Object> config = new HashMap<>();
+        config.put("maxChartsPerDashboard", 10); // Configurable limit
+        config.put("framework", visualizationProperties.getDefaultFramework());
+        config.put("responsive", visualizationProperties.getChart().isResponsive());
+        config.put("chartDimensions", Map.of(
+            "width", visualizationProperties.getChart().getDefault().getWidth(),
+            "height", visualizationProperties.getChart().getDefault().getHeight()
+        ));
+        config.put("animation", visualizationProperties.getChart().getAnimation().isEnabled());
+        config.put("maxDataPointsPerChart", visualizationProperties.getMaxDataPoints());
+        config.put("cacheEnabled", visualizationProperties.getCache().isEnabled());
+        return config;
+    }
+    
+    private String createSuccessResponse(Map<String, Object> data) {
         try {
-            ChartSpecification chart = visualizationService.generateSmartVisualization(tableName, null, null);
-            return Map.of(
-                "id", UUID.randomUUID().toString(),
-                "title", title,
-                "chartType", chartType,
-                "framework", framework,
-                "specification", chart.getSpecification(),
-                "metadata", chart.getMetadata()
-            );
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("dashboard", data);
+            response.put("timestamp", System.currentTimeMillis());
+            return objectMapper.writeValueAsString(response);
         } catch (Exception e) {
-            log.warn("Failed to create chart {} for table {}", chartType, tableName);
-            return Map.of(
-                "id", UUID.randomUUID().toString(),
-                "title", title,
-                "error", "Failed to generate chart: " + e.getMessage()
-            );
+            log.error("Error creating success response", e);
+            return createErrorResponse("Failed to create response");
         }
     }
     
-    private Map<String, Object> generateLayoutConfig(String dashboardType) {
-        switch (dashboardType.toLowerCase()) {
-            case "executive":
-                return Map.of(
-                    "rows", 2,
-                    "columns", 2,
-                    "responsive", true,
-                    "spacing", "medium"
-                );
-            case "operational":
-                return Map.of(
-                    "rows", 2,
-                    "columns", 3,
-                    "responsive", true,
-                    "spacing", "small"
-                );
-            case "analytical":
-                return Map.of(
-                    "rows", 3,
-                    "columns", 2,
-                    "responsive", true,
-                    "spacing", "large"
-                );
-            default:
-                return Map.of(
-                    "rows", 1,
-                    "columns", 1,
-                    "responsive", true,
-                    "spacing", "medium"
-                );
+    private String createErrorResponse(String message) {
+        try {
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("error", message);
+            error.put("timestamp", System.currentTimeMillis());
+            error.put("tool", "CreateDashboardTool");
+            return objectMapper.writeValueAsString(error);
+        } catch (Exception e) {
+            log.error("Error creating error response", e);
+            return "{\"success\":false,\"error\":\"Failed to create error response\"}";
         }
-    }
-    
-    private int getDashboardRefreshInterval(String dashboardType) {
-        switch (dashboardType.toLowerCase()) {
-            case "executive":
-                return 300; // 5 minutes
-            case "operational":
-                return 60;  // 1 minute
-            case "analytical":
-                return 180; // 3 minutes
-            default:
-                return 120; // 2 minutes
-        }
-    }
-    
-    private String generateDashboardHtml(List<Map<String, Object>> charts, String dashboardType) {
-        StringBuilder html = new StringBuilder();
-        html.append("""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>%s Dashboard</title>
-                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-                    .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-                    .chart-container { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
-                    .chart-title { font-weight: bold; margin-bottom: 10px; }
-                </style>
-            </head>
-            <body>
-                <h1>%s Dashboard</h1>
-                <div class="dashboard">
-            """.formatted(dashboardType, dashboardType));
-        
-        for (int i = 0; i < charts.size(); i++) {
-            Map<String, Object> chart = charts.get(i);
-            html.append("""
-                    <div class="chart-container">
-                        <div class="chart-title">%s</div>
-                        <div id="chart%d" style="height: 400px;"></div>
-                    </div>
-                """.formatted(chart.get("title"), i));
-        }
-        
-        html.append("""
-                </div>
-                <script>
-                    // Chart rendering code would go here
-                    // Each chart specification would be rendered to its corresponding div
-                </script>
-            </body>
-            </html>
-            """);
-        
-        return html.toString();
     }
 }
