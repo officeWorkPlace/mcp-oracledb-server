@@ -1,10 +1,12 @@
 package com.deepai.mcpserver.config;
 
 import com.deepai.mcpserver.service.OracleServiceClient;
+import com.deepai.mcpserver.service.OracleVisualizationService;
 import com.deepai.mcpserver.service.OracleAdvancedAnalyticsService;
 import com.deepai.mcpserver.service.OracleAIService;
 import com.deepai.mcpserver.service.OracleEnterpriseSecurityService;
 import com.deepai.mcpserver.service.OracleEnterprisePerformanceService;
+import com.deepai.mcpserver.vtools.FinancialVisualizationMCPTools;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,7 +57,9 @@ public class SimpleMcpConfiguration {
                                            OracleAdvancedAnalyticsService oracleAdvancedAnalyticsService,
                                            OracleAIService oracleAIService,
                                            OracleEnterpriseSecurityService oracleEnterpriseSecurityService,
-                                           OracleEnterprisePerformanceService oracleEnterprisePerformanceService) {
+                                           OracleEnterprisePerformanceService oracleEnterprisePerformanceService,
+                                           OracleVisualizationService oracleVisualizationService,
+                                           FinancialVisualizationMCPTools financialVisualizationMCPTools) {
         
         logger.info("🚀 Configuring Oracle MCP tools with exposure level: {}", toolsExposure);
         
@@ -82,7 +86,9 @@ public class SimpleMcpConfiguration {
                                oracleAdvancedAnalyticsService, 
                                oracleAIService,
                                oracleEnterpriseSecurityService,
-                               oracleEnterprisePerformanceService)
+                               oracleEnterprisePerformanceService,
+                               oracleVisualizationService,
+                               financialVisualizationMCPTools)
                     .build();
         }
     }

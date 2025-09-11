@@ -1,0 +1,103 @@
+MIT License
+
+Copyright (c) 2024 MCP Oracle DB Server Project - officeWorkPlace
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+===============================================================================
+
+ORACLE DATABASE COMPATIBILITY NOTICE:
+
+This software is designed to work with Oracle Database products. Users are
+responsible for ensuring they have appropriate Oracle Database licenses for
+their intended use. The MCP Oracle DB Server project does not provide or 
+include any Oracle Database software, drivers beyond what's publicly available,
+or proprietary Oracle components.
+
+Oracle is a registered trademark of Oracle Corporation. This project is not
+affiliated with, endorsed by, or sponsored by Oracle Corporation.
+
+SUPPORTED ORACLE VERSIONS:
+- Oracle Database 11g Release 2 and later
+- Oracle Database 12c (all releases)
+- Oracle Database 18c
+- Oracle Database 19c
+- Oracle Database 21c
+- Oracle Database 23c
+
+THIRD-PARTY DEPENDENCIES:
+
+This project includes dependencies on the following third-party libraries:
+
+- Spring Framework (Apache License 2.0)
+- Spring Boot (Apache License 2.0)
+- Spring AI (Apache License 2.0)
+- Oracle JDBC Driver (Oracle Free Use Terms and Conditions)
+- HikariCP (Apache License 2.0)
+- Jackson JSON Processor (Apache License 2.0)
+- SLF4J (MIT License)
+- Logback (Eclipse Public License 1.0)
+- JUnit (Eclipse Public License 2.0)
+- Mockito (MIT License)
+- Testcontainers (MIT License)
+
+Please refer to the individual dependency licenses for their specific terms.
+
+===============================================================================
+
+ENTERPRISE EDITION FEATURES:
+
+Certain features in this software are labeled as "Enterprise" features and 
+are designed to work with Oracle Database Enterprise Edition. These features
+may require appropriate Oracle Database Enterprise Edition licenses for 
+production use:
+
+- Oracle Advanced Security (TDE, VPD)
+- Oracle Database Vault
+- Oracle Partitioning
+- Oracle Advanced Compression
+- Oracle AWR (Automatic Workload Repository)
+- Oracle SQL Plan Management
+- Oracle Resource Manager
+- Oracle Fine-Grained Auditing
+
+Users should consult Oracle's licensing documentation to determine their
+licensing requirements for these features.
+
+===============================================================================
+
+MODEL CONTEXT PROTOCOL (MCP) INTEGRATION:
+
+This software implements the Model Context Protocol (MCP) specification for
+integration with AI systems and large language models. The MCP protocol
+implementation is based on publicly available specifications and is designed
+for interoperability with MCP-compatible AI systems.
+
+===============================================================================
+
+DISCLAIMER:
+
+This software is provided for general use and has been tested with various 
+Oracle Database versions. However, users should thoroughly test the software 
+in their specific environment before production use. The authors and 
+contributors are not responsible for any data loss, system damage, or other 
+issues that may arise from the use of this software.
+
+Always ensure proper backups and follow Oracle Database best practices when 
+using this software in production environments.

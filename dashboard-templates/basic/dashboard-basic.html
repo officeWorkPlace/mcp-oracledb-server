@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Banking Analytics - Professional Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Professional CSS Variables */
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-solid: #667eea;
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-solid: #10b981;
+            --warning: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --warning-solid: #f59e0b;
+            --danger: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            --danger-solid: #ef4444;
+            --bg-color: #f8fafe;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient-bg: linear-gradient(135deg, #f8fafe 0%, #f1f5fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Professional Header */
+        .header {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .header .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--success-solid);
+            border-radius: 50%;
+            margin-left: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Professional Controls */
+        .controls {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select, button {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        select:focus {
+            border-color: var(--primary-solid);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            grid-column: span 2;
+            justify-self: end;
+        }
+
+        @media (max-width: 768px) {
+            .btn-group {
+                grid-column: span 1;
+                justify-self: stretch;
+            }
+        }
+
+        /* Professional Metrics Grid */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .metric-card.success::before { background: var(--success); }
+        .metric-card.warning::before { background: var(--warning); }
+        .metric-card.danger::before { background: var(--danger); }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .metric-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .metric-card.success .metric-icon { background: var(--success); }
+        .metric-card.warning .metric-icon { background: var(--warning); }
+        .metric-card.danger .metric-icon { background: var(--danger); }
+
+        .metric-trend {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-solid);
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-solid);
+        }
+
+        .trend-neutral {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .metric-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        /* Charts */
+        .charts {
+            display: grid;
+            gap: 30px;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .header h1, .header p {
+            transition: opacity 0.3s ease;
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-sm:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .chart-canvas {
+            position: relative;
+            height: 350px;
+            margin: 20px 0;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Export Dropdown */
+        .export-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .export-btn {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .export-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            min-width: 200px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .export-menu.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .export-section {
+            padding: 12px 0;
+        }
+        
+        .export-section:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .export-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0 16px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .export-menu button {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 10px 16px;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .export-menu button:hover {
+            background-color: #f8fafc;
+            color: var(--primary-color);
+        }
+        
+        /* Export Progress Modal */
+        .export-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        
+        .export-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .export-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            min-width: 300px;
+        }
+        
+        .export-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: exportSpin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .export-message {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        @keyframes exportSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 id="dashboard-title">Oracle Banking Analytics<span class="live-indicator"></span></h1>
+            <p id="dashboard-subtitle">Professional Banking Intelligence Dashboard</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="chartType">Visualization Type</label>
+                <select id="chartType">
+                    <option value="bar">Bar Analysis</option>
+                    <option value="line">Trend Analysis</option>
+                    <option value="pie">Distribution</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="timeRange">Time Period</label>
+                <select id="timeRange">
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d" selected>Last 30 Days</option>
+                    <option value="90d">Last 90 Days</option>
+                    <option value="1y">Last Year</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="dataSource">Data Source</label>
+                <select id="dataSource">
+                    <option value="live" selected>Live Oracle DB</option>
+                    <option value="cached">Cached Data</option>
+                    <option value="historical">Historical</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button onclick="refreshData()">🔄 Refresh</button>
+                <div class="export-dropdown">
+                    <button class="export-btn" onclick="toggleExportMenu()">📊 Export ▼</button>
+                    <div class="export-menu" id="exportMenu">
+                        <div class="export-section">
+                            <div class="export-title">Data Export</div>
+                            <button onclick="exportToCSV()">📄 CSV</button>
+                            <button onclick="exportToXLS()">📊 Excel</button>
+                            <button onclick="exportToJSON()">🔧 JSON</button>
+                        </div>
+                        <div class="export-section">
+                            <div class="export-title">Visual Export</div>
+                            <button onclick="exportToPDF()">📋 PDF Report</button>
+                            <button onclick="exportChartsAsPNG()">🖼️ Charts (PNG)</button>
+                            <button onclick="exportTemplate()">⚙️ Template</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">🏦</div>
+                    <div class="metric-trend trend-up">↗ +12.3%</div>
+                </div>
+                <div class="metric-value" id="total-applications">2,181</div>
+                <div class="metric-label">Total Applications</div>
+                <div class="metric-description">Loan applications processed this month</div>
+            </div>
+            <div class="metric-card success">
+                <div class="metric-header">
+                    <div class="metric-icon">✅</div>
+                    <div class="metric-trend trend-up">↗ +5.2%</div>
+                </div>
+                <div class="metric-value" id="approval-rate">87.4%</div>
+                <div class="metric-label">Approval Rate</div>
+                <div class="metric-description">Average loan approval across all branches</div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-header">
+                    <div class="metric-icon">💰</div>
+                    <div class="metric-trend trend-up">↗ +18.7%</div>
+                </div>
+                <div class="metric-value" id="loan-volume">$27.2M</div>
+                <div class="metric-label">Loan Volume</div>
+                <div class="metric-description">Total lending volume across all products</div>
+            </div>
+            <div class="metric-card danger">
+                <div class="metric-header">
+                    <div class="metric-icon">⚠️</div>
+                    <div class="metric-trend trend-down">↘ -2.1%</div>
+                </div>
+                <div class="metric-value" id="risk-score">0.52</div>
+                <div class="metric-label">Avg Risk Score</div>
+                <div class="metric-description">Portfolio-wide risk assessment average</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <!-- Main Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title" id="main-chart-title">Loading...</h3>
+                    <div class="chart-actions">
+                        <button class="btn-sm" onclick="refreshChartTitle('main-chart-title', 'bar')">🔄 New Title</button>
+                        <button class="btn-sm" onclick="downloadChart('mainChart')">💾 Download</button>
+                    </div>
+                </div>
+                <div class="chart-canvas">
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Secondary Charts -->
+            <div class="chart-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title" id="pie-chart-title">Loading...</h3>
+                        <div class="chart-actions">
+                            <button class="btn-sm" onclick="refreshChartTitle('pie-chart-title', 'pie')">🔄 Title</button>
+                        </div>
+                    </div>
+                    <div class="chart-canvas">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title" id="line-chart-title">Loading...</h3>
+                        <div class="chart-actions">
+                            <button class="btn-sm" onclick="refreshChartTitle('line-chart-title', 'line')">🔄 Title</button>
+                        </div>
+                    </div>
+                    <div class="chart-canvas">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Progress Modal -->
+        <div id="exportModal" class="export-modal">
+            <div class="export-modal-content">
+                <div class="export-spinner"></div>
+                <div class="export-message" id="exportMessage">Processing...</div>
+            </div>
+        </div>
+
+        <!-- MCP Integration Instructions -->
+        <div style="display: none;" id="mcp-instructions">
+            <!-- 
+            MCP CLIENT USAGE INSTRUCTIONS:
+            
+            1. Data Injection:
+               window.injectOracleData('loan_popularity', data);
+               window.injectOracleData('trend_analysis', data);
+               window.injectOracleData('risk_distribution', data);
+               window.injectOracleData('branch_performance', data);
+               window.injectOracleData('metrics', data);
+            
+            2. Listen for Refresh Requests:
+               window.addEventListener('oracleDataRefreshRequested', (event) => {
+                   // Fetch fresh data from Oracle MCP tools
+                   // Then inject using injectOracleData()
+               });
+            
+            3. Example MCP Tool Calls:
+               - oracle_generate_loan_popularity_chart
+               - oracle_generate_trend_analysis_chart
+               - oracle_generate_risk_assessment_trends_chart
+               - oracle_generate_branch_performance_chart
+            -->
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Oracle Banking Analytics Dashboard • MCP-Powered • Real-time Data Visualization</p>
+        </div>
+    </div>
+
+    <script>
+        // Professional Oracle Banking Configuration
+        const config = {
+            // Dynamic Title Generation System
+            titleGenerator: {
+                companyNames: ['Oracle Bank', 'Digital Finance Corp', 'NextGen Banking', 'Enterprise Financial', 'Smart Bank Solutions'],
+                dashboardTypes: ['Analytics', 'Intelligence', 'Insights', 'Performance', 'Executive'],
+                contexts: ['Banking', 'Financial', 'Loan Management', 'Risk Assessment', 'Portfolio'],
+                timeBasedTitles: {
+                    morning: 'Daily Performance Overview',
+                    afternoon: 'Real-time Business Intelligence', 
+                    evening: 'End-of-Day Analytics Summary',
+                    night: 'Overnight Portfolio Monitor'
+                },
+                dataBasedTitles: {
+                    high_volume: 'High-Volume Transaction Dashboard',
+                    risk_focus: 'Risk Management Control Center',
+                    growth_trend: 'Growth Analytics Platform',
+                    performance_review: 'Performance Review Dashboard'
+                }
+            },
+            colors: {
+                primary: '#667eea',
+                success: '#10b981',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+                gradient: {
+                    primary: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    success: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                    warning: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                    danger: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+                }
+            },
+            charts: {},
+            // Real Oracle Banking Data
+            data: {
+                bar: {
+                    labels: ['Education Loan', 'Business Loan', 'Auto Loan', 'Home Loan', 'Personal Loan'],
+                    datasets: [{
+                        label: 'Loan Applications',
+                        data: [545, 534, 525, 409, 168],
+                        backgroundColor: [
+                            '#667eea',
+                            '#f093fb',
+                            '#4facfe',
+                            '#ffecd2',
+                            '#ff9a9e'
+                        ],
+                        borderColor: [
+                            '#5a67d8',
+                            '#e879f9',
+                            '#0ea5e9',
+                            '#fed7aa',
+                            '#fb7185'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                line: {
+                    labels: ['Mar 15', 'Mar 29', 'Apr 12', 'Apr 26', 'May 10', 'May 24', 'Jun 07', 'Jun 21'],
+                    datasets: [{
+                        label: 'Application Trends',
+                        data: [118, 141, 123, 59, 122, 96, 100, 68],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }]
+                },
+                pie: {
+                    labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+                    datasets: [{
+                        label: 'Risk Distribution',
+                        data: [30, 35, 35],
+                        backgroundColor: [
+                            '#4facfe',
+                            '#ffecd2', 
+                            '#ff9a9e'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 3,
+                        hoverOffset: 8
+                    }]
+                }
+            },
+            // Real Banking Metrics
+            metrics: {
+                totalApplications: 2181,
+                approvalRate: 87.4,
+                loanVolume: 27200000,
+                avgRiskScore: 0.52,
+                trends: {
+                    applications: 12.3,
+                    approvals: 5.2,
+                    volume: 18.7,
+                    risk: -2.1
+                }
+            }
+        };
+
+        // Dynamic Title Generation Functions
+        function generateDynamicTitle() {
+            const generator = config.titleGenerator;
+            const now = new Date();
+            const hour = now.getHours();
+            const metrics = config.metrics;
+            
+            // Determine time period
+            let timeOfDay;
+            if (hour >= 5 && hour < 12) timeOfDay = 'morning';
+            else if (hour >= 12 && hour < 18) timeOfDay = 'afternoon';
+            else if (hour >= 18 && hour < 22) timeOfDay = 'evening';
+            else timeOfDay = 'night';
+            
+            // Analyze current data to determine context
+            const totalApps = metrics.totalApplications;
+            const riskScore = metrics.avgRiskScore;
+            const approvalTrend = metrics.trends.applications;
+            
+            let context;
+            if (totalApps > 2000) context = 'high_volume';
+            else if (riskScore > 0.6) context = 'risk_focus';
+            else if (approvalTrend > 10) context = 'growth_trend';
+            else context = 'performance_review';
+            
+            // Generate title components
+            const companyName = generator.companyNames[Math.floor(Math.random() * generator.companyNames.length)];
+            const dashboardType = generator.dashboardTypes[Math.floor(Math.random() * generator.dashboardTypes.length)];
+            const contextType = generator.contexts[Math.floor(Math.random() * generator.contexts.length)];
+            
+            // Create different title formats based on time and context
+            let mainTitle, subtitle;
+            
+            if (Math.random() > 0.5) {
+                // Time-based title
+                mainTitle = `${companyName} ${dashboardType}`;
+                subtitle = generator.timeBasedTitles[timeOfDay];
+            } else {
+                // Context-based title
+                mainTitle = `${contextType} ${dashboardType}`;
+                subtitle = generator.dataBasedTitles[context];
+            }
+            
+            // Add current date to subtitle
+            const dateStr = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            subtitle += ` • ${dateStr}`;
+            
+            return { mainTitle, subtitle };
+        }
+        
+        function updateDashboardTitle() {
+            const { mainTitle, subtitle } = generateDynamicTitle();
+            
+            // Enhanced animation for title change
+            const titleElement = document.getElementById('dashboard-title');
+            const subtitleElement = document.getElementById('dashboard-subtitle');
+            
+            // Set smooth transitions
+            titleElement.style.transition = 'all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)';
+            subtitleElement.style.transition = 'all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)';
+            
+            // Fade out with slide up
+            titleElement.style.opacity = '0';
+            titleElement.style.transform = 'translateY(-20px)';
+            subtitleElement.style.opacity = '0';
+            subtitleElement.style.transform = 'translateY(-15px)';
+            
+            setTimeout(() => {
+                // Update content
+                titleElement.innerHTML = mainTitle + '<span class="live-indicator"></span>';
+                subtitleElement.textContent = subtitle;
+                
+                // Fade in with slide down
+                titleElement.style.opacity = '1';
+                titleElement.style.transform = 'translateY(0)';
+                subtitleElement.style.opacity = '1';
+                subtitleElement.style.transform = 'translateY(0)';
+                
+                // Add temporary glow to highlight the update
+                setTimeout(() => {
+                    titleElement.style.textShadow = '0 0 20px rgba(102, 126, 234, 0.4)';
+                    setTimeout(() => {
+                        titleElement.style.textShadow = 'none';
+                    }, 1000);
+                }, 200);
+            }, 300);
+        }
+        
+        function generateChartTitle(chartType, dataContext) {
+            const templates = {
+                bar: {
+                    loan_apps: 'Loan Application Distribution by Product Type',
+                    branch_perf: 'Branch Performance Comparison',
+                    monthly: 'Monthly Application Volume Analysis',
+                    risk: 'Risk Category Distribution'
+                },
+                line: {
+                    trends: 'Application Trend Analysis Over Time',
+                    performance: 'Performance Metrics Timeline',
+                    forecast: 'Predictive Analytics & Forecasting',
+                    growth: 'Growth Trajectory Analysis'
+                },
+                pie: {
+                    distribution: 'Portfolio Distribution Overview',
+                    risk_breakdown: 'Risk Assessment Breakdown',
+                    product_mix: 'Product Mix Analysis',
+                    market_share: 'Market Share Distribution'
+                }
+            };
+            
+            const contextKeys = Object.keys(templates[chartType]);
+            const randomContext = contextKeys[Math.floor(Math.random() * contextKeys.length)];
+            
+            return templates[chartType][randomContext];
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDashboardTitle(); // Generate initial title
+            initCharts();
+            setupEventListeners();
+            startAutoRefresh();
+            
+            // Update title every 5 minutes
+            setInterval(updateDashboardTitle, 300000);
+        });
+
+        // Initialize all charts with dynamic titles
+        function initCharts() {
+            createChart('mainChart', 'bar', config.data.bar);
+            createChart('pieChart', 'pie', config.data.pie);
+            createChart('lineChart', 'line', config.data.line);
+            
+            // Generate initial chart titles
+            refreshChartTitle('main-chart-title', 'bar');
+            refreshChartTitle('pie-chart-title', 'pie');
+            refreshChartTitle('line-chart-title', 'line');
+        }
+
+        // Create individual chart with professional styling
+        function createChart(canvasId, type, data) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            if (config.charts[canvasId]) {
+                config.charts[canvasId].destroy();
+            }
+
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: {
+                        display: type === 'pie',
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: 'Inter',
+                                size: 12,
+                                weight: '500'
+                            },
+                            color: '#64748b',
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        titleColor: '#f1f5f9',
+                        bodyColor: '#e2e8f0',
+                        borderColor: '#667eea',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        font: {
+                            family: 'Inter'
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                if (type === 'bar' && canvasId === 'mainChart') {
+                                    return `${context.dataset.label}: ${context.parsed.y.toLocaleString()} applications`;
+                                } else if (type === 'line') {
+                                    return `${context.dataset.label}: ${context.parsed.y} applications`;
+                                } else if (type === 'pie') {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${context.label}: ${percentage}%`;
+                                }
+                                return `${context.dataset.label}: ${context.parsed.y}`;
+                            }
+                        }
+                    }
+                }
+            };
+
+            let chartOptions = { ...commonOptions };
+
+            if (type !== 'pie') {
+                chartOptions.scales = {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#e2e8f0',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                family: 'Inter',
+                                size: 11
+                            },
+                            callback: function(value) {
+                                if (canvasId === 'mainChart' && type === 'bar') {
+                                    return value.toLocaleString();
+                                }
+                                return value;
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                family: 'Inter',
+                                size: 11,
+                                weight: '500'
+                            },
+                            maxRotation: type === 'bar' ? 45 : 0
+                        }
+                    }
+                };
+            }
+
+            // Special styling for pie charts
+            if (type === 'pie') {
+                chartOptions.plugins.legend.display = true;
+                chartOptions.cutout = '40%'; // Donut style
+            }
+
+            config.charts[canvasId] = new Chart(ctx, {
+                type: type === 'pie' ? 'doughnut' : type,
+                data: data,
+                options: chartOptions
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('chartType').addEventListener('change', function() {
+                updateMainChart(this.value);
+            });
+
+            document.getElementById('timeRange').addEventListener('change', function() {
+                updateTimeRange(this.value);
+            });
+        }
+
+        // Update main chart with dynamic title
+        function updateMainChart(type) {
+            const data = config.data[type] || config.data.bar;
+            createChart('mainChart', type, data);
+            refreshChartTitle('main-chart-title', type);
+        }
+        
+        // Refresh chart title with enhanced animation
+        function refreshChartTitle(titleElementId, chartType) {
+            const titleElement = document.getElementById(titleElementId);
+            if (!titleElement) return;
+            
+            // Generate new title
+            const newTitle = generateChartTitle(chartType);
+            
+            // Enhanced animation with slide effect
+            titleElement.style.transition = 'all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)';
+            titleElement.style.opacity = '0';
+            titleElement.style.transform = 'translateY(-15px) scale(0.95)';
+            
+            setTimeout(() => {
+                titleElement.textContent = newTitle;
+                titleElement.style.opacity = '1';
+                titleElement.style.transform = 'translateY(0) scale(1)';
+                
+                // Add a subtle glow effect temporarily
+                titleElement.style.textShadow = '0 0 10px rgba(102, 126, 234, 0.3)';
+                setTimeout(() => {
+                    titleElement.style.textShadow = 'none';
+                }, 800);
+            }, 200);
+        }
+
+        // Update time range
+        function updateTimeRange(range) {
+            console.log('Time range updated:', range);
+            // Implement time range logic here
+            generateRandomData();
+        }
+
+        // Refresh all data - prompts MCP client to fetch new data
+        function refreshData() {
+            showLoading();
+            
+            // Notify console that refresh is needed - MCP client should listen for this
+            console.log('REFRESH_REQUEST: Dashboard requesting fresh Oracle data');
+            
+            // Also dispatch a custom event that MCP client can listen to
+            window.dispatchEvent(new CustomEvent('oracleDataRefreshRequested', {
+                detail: {
+                    timestamp: Date.now(),
+                    dataTypes: ['loan_popularity', 'trend_analysis', 'risk_distribution', 'metrics']
+                }
+            }));
+            
+            // Fallback: generate random data after 2 seconds if no real data comes
+            setTimeout(() => {
+                if (document.querySelector('.loading')) {
+                    generateRandomData();
+                    updateMetrics();
+                }
+                hideLoading();
+            }, 2000);
+        }
+
+        // Data injection functions for MCP client
+        window.injectOracleData = function(dataType, data) {
+            console.log(`Injecting ${dataType} data:`, data);
+            
+            switch(dataType) {
+                case 'loan_popularity':
+                    updateMainChartWithData(data, 'bar');
+                    break;
+                case 'trend_analysis':
+                    updateLineChartWithData(data);
+                    break;
+                case 'risk_distribution':
+                    updatePieChartWithData(data);
+                    break;
+                case 'branch_performance':
+                    updateMainChartWithData(data, 'bar');
+                    break;
+                case 'metrics':
+                    updateDashboardMetrics(data);
+                    break;
+                default:
+                    console.warn('Unknown data type:', dataType);
+            }
+        };
+        
+        // Update main chart with injected data
+        function updateMainChartWithData(data, chartType = 'bar') {
+            const chart = config.charts.mainChart;
+            if (!chart || !data || !Array.isArray(data)) return;
+            
+            const labels = [];
+            const values = [];
+            
+            data.forEach(item => {
+                if (item.loan_type) {
+                    labels.push(item.loan_type);
+                    values.push(item.application_count || item.total_amount || 0);
+                } else if (item.branch_name) {
+                    labels.push(item.branch_name);
+                    values.push(item.total_amount || item.application_count || 0);
+                }
+            });
+            
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update('active');
+            
+            console.log('Updated main chart with real data:', labels, values);
+        }
+        
+        // Update line chart with trend data
+        function updateLineChartWithData(data) {
+            const chart = config.charts.lineChart;
+            if (!chart || !data || !Array.isArray(data)) return;
+            
+            const labels = [];
+            const values = [];
+            
+            data.forEach(item => {
+                if (item.date) {
+                    labels.push(new Date(item.date).toLocaleDateString());
+                    values.push(item.application_count || item.avg_loan_amount || 0);
+                }
+            });
+            
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update('active');
+            
+            console.log('Updated line chart with trend data:', labels, values);
+        }
+        
+        // Update pie chart with risk distribution
+        function updatePieChartWithData(data) {
+            const chart = config.charts.pieChart;
+            if (!chart || !data || !Array.isArray(data)) return;
+            
+            const labels = [];
+            const values = [];
+            
+            data.forEach(item => {
+                if (item.risk_category) {
+                    labels.push(item.risk_category);
+                    values.push(item.assessment_count || item.avg_risk_score || 0);
+                }
+            });
+            
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update('active');
+            
+            console.log('Updated pie chart with risk data:', labels, values);
+        }
+        
+        // Update dashboard metrics
+        function updateDashboardMetrics(data) {
+            if (!data || typeof data !== 'object') return;
+            
+            if (data.totalApplications !== undefined) {
+                document.getElementById('total-applications').textContent = data.totalApplications.toLocaleString();
+            }
+            
+            if (data.approvalRate !== undefined) {
+                document.getElementById('approval-rate').textContent = data.approvalRate.toFixed(1) + '%';
+            }
+            
+            if (data.loanVolume !== undefined) {
+                const volumeInMillions = (data.loanVolume / 1000000).toFixed(1);
+                document.getElementById('loan-volume').textContent = '$' + volumeInMillions + 'M';
+            }
+            
+            if (data.avgRiskScore !== undefined) {
+                document.getElementById('risk-score').textContent = data.avgRiskScore.toFixed(2);
+            }
+            
+            console.log('Updated dashboard metrics:', data);
+        }
+        
+        // Generate random data for demo (fallback)
+        function generateRandomData() {
+            Object.keys(config.charts).forEach(chartId => {
+                const chart = config.charts[chartId];
+                if (chart && chart.data.datasets[0]) {
+                    chart.data.datasets[0].data = chart.data.datasets[0].data.map(() =>
+                        Math.floor(Math.random() * 100) + 10
+                    );
+                    chart.update();
+                }
+            });
+        }
+
+        // Update metrics with real banking data
+        function updateMetrics() {
+            const baseMetrics = config.metrics;
+            
+            // Add some realistic variation to simulate live updates
+            const variation = {
+                applications: Math.floor(Math.random() * 50) - 25, // ±25
+                approvalRate: (Math.random() * 4) - 2, // ±2%
+                volume: Math.floor(Math.random() * 2000000) - 1000000, // ±1M
+                risk: (Math.random() * 0.1) - 0.05 // ±0.05
+            };
+            
+            // Update with realistic values
+            document.getElementById('total-applications').textContent = 
+                (baseMetrics.totalApplications + variation.applications).toLocaleString();
+            
+            document.getElementById('approval-rate').textContent = 
+                Math.max(75, Math.min(95, baseMetrics.approvalRate + variation.approvalRate)).toFixed(1) + '%';
+            
+            document.getElementById('loan-volume').textContent = 
+                '$' + ((baseMetrics.loanVolume + variation.volume) / 1000000).toFixed(1) + 'M';
+            
+            document.getElementById('risk-score').textContent = 
+                Math.max(0.1, Math.min(1.0, baseMetrics.avgRiskScore + variation.risk)).toFixed(2);
+            
+            // Update trend indicators with animation
+            updateTrendIndicators();
+        }
+        
+        // Update trend indicators
+        function updateTrendIndicators() {
+            const trends = document.querySelectorAll('.metric-trend');
+            trends.forEach(trend => {
+                trend.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    trend.style.transform = 'scale(1)';
+                }, 200);
+            });
+        }
+
+        // Show loading
+        function showLoading() {
+            document.querySelectorAll('.chart-canvas').forEach(canvas => {
+                canvas.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+            });
+        }
+
+        // Hide loading
+        function hideLoading() {
+            document.querySelectorAll('.chart-canvas').forEach((canvas, index) => {
+                const canvasId = ['mainChart', 'pieChart', 'lineChart'][index];
+                canvas.innerHTML = `<canvas id="${canvasId}"></canvas>`;
+            });
+            initCharts();
+        }
+
+        // Auto refresh every 30 seconds
+        function startAutoRefresh() {
+            setInterval(() => {
+                updateMetrics();
+                if (Math.random() > 0.7) {
+                    generateRandomData();
+                }
+            }, 30000);
+        }
+
+        // Export Menu Toggle
+        function toggleExportMenu() {
+            const menu = document.getElementById('exportMenu');
+            menu.classList.toggle('show');
+            
+            // Close menu when clicking outside
+            if (menu.classList.contains('show')) {
+                setTimeout(() => {
+                    document.addEventListener('click', function closeMenu(e) {
+                        if (!e.target.closest('.export-dropdown')) {
+                            menu.classList.remove('show');
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    });
+                }, 100);
+            }
+        }
+        
+        // CSV Export
+        function exportToCSV() {
+            showExportProgress('Generating CSV file...');
+            
+            setTimeout(() => {
+                const data = collectAllData();
+                const csv = convertToCSV(data);
+                downloadFile(csv, 'oracle-banking-dashboard.csv', 'text/csv');
+                hideExportProgress();
+                closeExportMenu();
+            }, 500);
+        }
+        
+        // Excel Export
+        function exportToXLS() {
+            showExportProgress('Creating Excel workbook...');
+            
+            setTimeout(() => {
+                const data = collectAllData();
+                const wb = XLSX.utils.book_new();
+            
+            // Add metrics sheet
+            const metricsData = [
+                ['Metric', 'Value', 'Trend'],
+                ['Total Applications', data.metrics.totalApplications, data.metrics.trends.applications + '%'],
+                ['Approval Rate', data.metrics.approvalRate + '%', data.metrics.trends.approvals + '%'],
+                ['Loan Volume', '$' + (data.metrics.loanVolume / 1000000).toFixed(1) + 'M', data.metrics.trends.volume + '%'],
+                ['Avg Risk Score', data.metrics.avgRiskScore, data.metrics.trends.risk + '%']
+            ];
+            const metricsWS = XLSX.utils.aoa_to_sheet(metricsData);
+            XLSX.utils.book_append_sheet(wb, metricsWS, 'Metrics');
+            
+            // Add chart data sheets
+            Object.keys(data.charts).forEach(chartType => {
+                const chartData = data.charts[chartType];
+                const sheetData = [
+                    ['Label', 'Value'],
+                    ...chartData.labels.map((label, i) => [label, chartData.datasets[0].data[i]])
+                ];
+                const ws = XLSX.utils.aoa_to_sheet(sheetData);
+                XLSX.utils.book_append_sheet(wb, ws, chartType.toUpperCase());
+            });
+            
+                XLSX.writeFile(wb, 'oracle-banking-dashboard.xlsx');
+                hideExportProgress();
+                closeExportMenu();
+            }, 800);
+        }
+        
+        // JSON Export
+        function exportToJSON() {
+            showExportProgress('Preparing JSON export...');
+            
+            setTimeout(() => {
+                const data = collectAllData();
+                const jsonData = JSON.stringify(data, null, 2);
+                downloadFile(jsonData, 'oracle-banking-dashboard.json', 'application/json');
+                hideExportProgress();
+                closeExportMenu();
+            }, 400);
+        }
+        
+        // PDF Export
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            showExportProgress('Generating PDF report...');
+            
+            html2canvas(document.querySelector('.container'), {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                // Add first page
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add additional pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                pdf.save('oracle-banking-dashboard.pdf');
+                hideExportProgress();
+                closeExportMenu();
+            });
+        }
+        
+        // Export Charts as PNG
+        function exportChartsAsPNG() {
+            const chartIds = ['mainChart', 'pieChart', 'lineChart'];
+            showExportProgress('Exporting charts...');
+            
+            chartIds.forEach((chartId, index) => {
+                const chart = config.charts[chartId];
+                if (chart) {
+                    const url = chart.toBase64Image('image/png', 1.0);
+                    const link = document.createElement('a');
+                    link.download = `${chartId}-chart.png`;
+                    link.href = url;
+                    link.click();
+                }
+            });
+            
+            setTimeout(() => {
+                hideExportProgress();
+                closeExportMenu();
+            }, 1000);
+        }
+        
+        // Export Template
+        function exportTemplate() {
+            showExportProgress('Generating template...');
+            
+            // Create a clean template without data
+            const templateData = {
+                title: 'Dashboard Template',
+                subtitle: 'Customizable Analytics Dashboard',
+                colors: config.colors,
+                chartTypes: ['bar', 'line', 'pie'],
+                metrics: {
+                    totalApplications: 0,
+                    approvalRate: 0,
+                    loanVolume: 0,
+                    avgRiskScore: 0
+                },
+                configuration: {
+                    autoRefresh: true,
+                    refreshInterval: 30000,
+                    animations: true,
+                    responsive: true
+                }
+            };
+            
+            const templateJson = JSON.stringify(templateData, null, 2);
+            downloadFile(templateJson, 'dashboard-template.json', 'application/json');
+            
+            setTimeout(() => {
+                hideExportProgress();
+                closeExportMenu();
+            }, 500);
+        }
+        
+        // Helper Functions
+        function collectAllData() {
+            return {
+                timestamp: new Date().toISOString(),
+                metrics: config.metrics,
+                charts: config.data
+            };
+        }
+        
+        function convertToCSV(data) {
+            let csv = 'Dashboard Export\n\n';
+            csv += 'Timestamp,' + data.timestamp + '\n\n';
+            
+            // Metrics section
+            csv += 'METRICS\n';
+            csv += 'Metric,Value,Trend\n';
+            csv += `Total Applications,${data.metrics.totalApplications},${data.metrics.trends.applications}%\n`;
+            csv += `Approval Rate,${data.metrics.approvalRate}%,${data.metrics.trends.approvals}%\n`;
+            csv += `Loan Volume,$${(data.metrics.loanVolume / 1000000).toFixed(1)}M,${data.metrics.trends.volume}%\n`;
+            csv += `Avg Risk Score,${data.metrics.avgRiskScore},${data.metrics.trends.risk}%\n\n`;
+            
+            // Charts section
+            Object.keys(data.charts).forEach(chartType => {
+                const chartData = data.charts[chartType];
+                csv += `${chartType.toUpperCase()} CHART\n`;
+                csv += 'Label,Value\n';
+                chartData.labels.forEach((label, i) => {
+                    csv += `${label},${chartData.datasets[0].data[i]}\n`;
+                });
+                csv += '\n';
+            });
+            
+            return csv;
+        }
+        
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function closeExportMenu() {
+            document.getElementById('exportMenu').classList.remove('show');
+        }
+        
+        function showExportProgress(message) {
+            const modal = document.getElementById('exportModal');
+            const msg = document.getElementById('exportMessage');
+            msg.textContent = message || 'Processing...';
+            modal.classList.add('show');
+        }
+        
+        function hideExportProgress() {
+            const modal = document.getElementById('exportModal');
+            modal.classList.remove('show');
+        }
+
+        // Download chart
+        function downloadChart(chartId) {
+            const chart = config.charts[chartId];
+            if (chart) {
+                const url = chart.toBase64Image();
+                const link = document.createElement('a');
+                link.download = `${chartId}.png`;
+                link.href = url;
+                link.click();
+            }
+        }
+
+        // Utility function to load external configuration
+        function loadConfiguration(configUrl) {
+            fetch(configUrl)
+                .then(response => response.json())
+                .then(data => {
+                    applyConfiguration(data);
+                })
+                .catch(error => {
+                    console.error('Error loading configuration:', error);
+                });
+        }
+
+        // Apply configuration
+        function applyConfiguration(userConfig) {
+            if (userConfig.dashboard) {
+                document.getElementById('dashboard-title').textContent = userConfig.dashboard.title || 'Basic Dashboard';
+                document.getElementById('dashboard-subtitle').textContent = userConfig.dashboard.subtitle || 'Data Visualization';
+            }
+            
+            if (userConfig.colors) {
+                Object.keys(userConfig.colors).forEach(key => {
+                    document.documentElement.style.setProperty(`--${key.replace(/[A-Z]/g, m => "-" + m.toLowerCase())}-color`, userConfig.colors[key]);
+                });
+            }
+        }
+
+        // Example: Load configuration from external file
+        // loadConfiguration('../configs/dashboard-config.json');
+    </script>
+</body>
+</html>

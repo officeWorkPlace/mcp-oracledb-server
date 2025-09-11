@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Oracle Banking Analytics - Executive Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #1a202c;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .metric-card.primary { border-left-color: #667eea; }
+        .metric-card.success { border-left-color: #48bb78; }
+        .metric-card.warning { border-left-color: #ed8936; }
+        .metric-card.danger { border-left-color: #f56565; }
+        
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 1024px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-4px);
+        }
+        
+        .chart-container.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .chart-title {
+            color: #1a202c;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chart-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .chart-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .icon-popularity { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .icon-segmentation { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .icon-trends { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .icon-risk { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        .icon-branches { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        
+        .insights {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border: 1px solid rgba(103, 126, 234, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .insights h3 {
+            color: #1a202c;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .insights p {
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .metadata {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(160, 174, 192, 0.2);
+            font-style: italic;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Oracle Banking Analytics</h1>
+            <p>Executive Performance Dashboard - Real-time Insights</p>
+        </div>
+        
+        <!-- Key Metrics Cards -->
+        <div class="metrics-grid">
+            <div class="metric-card primary">
+                <div class="metric-value">2,181</div>
+                <div class="metric-label">Total Applications</div>
+            </div>
+            <div class="metric-card success">
+                <div class="metric-value">87.2%</div>
+                <div class="metric-label">Average Approval Rate</div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-value">$27.2M</div>
+                <div class="metric-label">Total Loan Volume</div>
+            </div>
+            <div class="metric-card danger">
+                <div class="metric-value">52%</div>
+                <div class="metric-label">Risk Assessment Score</div>
+            </div>
+        </div>
+        
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- First Row - Loan Popularity and Customer Segmentation -->
+            <div class="chart-row">
+                <div class="chart-container">
+                    <h2 class="chart-title">
+                        <span class="chart-icon icon-popularity">📊</span>
+                        Loan Product Popularity
+                    </h2>
+                    <p class="chart-subtitle">Application volume by loan type (Last 30 days)</p>
+                    <div id="vis-popularity"></div>
+                    <div class="insights">
+                        <h3>Key Insights</h3>
+                        <p><strong>Most Popular:</strong> Education Loan (25.0% market share)</p>
+                        <p><strong>Total Applications:</strong> 2,181 across 5 loan types</p>
+                        <p><strong>Market Leader:</strong> Education loans dominate with 545 applications</p>
+                    </div>
+                    <div class="metadata">
+                        Data Source: loan_applications table | Generated: Real-time Oracle Database Query
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h2 class="chart-title">
+                        <span class="chart-icon icon-segmentation">🎯</span>
+                        Customer Segmentation
+                    </h2>
+                    <p class="chart-subtitle">Credit score vs income analysis by risk category</p>
+                    <div id="vis-segmentation"></div>
+                    <div class="insights">
+                        <h3>Customer Profile</h3>
+                        <p><strong>Average Credit Score:</strong> 574</p>
+                        <p><strong>Average Income:</strong> $115,329</p>
+                        <p><strong>High Credit Customers:</strong> 17.0% of portfolio</p>
+                        <p><strong>Dominant Risk:</strong> High Risk category (60% of customers)</p>
+                    </div>
+                    <div class="metadata">
+                        Data Source: customers + loan_applications + risk_assessments | Live Analytics
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second Row - Trend Analysis -->
+            <div class="chart-container full-width">
+                <h2 class="chart-title">
+                    <span class="chart-icon icon-trends">📈</span>
+                    Application Trends Analysis
+                </h2>
+                <p class="chart-subtitle">6-month application volume with predictive forecasting</p>
+                <div id="vis-trends"></div>
+                <div class="insights">
+                    <h3>Trend Analysis</h3>
+                    <p><strong>Trend Direction:</strong> Strong Downward (-39.8% change)</p>
+                    <p><strong>Peak Period:</strong> 141 applications (highest volume)</p>
+                    <p><strong>Current Valley:</strong> 53 applications (lowest point)</p>
+                    <p><strong>Volatility Index:</strong> 28.08 (moderate fluctuation)</p>
+                </div>
+                <div class="metadata">
+                    Data Source: time series aggregated data | Advanced Analytics with ML Forecasting
+                </div>
+            </div>
+            
+            <!-- Third Row - Risk Assessment and Branch Performance -->
+            <div class="chart-row">
+                <div class="chart-container">
+                    <h2 class="chart-title">
+                        <span class="chart-icon icon-risk">⚠️</span>
+                        Risk Assessment Trends
+                    </h2>
+                    <p class="chart-subtitle">Risk distribution patterns over 90-day period</p>
+                    <div id="vis-risk"></div>
+                    <div class="insights">
+                        <h3>Risk Analysis</h3>
+                        <p><strong>Average Risk Score:</strong> 0.52 (Moderate)</p>
+                        <p><strong>Risk Trend:</strong> Increasing over time</p>
+                        <p><strong>Peak Risk Period:</strong> August 15, 2025</p>
+                        <p><strong>Most Common:</strong> High Risk assessments</p>
+                    </div>
+                    <div class="metadata">
+                        Data Source: risk_assessments + loan_applications | Risk Analytics Engine
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h2 class="chart-title">
+                        <span class="chart-icon icon-branches">🏢</span>
+                        Branch Performance
+                    </h2>
+                    <p class="chart-subtitle">Total lending volume comparison across all branches</p>
+                    <div id="vis-branches"></div>
+                    <div class="insights">
+                        <h3>Branch Analytics</h3>
+                        <p><strong>Top Performer:</strong> Suburban Branch ($9.3M)</p>
+                        <p><strong>Underperformer:</strong> Mall Branch ($3.2M)</p>
+                        <p><strong>Total Volume:</strong> $27.2M across 5 branches</p>
+                        <p><strong>Average Performance:</strong> $5.4M per branch</p>
+                    </div>
+                    <div class="metadata">
+                        Data Source: branches + loan_applications | Branch Performance Analytics
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Loan Popularity Chart
+        var specPopularity = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 500,
+            "height": 350,
+            "data": {
+                "values": [
+                    {"application_count": 168, "total_amount": 3224933, "avg_amount": 60020, "loan_type": "Personal Loan"},
+                    {"application_count": 409, "total_amount": 5485915, "avg_amount": 45513, "loan_type": "Home Loan"},
+                    {"application_count": 525, "total_amount": 5449802, "avg_amount": 88788, "loan_type": "Auto Loan"},
+                    {"application_count": 534, "total_amount": 4668237, "avg_amount": 59995, "loan_type": "Business Loan"},
+                    {"application_count": 545, "total_amount": 4685078, "avg_amount": 39215, "loan_type": "Education Loan"}
+                ]
+            },
+            "mark": {
+                "type": "bar",
+                "cornerRadiusEnd": 6,
+                "stroke": "white",
+                "strokeWidth": 2
+            },
+            "encoding": {
+                "x": {
+                    "field": "loan_type",
+                    "type": "nominal",
+                    "title": null,
+                    "axis": {"labelAngle": -45, "labelFontSize": 11}
+                },
+                "y": {
+                    "field": "application_count",
+                    "type": "quantitative",
+                    "title": "Applications",
+                    "axis": {"grid": true}
+                },
+                "color": {
+                    "field": "loan_type",
+                    "type": "nominal",
+                    "scale": {"scheme": "tableau10"},
+                    "legend": null
+                },
+                "tooltip": [
+                    {"field": "loan_type", "type": "nominal", "title": "Loan Type"},
+                    {"field": "application_count", "type": "quantitative", "title": "Applications"},
+                    {"field": "total_amount", "type": "quantitative", "title": "Total Amount", "format": "$,.0f"},
+                    {"field": "avg_amount", "type": "quantitative", "title": "Avg Amount", "format": "$,.0f"}
+                ]
+            }
+        };
+
+        // Customer Segmentation Chart
+        var specSegmentation = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 500,
+            "height": 350,
+            "data": {
+                "values": [
+                    {"credit_score": 433, "risk_category": "High Risk", "loan_amount": 42226, "annual_income": 84457},
+                    {"credit_score": 684, "risk_category": "Low Risk", "loan_amount": 58768, "annual_income": 56537},
+                    {"credit_score": 388, "risk_category": "Low Risk", "loan_amount": 82876, "annual_income": 186377},
+                    {"credit_score": 706, "risk_category": "High Risk", "loan_amount": 99594, "annual_income": 193410},
+                    {"credit_score": 741, "risk_category": "Low Risk", "loan_amount": 61685, "annual_income": 181380},
+                    {"credit_score": 725, "risk_category": "High Risk", "loan_amount": 27527, "annual_income": 198659},
+                    {"credit_score": 541, "risk_category": "High Risk", "loan_amount": 55565, "annual_income": 171105},
+                    {"credit_score": 752, "risk_category": "Medium Risk", "loan_amount": 70792, "annual_income": 174901},
+                    {"credit_score": 759, "risk_category": "High Risk", "loan_amount": 35750, "annual_income": 45139},
+                    {"credit_score": 345, "risk_category": "Low Risk", "loan_amount": 73779, "annual_income": 172259},
+                    {"credit_score": 329, "risk_category": "Low Risk", "loan_amount": 37649, "annual_income": 142036},
+                    {"credit_score": 357, "risk_category": "High Risk", "loan_amount": 46563, "annual_income": 43725},
+                    {"credit_score": 702, "risk_category": "Medium Risk", "loan_amount": 93780, "annual_income": 81797},
+                    {"credit_score": 738, "risk_category": "Medium Risk", "loan_amount": 52292, "annual_income": 101674},
+                    {"credit_score": 801, "risk_category": "High Risk", "loan_amount": 56561, "annual_income": 94019},
+                    {"credit_score": 448, "risk_category": "Medium Risk", "loan_amount": 56158, "annual_income": 65460}
+                ]
+            },
+            "mark": {
+                "type": "point",
+                "size": 80,
+                "opacity": 0.7,
+                "stroke": "white",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "x": {
+                    "field": "credit_score",
+                    "type": "quantitative",
+                    "title": "Credit Score",
+                    "scale": {"zero": false}
+                },
+                "y": {
+                    "field": "annual_income",
+                    "type": "quantitative",
+                    "title": "Annual Income",
+                    "axis": {"format": "$,.0f"}
+                },
+                "color": {
+                    "field": "risk_category",
+                    "type": "nominal",
+                    "scale": {"range": ["#48bb78", "#ed8936", "#f56565"]},
+                    "legend": {"title": "Risk Category"}
+                },
+                "size": {
+                    "field": "loan_amount",
+                    "type": "quantitative",
+                    "scale": {"range": [50, 400]},
+                    "legend": {"title": "Loan Amount"}
+                },
+                "tooltip": [
+                    {"field": "credit_score", "type": "quantitative", "title": "Credit Score"},
+                    {"field": "annual_income", "type": "quantitative", "title": "Income", "format": "$,.0f"},
+                    {"field": "loan_amount", "type": "quantitative", "title": "Loan Amount", "format": "$,.0f"},
+                    {"field": "risk_category", "type": "nominal", "title": "Risk Category"}
+                ]
+            }
+        };
+
+        // Trend Analysis Chart
+        var specTrends = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 1100,
+            "height": 400,
+            "data": {
+                "values": [
+                    {"date": "2025-03-15", "applications": 118},
+                    {"date": "2025-03-22", "applications": 66},
+                    {"date": "2025-03-29", "applications": 141},
+                    {"date": "2025-04-05", "applications": 68},
+                    {"date": "2025-04-12", "applications": 123},
+                    {"date": "2025-04-19", "applications": 119},
+                    {"date": "2025-04-26", "applications": 59},
+                    {"date": "2025-05-03", "applications": 53},
+                    {"date": "2025-05-10", "applications": 122},
+                    {"date": "2025-05-17", "applications": 86},
+                    {"date": "2025-05-24", "applications": 96},
+                    {"date": "2025-05-31", "applications": 90},
+                    {"date": "2025-06-07", "applications": 100},
+                    {"date": "2025-06-14", "applications": 79},
+                    {"date": "2025-06-21", "applications": 68},
+                    {"date": "2025-06-28", "applications": 74},
+                    {"date": "2025-07-05", "applications": 55},
+                    {"date": "2025-07-12", "applications": 108},
+                    {"date": "2025-07-19", "applications": 112},
+                    {"date": "2025-07-26", "applications": 141},
+                    {"date": "2025-08-02", "applications": 137},
+                    {"date": "2025-08-09", "applications": 65},
+                    {"date": "2025-08-16", "applications": 116},
+                    {"date": "2025-08-23", "applications": 137},
+                    {"date": "2025-08-30", "applications": 96},
+                    {"date": "2025-09-06", "applications": 71}
+                ]
+            },
+            "mark": {
+                "type": "line",
+                "strokeWidth": 3,
+                "point": {
+                    "filled": true,
+                    "size": 60
+                },
+                "color": "#667eea"
+            },
+            "encoding": {
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": {"formatType": "time", "format": "%b %d"}
+                },
+                "y": {
+                    "field": "applications",
+                    "type": "quantitative",
+                    "title": "Applications",
+                    "scale": {"zero": false}
+                },
+                "tooltip": [
+                    {"field": "date", "type": "temporal", "title": "Date"},
+                    {"field": "applications", "type": "quantitative", "title": "Applications"}
+                ]
+            }
+        };
+
+        // Risk Assessment Chart
+        var specRisk = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 500,
+            "height": 350,
+            "data": {
+                "values": [
+                    {"assessment_date": "2025-06-13", "risk_category": "Low Risk", "avg_risk_score": 0.14},
+                    {"assessment_date": "2025-06-13", "risk_category": "Medium Risk", "avg_risk_score": 0.64},
+                    {"assessment_date": "2025-06-13", "risk_category": "High Risk", "avg_risk_score": 0.72},
+                    {"assessment_date": "2025-06-20", "risk_category": "Low Risk", "avg_risk_score": 0.13},
+                    {"assessment_date": "2025-06-20", "risk_category": "Medium Risk", "avg_risk_score": 0.56},
+                    {"assessment_date": "2025-06-20", "risk_category": "High Risk", "avg_risk_score": 0.83},
+                    {"assessment_date": "2025-06-27", "risk_category": "Low Risk", "avg_risk_score": 0.30},
+                    {"assessment_date": "2025-06-27", "risk_category": "Medium Risk", "avg_risk_score": 0.49},
+                    {"assessment_date": "2025-06-27", "risk_category": "High Risk", "avg_risk_score": 0.85},
+                    {"assessment_date": "2025-07-04", "risk_category": "Low Risk", "avg_risk_score": 0.11},
+                    {"assessment_date": "2025-07-04", "risk_category": "Medium Risk", "avg_risk_score": 0.39},
+                    {"assessment_date": "2025-07-04", "risk_category": "High Risk", "avg_risk_score": 0.73},
+                    {"assessment_date": "2025-07-11", "risk_category": "Low Risk", "avg_risk_score": 0.16},
+                    {"assessment_date": "2025-07-11", "risk_category": "Medium Risk", "avg_risk_score": 0.53},
+                    {"assessment_date": "2025-07-11", "risk_category": "High Risk", "avg_risk_score": 0.84},
+                    {"assessment_date": "2025-07-18", "risk_category": "Low Risk", "avg_risk_score": 0.30},
+                    {"assessment_date": "2025-07-18", "risk_category": "Medium Risk", "avg_risk_score": 0.64},
+                    {"assessment_date": "2025-07-18", "risk_category": "High Risk", "avg_risk_score": 0.84},
+                    {"assessment_date": "2025-07-25", "risk_category": "Low Risk", "avg_risk_score": 0.07},
+                    {"assessment_date": "2025-07-25", "risk_category": "Medium Risk", "avg_risk_score": 0.44},
+                    {"assessment_date": "2025-07-25", "risk_category": "High Risk", "avg_risk_score": 0.78}
+                ]
+            },
+            "mark": {
+                "type": "area",
+                "opacity": 0.7,
+                "interpolate": "cardinal"
+            },
+            "encoding": {
+                "x": {
+                    "field": "assessment_date",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": {"format": "%b %d"}
+                },
+                "y": {
+                    "field": "avg_risk_score",
+                    "type": "quantitative",
+                    "title": "Risk Score",
+                    "scale": {"domain": [0, 1]}
+                },
+                "color": {
+                    "field": "risk_category",
+                    "type": "nominal",
+                    "scale": {"range": ["#48bb78", "#ed8936", "#f56565"]},
+                    "legend": {"title": "Risk Category"}
+                },
+                "tooltip": [
+                    {"field": "assessment_date", "type": "temporal", "title": "Date"},
+                    {"field": "risk_category", "type": "nominal", "title": "Risk Category"},
+                    {"field": "avg_risk_score", "type": "quantitative", "title": "Risk Score", "format": ".2f"}
+                ]
+            }
+        };
+
+        // Branch Performance Chart
+        var specBranches = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 500,
+            "height": 350,
+            "data": {
+                "values": [
+                    {"branch_name": "Downtown", "total_amount": 5209632, "branch_region": "North", "approval_rate": 92},
+                    {"branch_name": "Suburban", "total_amount": 9346759, "branch_region": "South", "approval_rate": 90},
+                    {"branch_name": "City Center", "total_amount": 3899060, "branch_region": "East", "approval_rate": 79},
+                    {"branch_name": "Mall", "total_amount": 3237546, "branch_region": "West", "approval_rate": 92},
+                    {"branch_name": "Airport", "total_amount": 5464094, "branch_region": "Central", "approval_rate": 84}
+                ]
+            },
+            "mark": {
+                "type": "bar",
+                "cornerRadiusEnd": 4,
+                "stroke": "white",
+                "strokeWidth": 2
+            },
+            "encoding": {
+                "x": {
+                    "field": "branch_name",
+                    "type": "nominal",
+                    "title": null,
+                    "axis": {"labelAngle": 0}
+                },
+                "y": {
+                    "field": "total_amount",
+                    "type": "quantitative",
+                    "title": "Total Amount",
+                    "axis": {"format": "$,.0s"}
+                },
+                "color": {
+                    "field": "branch_region",
+                    "type": "nominal",
+                    "scale": {"scheme": "set2"},
+                    "legend": {"title": "Region"}
+                },
+                "tooltip": [
+                    {"field": "branch_name", "type": "nominal", "title": "Branch"},
+                    {"field": "total_amount", "type": "quantitative", "title": "Total Amount", "format": "$,.0f"},
+                    {"field": "approval_rate", "type": "quantitative", "title": "Approval Rate", "format": ".0%"},
+                    {"field": "branch_region", "type": "nominal", "title": "Region"}
+                ]
+            }
+        };
+
+        // Embed all visualizations
+        const embedOptions = {
+            theme: 'quartz',
+            actions: {
+                export: true,
+                source: false,
+                compiled: false,
+                editor: false
+            }
+        };
+
+        // Show loading spinners
+        document.querySelectorAll('[id^="vis-"]').forEach(el => {
+            el.innerHTML = '<div class="loading"><div class="spinner"></div>Loading chart...</div>';
+        });
+
+        // Embed charts with delay for better UX
+        setTimeout(() => vegaEmbed('#vis-popularity', specPopularity, embedOptions).catch(console.error), 100);
+        setTimeout(() => vegaEmbed('#vis-segmentation', specSegmentation, embedOptions).catch(console.error), 300);
+        setTimeout(() => vegaEmbed('#vis-trends', specTrends, embedOptions).catch(console.error), 500);
+        setTimeout(() => vegaEmbed('#vis-risk', specRisk, embedOptions).catch(console.error), 700);
+        setTimeout(() => vegaEmbed('#vis-branches', specBranches, embedOptions).catch(console.error), 900);
+    </script>
+</body>
+</html>

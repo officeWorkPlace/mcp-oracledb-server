@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,dob,gender,ssn,email,phone,address,city,state,zip,income,employment_status,credit_score,created_at
+1,Patricia,Smith,1974-09-04,Male,328-27-2679,patricia.smith1@example.com,8906402157,8936 MG Road,Vadodara,West Bengal,133326,294516.51,Self-Employed,538,2023-09-01
+2,Karen,Smith,2000-05-08,Male,833-93-9928,karen.smith2@example.com,7801823908,3612 Main St,Vadodara,Gujarat,948749,4366106.56,Self-Employed,732,2021-10-25
+3,William,Jones,1969-04-26,Female,204-21-7224,william.jones3@example.com,6415393687,5882 Park Street,Ghaziabad,Gujarat,946335,360734.65,Retired,849,2019-05-27
+4,Richard,Williams,1999-07-12,Female,949-90-6925,richard.williams4@example.com,8479708607,3151 Sector,Bengaluru,Maharashtra,793384,1255306.64,Unemployed,381,2020-08-11
+5,Patricia,Gonzalez,1974-12-09,Female,750-56-3664,patricia.gonzalez5@example.com,7589915144,5821 Station Road,Jaipur,Delhi,738720,3229644.7,Student,550,2019-11-01

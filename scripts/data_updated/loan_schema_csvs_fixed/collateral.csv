@@ -1,0 +1,1001 @@
+collateral_id,loan_id,collateral_type,description,value,valuation_date
+1,923,None,None for loan 923,0.0,2021-12-18
+2,171,Vehicle,Vehicle for loan 171,1322170.77,2025-01-24
+3,939,None,None for loan 939,0.0,2024-03-06
+4,897,Gold,Gold for loan 897,9649338.7,2024-12-05
+5,666,Fixed Deposit,Fixed Deposit for loan 666,1608022.24,2018-02-16
+6,371,None,None for loan 371,0.0,2021-11-12
+7,579,Vehicle,Vehicle for loan 579,7860228.03,2023-04-08
+8,796,Fixed Deposit,Fixed Deposit for loan 796,8846204.52,2019-05-06
+9,238,Property,Property for loan 238,6438431.96,2025-06-14
+10,247,Gold,Gold for loan 247,9566768.76,2019-09-15
+11,838,None,None for loan 838,0.0,2023-04-19
+12,812,Vehicle,Vehicle for loan 812,5661479.29,2018-12-30
+13,730,Fixed Deposit,Fixed Deposit for loan 730,632169.51,2020-01-16
+14,684,Vehicle,Vehicle for loan 684,4373075.2,2023-09-09
+15,33,None,None for loan 33,0.0,2019-05-11
+16,296,Gold,Gold for loan 296,7499788.6,2020-10-08
+17,980,Fixed Deposit,Fixed Deposit for loan 980,3305916.72,2018-03-12
+18,905,Gold,Gold for loan 905,6507006.88,2022-10-24
+19,953,Gold,Gold for loan 953,9799562.14,2025-02-21
+20,325,Fixed Deposit,Fixed Deposit for loan 325,474944.7,2023-06-01
+21,603,Property,Property for loan 603,2426682.18,2025-05-14
+22,850,Gold,Gold for loan 850,9505365.23,2018-04-19
+23,343,Gold,Gold for loan 343,6282864.11,2019-05-09
+24,799,Vehicle,Vehicle for loan 799,8219247.98,2022-12-23
+25,667,Vehicle,Vehicle for loan 667,8740997.63,2021-07-29
+26,935,Gold,Gold for loan 935,9199976.32,2019-11-04
+27,647,Fixed Deposit,Fixed Deposit for loan 647,4613271.46,2020-05-19
+28,190,Property,Property for loan 190,7601248.45,2022-04-04
+29,541,Fixed Deposit,Fixed Deposit for loan 541,2824347.07,2022-05-27
+30,334,Fixed Deposit,Fixed Deposit for loan 334,1566820.86,2019-02-05
+31,201,Vehicle,Vehicle for loan 201,1721157.13,2022-02-05
+32,502,Vehicle,Vehicle for loan 502,9746928.03,2019-03-10
+33,949,None,None for loan 949,0.0,2021-02-20
+34,42,Vehicle,Vehicle for loan 42,7484128.42,2023-07-07
+35,115,Vehicle,Vehicle for loan 115,4811060.9,2023-04-14
+36,509,Property,Property for loan 509,6223901.27,2018-08-25
+37,101,Gold,Gold for loan 101,2541787.87,2022-05-18
+38,44,None,None for loan 44,0.0,2019-08-04
+39,847,None,None for loan 847,0.0,2019-07-24
+40,977,Property,Property for loan 977,6752770.32,2024-11-10
+41,173,Gold,Gold for loan 173,1404552.42,2022-05-23
+42,362,Gold,Gold for loan 362,3365851.34,2022-01-28
+43,178,None,None for loan 178,0.0,2020-10-20
+44,656,Vehicle,Vehicle for loan 656,4898230.34,2023-07-17
+45,244,Vehicle,Vehicle for loan 244,9990331.87,2018-06-13
+46,168,Vehicle,Vehicle for loan 168,5682264.78,2018-01-02
+47,565,Fixed Deposit,Fixed Deposit for loan 565,9382910.67,2021-10-23
+48,773,Property,Property for loan 773,6834234.57,2019-01-01
+49,83,Gold,Gold for loan 83,299703.22,2023-10-15
+50,758,None,None for loan 758,0.0,2022-03-24
+51,662,Vehicle,Vehicle for loan 662,7711488.12,2019-04-19
+52,445,Fixed Deposit,Fixed Deposit for loan 445,6100401.97,2019-12-23
+53,20,Vehicle,Vehicle for loan 20,4456417.19,2023-11-12
+54,73,None,None for loan 73,0.0,2020-06-23
+55,192,Fixed Deposit,Fixed Deposit for loan 192,1761554.74,2021-06-01
+56,550,Fixed Deposit,Fixed Deposit for loan 550,9928255.31,2019-02-24
+57,512,Vehicle,Vehicle for loan 512,4274029.52,2019-06-25
+58,978,Property,Property for loan 978,3510362.01,2021-09-24
+59,419,Gold,Gold for loan 419,9888364.41,2018-12-26
+60,594,Vehicle,Vehicle for loan 594,9291875.2,2018-11-07
+61,186,Fixed Deposit,Fixed Deposit for loan 186,5007931.32,2021-06-11
+62,873,Fixed Deposit,Fixed Deposit for loan 873,1148203.03,2018-09-19
+63,948,Fixed Deposit,Fixed Deposit for loan 948,2875551.71,2020-02-11
+64,875,None,None for loan 875,0.0,2022-03-26
+65,68,None,None for loan 68,0.0,2024-08-22
+66,28,Gold,Gold for loan 28,7023392.31,2020-02-19
+67,69,Fixed Deposit,Fixed Deposit for loan 69,1558694.91,2020-11-04
+68,578,None,None for loan 578,0.0,2020-03-12
+69,702,Gold,Gold for loan 702,7194997.96,2022-08-16
+70,604,None,None for loan 604,0.0,2022-02-19
+71,102,None,None for loan 102,0.0,2025-05-14
+72,858,Property,Property for loan 858,8886488.71,2020-02-04
+73,964,Property,Property for loan 964,3337123.0,2021-08-20
+74,219,Gold,Gold for loan 219,2627945.46,2023-12-16
+75,373,None,None for loan 373,0.0,2018-07-22
+76,269,None,None for loan 269,0.0,2020-01-04
+77,775,Gold,Gold for loan 775,3977303.79,2021-03-20
+78,151,Vehicle,Vehicle for loan 151,6567394.36,2022-07-29
+79,593,Vehicle,Vehicle for loan 593,5631443.89,2024-09-27
+80,116,Fixed Deposit,Fixed Deposit for loan 116,7238473.53,2020-01-03
+81,25,Property,Property for loan 25,5601334.78,2018-06-26
+82,635,Property,Property for loan 635,1376720.44,2023-02-10
+83,234,Gold,Gold for loan 234,6356298.51,2019-11-27
+84,123,Property,Property for loan 123,3303975.16,2023-02-25
+85,742,Vehicle,Vehicle for loan 742,2117925.16,2023-10-05
+86,920,Property,Property for loan 920,4203734.5,2021-09-21
+87,129,Fixed Deposit,Fixed Deposit for loan 129,4123972.16,2023-04-13
+88,19,Fixed Deposit,Fixed Deposit for loan 19,7474179.85,2022-03-06
+89,975,Vehicle,Vehicle for loan 975,2952600.75,2021-07-09
+90,250,Fixed Deposit,Fixed Deposit for loan 250,3990820.86,2018-09-04
+91,143,Gold,Gold for loan 143,4843431.69,2021-07-27
+92,249,Fixed Deposit,Fixed Deposit for loan 249,7253116.24,2021-10-05
+93,493,Fixed Deposit,Fixed Deposit for loan 493,79305.39,2020-11-09
+94,592,None,None for loan 592,0.0,2019-10-15
+95,493,Property,Property for loan 493,681758.34,2025-05-27
+96,525,Vehicle,Vehicle for loan 525,4823877.65,2018-09-13
+97,543,Gold,Gold for loan 543,9846589.76,2025-08-28
+98,925,None,None for loan 925,0.0,2018-06-05
+99,270,Property,Property for loan 270,6628159.15,2023-10-28
+100,420,Fixed Deposit,Fixed Deposit for loan 420,4287408.17,2020-04-03
+101,562,Fixed Deposit,Fixed Deposit for loan 562,8450934.7,2021-05-15
+102,682,None,None for loan 682,0.0,2024-02-19
+103,58,Property,Property for loan 58,9906630.19,2025-06-26
+104,144,Fixed Deposit,Fixed Deposit for loan 144,7290277.77,2024-11-11
+105,933,Property,Property for loan 933,3426905.48,2020-06-11
+106,192,Property,Property for loan 192,8813200.84,2024-09-12
+107,820,Gold,Gold for loan 820,1962863.31,2022-08-31
+108,30,Fixed Deposit,Fixed Deposit for loan 30,14128.76,2019-06-15
+109,982,Fixed Deposit,Fixed Deposit for loan 982,9519525.37,2018-12-15
+110,860,Gold,Gold for loan 860,9022928.27,2024-08-23
+111,965,Fixed Deposit,Fixed Deposit for loan 965,5699886.62,2021-07-26
+112,135,None,None for loan 135,0.0,2020-08-24
+113,767,Property,Property for loan 767,3298653.9,2020-09-10
+114,515,None,None for loan 515,0.0,2022-08-12
+115,12,Property,Property for loan 12,9784500.07,2018-05-13
+116,384,Vehicle,Vehicle for loan 384,5500614.74,2020-02-07
+117,451,Fixed Deposit,Fixed Deposit for loan 451,2014406.13,2024-05-08
+118,708,Fixed Deposit,Fixed Deposit for loan 708,8241368.17,2025-07-04
+119,495,Fixed Deposit,Fixed Deposit for loan 495,4160719.32,2021-06-19
+120,733,Fixed Deposit,Fixed Deposit for loan 733,6389517.69,2022-07-09
+121,987,Vehicle,Vehicle for loan 987,1580283.98,2020-01-08
+122,826,Fixed Deposit,Fixed Deposit for loan 826,7057764.94,2020-07-08
+123,148,Fixed Deposit,Fixed Deposit for loan 148,9554364.28,2023-01-28
+124,490,None,None for loan 490,0.0,2019-05-24
+125,512,Vehicle,Vehicle for loan 512,7070405.62,2019-05-31
+126,833,Gold,Gold for loan 833,3687590.29,2018-11-29
+127,996,Property,Property for loan 996,2964490.25,2023-10-13
+128,496,Vehicle,Vehicle for loan 496,8229804.13,2023-07-20
+129,467,Gold,Gold for loan 467,5158487.71,2019-09-13
+130,390,Fixed Deposit,Fixed Deposit for loan 390,5805640.93,2024-09-30
+131,532,Fixed Deposit,Fixed Deposit for loan 532,2278014.26,2019-12-23
+132,36,Property,Property for loan 36,4780795.28,2019-02-05
+133,690,Property,Property for loan 690,755462.51,2020-11-16
+134,191,Vehicle,Vehicle for loan 191,582659.37,2024-04-08
+135,72,None,None for loan 72,0.0,2020-07-26
+136,740,Gold,Gold for loan 740,1462738.57,2022-04-06
+137,62,Vehicle,Vehicle for loan 62,7211938.39,2022-06-25
+138,813,Vehicle,Vehicle for loan 813,9372163.56,2019-05-23
+139,464,None,None for loan 464,0.0,2024-11-19
+140,3,Vehicle,Vehicle for loan 3,2485519.65,2023-07-03
+141,249,None,None for loan 249,0.0,2022-10-05
+142,822,Vehicle,Vehicle for loan 822,4360858.92,2024-07-01
+143,438,None,None for loan 438,0.0,2019-05-16
+144,741,Gold,Gold for loan 741,5516595.76,2018-05-29
+145,18,Property,Property for loan 18,8869583.59,2020-12-27
+146,341,Vehicle,Vehicle for loan 341,5383060.07,2023-12-15
+147,250,Vehicle,Vehicle for loan 250,1525354.35,2019-01-16
+148,637,Gold,Gold for loan 637,8581028.47,2018-01-01
+149,158,None,None for loan 158,0.0,2019-08-21
+150,250,Property,Property for loan 250,4035741.69,2021-01-02
+151,254,Property,Property for loan 254,2214595.82,2024-06-04
+152,61,Property,Property for loan 61,5507515.78,2023-10-04
+153,76,Property,Property for loan 76,1599370.92,2019-05-25
+154,646,Property,Property for loan 646,3501035.5,2020-01-17
+155,329,Vehicle,Vehicle for loan 329,5552864.17,2019-11-08
+156,700,Property,Property for loan 700,8441219.99,2021-03-16
+157,427,None,None for loan 427,0.0,2022-11-28
+158,831,None,None for loan 831,0.0,2021-12-23
+159,856,Fixed Deposit,Fixed Deposit for loan 856,6180811.81,2022-06-16
+160,714,Gold,Gold for loan 714,3366604.77,2021-12-18
+161,331,Vehicle,Vehicle for loan 331,7783940.01,2023-12-11
+162,701,Property,Property for loan 701,5473468.72,2021-07-11
+163,910,None,None for loan 910,0.0,2021-10-21
+164,303,Fixed Deposit,Fixed Deposit for loan 303,5223976.02,2020-08-24
+165,306,None,None for loan 306,0.0,2023-06-04
+166,65,None,None for loan 65,0.0,2020-06-29
+167,186,None,None for loan 186,0.0,2021-09-23
+168,823,Property,Property for loan 823,3938916.96,2018-04-16
+169,947,None,None for loan 947,0.0,2019-03-15
+170,906,Property,Property for loan 906,9746330.36,2024-07-21
+171,514,Fixed Deposit,Fixed Deposit for loan 514,8185262.11,2021-08-28
+172,181,Gold,Gold for loan 181,4151280.59,2024-10-11
+173,759,None,None for loan 759,0.0,2024-01-06
+174,10,Vehicle,Vehicle for loan 10,2632555.07,2019-09-27
+175,939,Gold,Gold for loan 939,2674364.27,2021-01-27
+176,81,None,None for loan 81,0.0,2020-12-22
+177,130,Fixed Deposit,Fixed Deposit for loan 130,2188531.13,2021-08-21
+178,739,Property,Property for loan 739,7932281.46,2023-09-29
+179,114,Fixed Deposit,Fixed Deposit for loan 114,5446375.18,2020-08-09
+180,614,Gold,Gold for loan 614,8823604.78,2020-03-21
+181,85,None,None for loan 85,0.0,2022-02-06
+182,606,Vehicle,Vehicle for loan 606,9771754.8,2024-12-03
+183,652,Vehicle,Vehicle for loan 652,2798508.55,2020-07-01
+184,936,Gold,Gold for loan 936,1320978.01,2023-01-15
+185,455,Vehicle,Vehicle for loan 455,186852.45,2020-08-10
+186,565,Fixed Deposit,Fixed Deposit for loan 565,3638269.81,2022-04-12
+187,70,None,None for loan 70,0.0,2018-06-16
+188,553,Property,Property for loan 553,3873459.29,2025-02-02
+189,314,Vehicle,Vehicle for loan 314,7115550.08,2024-02-24
+190,486,None,None for loan 486,0.0,2023-04-05
+191,450,Vehicle,Vehicle for loan 450,3772967.51,2021-11-05
+192,658,Gold,Gold for loan 658,4162273.57,2019-06-26
+193,582,Gold,Gold for loan 582,5020997.46,2021-02-17
+194,526,None,None for loan 526,0.0,2019-01-09
+195,564,Vehicle,Vehicle for loan 564,8947630.76,2021-08-16
+196,966,Fixed Deposit,Fixed Deposit for loan 966,2279447.91,2022-12-24
+197,176,Fixed Deposit,Fixed Deposit for loan 176,7731753.33,2018-06-09
+198,968,Property,Property for loan 968,6096269.76,2024-09-17
+199,614,Gold,Gold for loan 614,6327343.85,2025-05-20
+200,622,Fixed Deposit,Fixed Deposit for loan 622,1567022.68,2018-01-25
+201,512,Property,Property for loan 512,4830203.06,2025-06-09
+202,862,Gold,Gold for loan 862,698733.18,2023-11-16
+203,95,Fixed Deposit,Fixed Deposit for loan 95,5302920.38,2024-02-04
+204,726,Vehicle,Vehicle for loan 726,1485847.78,2023-02-27
+205,602,Vehicle,Vehicle for loan 602,3622915.58,2019-08-10
+206,991,Fixed Deposit,Fixed Deposit for loan 991,3586412.48,2019-01-18
+207,432,Fixed Deposit,Fixed Deposit for loan 432,9819466.9,2020-02-24
+208,269,None,None for loan 269,0.0,2022-07-24
+209,474,Property,Property for loan 474,6131061.08,2025-06-02
+210,503,Vehicle,Vehicle for loan 503,5072245.3,2020-04-21
+211,648,None,None for loan 648,0.0,2019-01-26
+212,685,Property,Property for loan 685,7638044.68,2019-09-09
+213,825,None,None for loan 825,0.0,2019-01-13
+214,107,Property,Property for loan 107,1109829.01,2018-05-12
+215,832,Property,Property for loan 832,2344416.17,2025-07-21
+216,525,Property,Property for loan 525,3626851.9,2019-08-06
+217,16,Gold,Gold for loan 16,1945036.83,2023-07-23
+218,142,Fixed Deposit,Fixed Deposit for loan 142,2482489.24,2021-01-06
+219,33,Fixed Deposit,Fixed Deposit for loan 33,8558307.0,2024-01-09
+220,577,Property,Property for loan 577,1791434.12,2019-01-01
+221,461,Gold,Gold for loan 461,1770857.67,2023-02-16
+222,290,Fixed Deposit,Fixed Deposit for loan 290,4830040.16,2025-05-10
+223,757,Vehicle,Vehicle for loan 757,4744901.34,2025-05-08
+224,265,Vehicle,Vehicle for loan 265,5730995.17,2019-04-02
+225,484,Vehicle,Vehicle for loan 484,1671418.9,2020-08-07
+226,786,Gold,Gold for loan 786,3267826.01,2024-06-29
+227,971,None,None for loan 971,0.0,2019-07-06
+228,847,None,None for loan 847,0.0,2023-01-19
+229,9,Fixed Deposit,Fixed Deposit for loan 9,5291463.1,2024-09-14
+230,356,None,None for loan 356,0.0,2020-03-26
+231,540,None,None for loan 540,0.0,2023-08-02
+232,565,Gold,Gold for loan 565,1520109.18,2022-03-17
+233,108,None,None for loan 108,0.0,2022-11-08
+234,929,None,None for loan 929,0.0,2023-06-07
+235,760,Property,Property for loan 760,7205757.25,2023-12-06
+236,924,Gold,Gold for loan 924,7030396.59,2021-11-09
+237,272,Property,Property for loan 272,866661.36,2021-04-21
+238,766,Gold,Gold for loan 766,3969574.21,2024-08-23
+239,454,Fixed Deposit,Fixed Deposit for loan 454,5734502.05,2020-10-28
+240,640,Gold,Gold for loan 640,7442753.59,2019-01-16
+241,416,Property,Property for loan 416,4835177.16,2018-11-24
+242,791,Property,Property for loan 791,1797315.07,2022-12-01
+243,441,Vehicle,Vehicle for loan 441,9040099.25,2018-03-03
+244,605,Property,Property for loan 605,1122183.66,2025-01-21
+245,796,Fixed Deposit,Fixed Deposit for loan 796,4881247.19,2018-02-11
+246,302,Fixed Deposit,Fixed Deposit for loan 302,1489212.77,2018-12-04
+247,604,Property,Property for loan 604,2017541.47,2025-06-06
+248,216,Gold,Gold for loan 216,3142473.63,2023-06-07
+249,297,Gold,Gold for loan 297,8470159.26,2022-03-17
+250,389,Fixed Deposit,Fixed Deposit for loan 389,9326084.03,2021-05-14
+251,150,Property,Property for loan 150,8867975.81,2023-12-31
+252,409,Gold,Gold for loan 409,3923137.99,2021-03-13
+253,353,Property,Property for loan 353,4400018.3,2023-07-20
+254,202,Property,Property for loan 202,9794091.8,2018-09-15
+255,314,Fixed Deposit,Fixed Deposit for loan 314,7212548.1,2019-10-30
+256,74,Property,Property for loan 74,1597789.01,2018-01-02
+257,603,Property,Property for loan 603,9730428.51,2025-01-26
+258,93,Gold,Gold for loan 93,4737936.27,2021-06-08
+259,215,Gold,Gold for loan 215,6994162.66,2024-12-07
+260,231,Fixed Deposit,Fixed Deposit for loan 231,1993888.86,2021-08-13
+261,525,Vehicle,Vehicle for loan 525,2964952.09,2022-10-31
+262,533,Fixed Deposit,Fixed Deposit for loan 533,5554299.35,2024-04-19
+263,593,Vehicle,Vehicle for loan 593,6924306.11,2023-11-01
+264,749,Property,Property for loan 749,6821887.48,2021-09-30
+265,945,Vehicle,Vehicle for loan 945,8095487.9,2020-11-04
+266,411,Vehicle,Vehicle for loan 411,6905295.5,2022-12-06
+267,921,Property,Property for loan 921,1863687.2,2025-08-01
+268,493,Gold,Gold for loan 493,588601.84,2021-09-19
+269,912,Vehicle,Vehicle for loan 912,5455658.0,2020-09-07
+270,696,Gold,Gold for loan 696,8217154.06,2024-07-06
+271,510,Gold,Gold for loan 510,5929110.23,2018-03-11
+272,613,None,None for loan 613,0.0,2020-01-10
+273,678,Vehicle,Vehicle for loan 678,8510804.15,2018-02-06
+274,575,None,None for loan 575,0.0,2022-06-04
+275,587,Fixed Deposit,Fixed Deposit for loan 587,5082236.38,2019-10-25
+276,888,Fixed Deposit,Fixed Deposit for loan 888,637475.55,2021-02-27
+277,637,Property,Property for loan 637,2665897.43,2022-02-06
+278,585,Vehicle,Vehicle for loan 585,3577465.81,2021-05-06
+279,427,Property,Property for loan 427,3342415.81,2025-06-01
+280,102,Property,Property for loan 102,8802388.59,2021-07-11
+281,142,Vehicle,Vehicle for loan 142,7240790.87,2019-03-20
+282,244,Gold,Gold for loan 244,7553234.04,2021-07-19
+283,248,Fixed Deposit,Fixed Deposit for loan 248,1838462.89,2021-12-11
+284,854,None,None for loan 854,0.0,2018-12-05
+285,152,Fixed Deposit,Fixed Deposit for loan 152,7935255.18,2020-10-19
+286,731,Gold,Gold for loan 731,5342767.48,2024-02-20
+287,935,Gold,Gold for loan 935,6852535.09,2020-03-22
+288,198,Property,Property for loan 198,1198387.2,2022-03-10
+289,811,None,None for loan 811,0.0,2020-06-13
+290,591,Vehicle,Vehicle for loan 591,7061720.87,2018-08-27
+291,786,Gold,Gold for loan 786,4786473.21,2023-12-01
+292,816,Vehicle,Vehicle for loan 816,6009581.27,2025-05-11
+293,283,Property,Property for loan 283,4322593.54,2021-08-14
+294,100,Gold,Gold for loan 100,299597.2,2023-09-12
+295,938,Fixed Deposit,Fixed Deposit for loan 938,7472794.77,2025-02-20
+296,839,Fixed Deposit,Fixed Deposit for loan 839,9926074.86,2020-11-04
+297,968,None,None for loan 968,0.0,2020-02-15
+298,54,Vehicle,Vehicle for loan 54,5404287.49,2018-09-10
+299,753,Gold,Gold for loan 753,3251895.0,2022-03-13
+300,90,Vehicle,Vehicle for loan 90,5361624.71,2019-06-23
+301,71,None,None for loan 71,0.0,2021-01-18
+302,60,Gold,Gold for loan 60,3889278.71,2023-07-20
+303,256,None,None for loan 256,0.0,2018-05-10
+304,300,None,None for loan 300,0.0,2018-02-25
+305,459,None,None for loan 459,0.0,2019-12-26
+306,313,Vehicle,Vehicle for loan 313,1948395.7,2019-05-27
+307,935,Gold,Gold for loan 935,28427.68,2022-10-08
+308,873,Vehicle,Vehicle for loan 873,632906.25,2019-12-17
+309,371,None,None for loan 371,0.0,2020-09-02
+310,939,Gold,Gold for loan 939,8647301.24,2022-04-16
+311,810,None,None for loan 810,0.0,2019-09-05
+312,689,Fixed Deposit,Fixed Deposit for loan 689,573829.41,2020-05-09
+313,757,None,None for loan 757,0.0,2025-01-26
+314,238,Fixed Deposit,Fixed Deposit for loan 238,7263983.59,2022-10-03
+315,68,Property,Property for loan 68,4897992.75,2024-12-28
+316,858,Fixed Deposit,Fixed Deposit for loan 858,2281074.37,2022-12-15
+317,414,Gold,Gold for loan 414,5697598.1,2024-08-31
+318,462,Gold,Gold for loan 462,3035476.89,2020-04-28
+319,237,Property,Property for loan 237,7033253.02,2021-07-07
+320,283,Gold,Gold for loan 283,6748894.5,2022-04-08
+321,19,None,None for loan 19,0.0,2018-04-05
+322,22,Gold,Gold for loan 22,6178677.57,2025-08-18
+323,482,Gold,Gold for loan 482,1699199.09,2021-03-08
+324,126,Fixed Deposit,Fixed Deposit for loan 126,9126535.49,2018-10-24
+325,633,None,None for loan 633,0.0,2019-03-07
+326,750,Property,Property for loan 750,7756579.05,2019-08-27
+327,322,Property,Property for loan 322,4938496.44,2024-01-03
+328,805,Fixed Deposit,Fixed Deposit for loan 805,1888984.64,2020-05-29
+329,730,Vehicle,Vehicle for loan 730,3266630.19,2020-01-18
+330,787,Property,Property for loan 787,4322968.02,2025-08-18
+331,157,Vehicle,Vehicle for loan 157,6704432.16,2019-06-24
+332,940,Gold,Gold for loan 940,5293684.86,2020-11-09
+333,426,None,None for loan 426,0.0,2022-05-08
+334,793,Gold,Gold for loan 793,3779206.96,2018-11-24
+335,306,None,None for loan 306,0.0,2023-11-27
+336,251,None,None for loan 251,0.0,2022-06-16
+337,315,None,None for loan 315,0.0,2024-02-17
+338,869,Gold,Gold for loan 869,5212043.81,2025-03-22
+339,978,None,None for loan 978,0.0,2025-08-18
+340,660,Gold,Gold for loan 660,7065644.59,2020-03-13
+341,519,Property,Property for loan 519,8443584.14,2024-05-10
+342,274,Gold,Gold for loan 274,3683753.69,2023-07-02
+343,879,Gold,Gold for loan 879,9277137.4,2018-05-21
+344,661,Vehicle,Vehicle for loan 661,2739545.06,2019-01-25
+345,981,Vehicle,Vehicle for loan 981,8957353.42,2022-08-01
+346,580,Property,Property for loan 580,1644234.49,2024-09-26
+347,678,Gold,Gold for loan 678,7674155.81,2018-12-25
+348,445,Gold,Gold for loan 445,3031371.45,2018-02-09
+349,83,Gold,Gold for loan 83,2677990.59,2024-07-30
+350,59,None,None for loan 59,0.0,2018-06-18
+351,119,Vehicle,Vehicle for loan 119,248129.52,2020-01-26
+352,959,None,None for loan 959,0.0,2023-06-07
+353,707,None,None for loan 707,0.0,2020-07-15
+354,944,Vehicle,Vehicle for loan 944,1617784.76,2018-09-09
+355,819,Gold,Gold for loan 819,8226743.63,2025-04-10
+356,988,Gold,Gold for loan 988,7043270.86,2018-12-22
+357,315,Gold,Gold for loan 315,8721273.6,2023-05-20
+358,642,Property,Property for loan 642,9612226.78,2019-01-18
+359,136,None,None for loan 136,0.0,2022-08-09
+360,786,None,None for loan 786,0.0,2018-12-13
+361,704,Vehicle,Vehicle for loan 704,7468046.21,2019-05-16
+362,287,Gold,Gold for loan 287,7337026.52,2019-11-11
+363,355,Vehicle,Vehicle for loan 355,6943258.45,2021-05-24
+364,890,Vehicle,Vehicle for loan 890,7165550.21,2022-10-15
+365,200,Vehicle,Vehicle for loan 200,8593389.24,2019-08-08
+366,930,Vehicle,Vehicle for loan 930,9582282.24,2023-05-28
+367,60,Fixed Deposit,Fixed Deposit for loan 60,9604750.88,2018-07-17
+368,453,Fixed Deposit,Fixed Deposit for loan 453,4612930.87,2024-03-14
+369,9,Fixed Deposit,Fixed Deposit for loan 9,4834114.21,2024-04-28
+370,659,None,None for loan 659,0.0,2021-01-15
+371,67,Vehicle,Vehicle for loan 67,7764793.85,2020-12-29
+372,131,None,None for loan 131,0.0,2023-11-10
+373,450,None,None for loan 450,0.0,2023-01-26
+374,53,Fixed Deposit,Fixed Deposit for loan 53,7391046.05,2020-08-24
+375,147,Gold,Gold for loan 147,7754235.55,2022-04-26
+376,425,Gold,Gold for loan 425,5975408.95,2019-03-27
+377,425,None,None for loan 425,0.0,2022-05-02
+378,708,Property,Property for loan 708,5441700.88,2020-12-30
+379,480,Gold,Gold for loan 480,8427169.88,2019-07-09
+380,173,Property,Property for loan 173,2608764.51,2023-02-02
+381,690,Property,Property for loan 690,1039119.14,2024-06-15
+382,367,Vehicle,Vehicle for loan 367,4096263.55,2022-06-14
+383,357,Vehicle,Vehicle for loan 357,2017857.49,2022-05-27
+384,838,Gold,Gold for loan 838,8644338.11,2020-06-15
+385,635,Fixed Deposit,Fixed Deposit for loan 635,9031391.2,2020-11-17
+386,488,Fixed Deposit,Fixed Deposit for loan 488,3556554.17,2022-09-30
+387,529,Vehicle,Vehicle for loan 529,8822430.69,2020-11-29
+388,162,Gold,Gold for loan 162,6710718.35,2023-06-08
+389,890,Property,Property for loan 890,8804866.14,2024-04-22
+390,780,Fixed Deposit,Fixed Deposit for loan 780,6513283.26,2018-11-15
+391,442,None,None for loan 442,0.0,2025-07-11
+392,479,Gold,Gold for loan 479,414453.36,2018-09-18
+393,827,None,None for loan 827,0.0,2021-01-24
+394,559,Fixed Deposit,Fixed Deposit for loan 559,3582807.39,2021-04-17
+395,962,None,None for loan 962,0.0,2018-05-28
+396,230,Fixed Deposit,Fixed Deposit for loan 230,4042995.65,2022-10-05
+397,119,Property,Property for loan 119,3464269.14,2021-03-11
+398,900,Property,Property for loan 900,3175580.13,2023-07-10
+399,217,Fixed Deposit,Fixed Deposit for loan 217,1797374.87,2020-01-09
+400,368,Vehicle,Vehicle for loan 368,9928331.56,2022-05-22
+401,947,Property,Property for loan 947,9772255.6,2023-12-12
+402,127,Gold,Gold for loan 127,7689020.99,2019-05-14
+403,258,Vehicle,Vehicle for loan 258,525413.13,2018-05-24
+404,746,Vehicle,Vehicle for loan 746,511233.32,2022-06-30
+405,523,Property,Property for loan 523,5539370.16,2022-10-19
+406,618,Property,Property for loan 618,1304459.32,2023-10-27
+407,639,Gold,Gold for loan 639,7934271.89,2025-07-05
+408,251,Gold,Gold for loan 251,2155719.78,2024-02-04
+409,764,Gold,Gold for loan 764,6916429.89,2020-10-22
+410,642,Property,Property for loan 642,7566263.04,2018-05-11
+411,808,Vehicle,Vehicle for loan 808,2990874.8,2020-09-17
+412,159,Fixed Deposit,Fixed Deposit for loan 159,69962.59,2021-11-05
+413,38,Fixed Deposit,Fixed Deposit for loan 38,5759110.77,2019-02-12
+414,256,None,None for loan 256,0.0,2018-07-14
+415,768,None,None for loan 768,0.0,2018-10-21
+416,658,None,None for loan 658,0.0,2018-11-21
+417,238,Gold,Gold for loan 238,9565485.45,2023-03-27
+418,699,Vehicle,Vehicle for loan 699,9400026.5,2025-01-12
+419,816,Property,Property for loan 816,8992516.19,2020-11-08
+420,188,Vehicle,Vehicle for loan 188,6644841.22,2022-08-23
+421,978,Fixed Deposit,Fixed Deposit for loan 978,2535366.3,2023-12-31
+422,352,Property,Property for loan 352,8508794.29,2019-03-14
+423,2,Vehicle,Vehicle for loan 2,643266.25,2025-04-18
+424,769,Property,Property for loan 769,7947433.95,2025-06-30
+425,208,Fixed Deposit,Fixed Deposit for loan 208,9558098.25,2023-01-19
+426,518,Property,Property for loan 518,2651319.06,2020-01-05
+427,440,Gold,Gold for loan 440,2481740.9,2023-07-06
+428,322,None,None for loan 322,0.0,2020-02-08
+429,912,Fixed Deposit,Fixed Deposit for loan 912,5134884.81,2021-08-05
+430,374,Vehicle,Vehicle for loan 374,9550168.43,2025-06-12
+431,352,None,None for loan 352,0.0,2023-07-24
+432,553,Gold,Gold for loan 553,6321957.33,2024-07-11
+433,599,Gold,Gold for loan 599,2439112.09,2020-08-19
+434,535,Gold,Gold for loan 535,4271755.67,2021-05-16
+435,177,None,None for loan 177,0.0,2023-02-14
+436,679,Fixed Deposit,Fixed Deposit for loan 679,6303545.0,2019-09-27
+437,288,Fixed Deposit,Fixed Deposit for loan 288,905312.22,2022-12-22
+438,997,Fixed Deposit,Fixed Deposit for loan 997,2078835.4,2024-09-13
+439,713,Gold,Gold for loan 713,8536566.12,2023-03-26
+440,371,Vehicle,Vehicle for loan 371,4133369.2,2019-07-22
+441,878,Property,Property for loan 878,7518822.49,2019-08-04
+442,936,Gold,Gold for loan 936,2286856.58,2021-10-05
+443,565,Property,Property for loan 565,613219.8,2024-08-22
+444,62,Vehicle,Vehicle for loan 62,2940781.68,2022-02-21
+445,419,Gold,Gold for loan 419,8459803.29,2025-01-13
+446,803,Property,Property for loan 803,9198873.19,2023-04-06
+447,896,Gold,Gold for loan 896,372806.98,2018-10-07
+448,270,Gold,Gold for loan 270,9078725.9,2020-11-28
+449,774,Fixed Deposit,Fixed Deposit for loan 774,8504497.68,2018-05-21
+450,928,Property,Property for loan 928,6497344.09,2024-03-14
+451,650,Vehicle,Vehicle for loan 650,2060341.97,2021-01-31
+452,673,Gold,Gold for loan 673,7646419.14,2024-04-29
+453,230,Property,Property for loan 230,5340514.07,2021-09-27
+454,682,Gold,Gold for loan 682,3249254.22,2020-02-11
+455,90,Gold,Gold for loan 90,569607.56,2022-10-25
+456,508,None,None for loan 508,0.0,2020-03-18
+457,396,Gold,Gold for loan 396,8501846.26,2022-10-09
+458,903,Property,Property for loan 903,6810146.48,2024-05-31
+459,440,None,None for loan 440,0.0,2023-02-08
+460,589,None,None for loan 589,0.0,2019-05-31
+461,799,None,None for loan 799,0.0,2022-04-14
+462,248,Property,Property for loan 248,5347369.93,2021-08-11
+463,799,Vehicle,Vehicle for loan 799,6470645.39,2018-05-25
+464,20,Fixed Deposit,Fixed Deposit for loan 20,2665488.19,2018-09-17
+465,387,Gold,Gold for loan 387,6913981.68,2018-01-31
+466,276,Property,Property for loan 276,2652733.54,2024-04-23
+467,147,Vehicle,Vehicle for loan 147,8674217.34,2020-10-31
+468,49,Gold,Gold for loan 49,8451259.33,2022-11-17
+469,731,Gold,Gold for loan 731,214436.42,2022-07-17
+470,259,Property,Property for loan 259,9519611.78,2020-12-16
+471,393,Vehicle,Vehicle for loan 393,4664004.72,2024-03-21
+472,865,Gold,Gold for loan 865,4076725.89,2023-10-15
+473,12,Property,Property for loan 12,2048392.94,2019-03-02
+474,198,Gold,Gold for loan 198,3678680.64,2023-02-16
+475,517,Property,Property for loan 517,4616584.69,2022-05-06
+476,456,Gold,Gold for loan 456,6650839.75,2024-01-21
+477,247,Property,Property for loan 247,2054625.48,2025-08-29
+478,651,Property,Property for loan 651,1452684.67,2023-06-26
+479,523,Fixed Deposit,Fixed Deposit for loan 523,9532791.78,2019-09-17
+480,592,Gold,Gold for loan 592,9935276.57,2023-11-21
+481,684,None,None for loan 684,0.0,2025-04-12
+482,223,None,None for loan 223,0.0,2024-02-29
+483,518,Gold,Gold for loan 518,9895923.69,2019-04-12
+484,978,Vehicle,Vehicle for loan 978,5894294.78,2021-08-14
+485,279,Vehicle,Vehicle for loan 279,2873975.76,2021-08-23
+486,275,Property,Property for loan 275,4027042.45,2025-05-26
+487,190,Fixed Deposit,Fixed Deposit for loan 190,9446655.38,2022-01-12
+488,728,None,None for loan 728,0.0,2018-08-18
+489,807,None,None for loan 807,0.0,2018-10-21
+490,776,Gold,Gold for loan 776,8436743.12,2023-08-31
+491,411,None,None for loan 411,0.0,2023-06-12
+492,489,Vehicle,Vehicle for loan 489,7556510.15,2023-12-26
+493,995,Gold,Gold for loan 995,7669577.0,2022-11-05
+494,29,Fixed Deposit,Fixed Deposit for loan 29,1062814.13,2018-11-11
+495,2,Vehicle,Vehicle for loan 2,3543984.73,2020-05-17
+496,366,None,None for loan 366,0.0,2020-08-22
+497,969,None,None for loan 969,0.0,2024-11-23
+498,336,Vehicle,Vehicle for loan 336,3239374.3,2018-09-08
+499,54,Property,Property for loan 54,9161914.93,2024-05-10
+500,444,Vehicle,Vehicle for loan 444,863380.72,2018-06-18
+501,800,Property,Property for loan 800,5732008.95,2025-02-13
+502,414,Vehicle,Vehicle for loan 414,1983046.02,2018-11-13
+503,946,Gold,Gold for loan 946,3905652.14,2021-11-21
+504,635,Vehicle,Vehicle for loan 635,9749864.57,2020-06-12
+505,819,Fixed Deposit,Fixed Deposit for loan 819,513690.24,2018-05-14
+506,921,Vehicle,Vehicle for loan 921,5198168.73,2018-02-15
+507,409,Property,Property for loan 409,6912075.69,2021-10-04
+508,513,Gold,Gold for loan 513,2000282.84,2019-05-26
+509,617,Vehicle,Vehicle for loan 617,8256195.76,2025-05-25
+510,285,Property,Property for loan 285,9640590.96,2024-04-06
+511,633,Vehicle,Vehicle for loan 633,2393619.61,2023-12-23
+512,177,Vehicle,Vehicle for loan 177,1736954.43,2021-04-28
+513,473,Property,Property for loan 473,3491676.85,2021-08-28
+514,718,Property,Property for loan 718,3194149.44,2021-10-14
+515,908,Vehicle,Vehicle for loan 908,9767201.26,2022-01-16
+516,291,None,None for loan 291,0.0,2024-07-03
+517,364,None,None for loan 364,0.0,2023-11-11
+518,451,Property,Property for loan 451,897843.69,2022-08-05
+519,649,None,None for loan 649,0.0,2018-05-07
+520,130,Property,Property for loan 130,9808746.78,2023-11-10
+521,434,None,None for loan 434,0.0,2022-06-12
+522,825,Property,Property for loan 825,6346179.3,2025-03-29
+523,106,None,None for loan 106,0.0,2020-08-17
+524,579,Fixed Deposit,Fixed Deposit for loan 579,7229642.57,2023-08-09
+525,799,Fixed Deposit,Fixed Deposit for loan 799,1462835.62,2023-07-02
+526,986,Property,Property for loan 986,1451356.07,2025-07-28
+527,985,Property,Property for loan 985,2813782.58,2021-03-21
+528,18,None,None for loan 18,0.0,2019-12-18
+529,510,Fixed Deposit,Fixed Deposit for loan 510,3828066.91,2024-11-07
+530,542,Property,Property for loan 542,4245935.59,2021-06-28
+531,305,Vehicle,Vehicle for loan 305,2071820.53,2023-04-25
+532,207,Property,Property for loan 207,6076836.4,2018-05-17
+533,605,Property,Property for loan 605,4003603.53,2024-12-09
+534,614,Property,Property for loan 614,8613347.02,2020-07-15
+535,624,Property,Property for loan 624,2600774.71,2018-02-24
+536,661,Fixed Deposit,Fixed Deposit for loan 661,9033768.8,2018-08-05
+537,400,Vehicle,Vehicle for loan 400,2176227.21,2021-02-23
+538,478,Gold,Gold for loan 478,4974512.73,2018-03-22
+539,51,None,None for loan 51,0.0,2019-03-01
+540,416,Fixed Deposit,Fixed Deposit for loan 416,9371720.21,2018-11-02
+541,883,None,None for loan 883,0.0,2018-11-02
+542,321,None,None for loan 321,0.0,2021-12-27
+543,217,Property,Property for loan 217,5197238.75,2022-09-11
+544,894,Gold,Gold for loan 894,2517382.2,2020-09-23
+545,80,None,None for loan 80,0.0,2021-04-09
+546,352,Vehicle,Vehicle for loan 352,8178047.98,2020-03-27
+547,744,Gold,Gold for loan 744,1291409.41,2019-03-06
+548,623,Property,Property for loan 623,1912768.38,2022-08-06
+549,77,Gold,Gold for loan 77,9339445.83,2021-01-05
+550,230,None,None for loan 230,0.0,2021-04-27
+551,260,Property,Property for loan 260,9583717.7,2019-06-13
+552,446,Vehicle,Vehicle for loan 446,1632525.8,2025-04-04
+553,429,Vehicle,Vehicle for loan 429,2314713.52,2025-01-08
+554,994,Gold,Gold for loan 994,9885835.43,2021-01-08
+555,335,None,None for loan 335,0.0,2022-05-15
+556,841,Vehicle,Vehicle for loan 841,8389830.88,2022-11-11
+557,210,Fixed Deposit,Fixed Deposit for loan 210,8517229.03,2025-08-21
+558,213,Fixed Deposit,Fixed Deposit for loan 213,7938526.68,2025-06-13
+559,841,Vehicle,Vehicle for loan 841,4575802.53,2023-02-20
+560,269,None,None for loan 269,0.0,2018-06-03
+561,497,Gold,Gold for loan 497,3962843.26,2018-07-10
+562,950,None,None for loan 950,0.0,2022-07-27
+563,327,Fixed Deposit,Fixed Deposit for loan 327,3555998.15,2025-01-18
+564,587,Vehicle,Vehicle for loan 587,6370904.41,2025-01-07
+565,326,Fixed Deposit,Fixed Deposit for loan 326,2848507.71,2021-10-14
+566,756,Property,Property for loan 756,4535425.43,2022-11-01
+567,305,Vehicle,Vehicle for loan 305,9399232.1,2024-08-07
+568,247,Vehicle,Vehicle for loan 247,4808466.1,2024-03-15
+569,264,None,None for loan 264,0.0,2024-02-11
+570,826,Gold,Gold for loan 826,4197756.31,2018-01-27
+571,885,Property,Property for loan 885,6580437.75,2021-07-18
+572,638,Fixed Deposit,Fixed Deposit for loan 638,8368664.67,2019-08-05
+573,974,Gold,Gold for loan 974,9305871.64,2022-09-09
+574,612,Property,Property for loan 612,8786266.84,2023-02-23
+575,669,Property,Property for loan 669,9588732.17,2019-01-03
+576,761,None,None for loan 761,0.0,2023-03-06
+577,160,None,None for loan 160,0.0,2021-11-14
+578,525,Property,Property for loan 525,1529670.99,2018-01-04
+579,533,Vehicle,Vehicle for loan 533,481583.02,2025-05-24
+580,684,Gold,Gold for loan 684,2930244.51,2018-04-05
+581,956,Vehicle,Vehicle for loan 956,5277071.33,2023-10-26
+582,697,Vehicle,Vehicle for loan 697,4096381.8,2022-01-17
+583,497,None,None for loan 497,0.0,2022-08-09
+584,39,Property,Property for loan 39,3471249.34,2023-11-13
+585,9,Fixed Deposit,Fixed Deposit for loan 9,2450360.1,2020-05-31
+586,769,None,None for loan 769,0.0,2023-12-24
+587,941,None,None for loan 941,0.0,2025-08-17
+588,897,Property,Property for loan 897,6528525.2,2023-09-24
+589,441,None,None for loan 441,0.0,2022-09-07
+590,482,Fixed Deposit,Fixed Deposit for loan 482,8203287.07,2021-05-05
+591,307,Gold,Gold for loan 307,9905304.58,2025-02-04
+592,705,Vehicle,Vehicle for loan 705,7096320.58,2023-07-16
+593,510,Vehicle,Vehicle for loan 510,9455356.71,2023-03-28
+594,679,None,None for loan 679,0.0,2018-07-14
+595,938,Vehicle,Vehicle for loan 938,5455610.06,2019-10-06
+596,714,Gold,Gold for loan 714,7381121.77,2024-05-09
+597,546,Property,Property for loan 546,5789252.75,2024-11-12
+598,926,None,None for loan 926,0.0,2023-09-25
+599,784,None,None for loan 784,0.0,2021-09-23
+600,231,Gold,Gold for loan 231,4585367.0,2023-01-04
+601,730,Gold,Gold for loan 730,6244422.88,2018-04-15
+602,296,Fixed Deposit,Fixed Deposit for loan 296,8193990.38,2018-05-31
+603,729,Fixed Deposit,Fixed Deposit for loan 729,5364424.2,2020-06-07
+604,499,None,None for loan 499,0.0,2021-06-25
+605,615,None,None for loan 615,0.0,2022-10-24
+606,42,Property,Property for loan 42,9475410.83,2021-05-10
+607,143,Fixed Deposit,Fixed Deposit for loan 143,722075.88,2023-10-03
+608,446,None,None for loan 446,0.0,2024-11-10
+609,52,Fixed Deposit,Fixed Deposit for loan 52,3512566.69,2023-07-07
+610,483,None,None for loan 483,0.0,2024-01-20
+611,269,Vehicle,Vehicle for loan 269,5806953.16,2022-02-23
+612,671,Property,Property for loan 671,9846457.07,2024-10-19
+613,904,Property,Property for loan 904,5331794.13,2021-03-31
+614,628,None,None for loan 628,0.0,2025-05-23
+615,220,Fixed Deposit,Fixed Deposit for loan 220,9700661.95,2019-11-25
+616,435,Fixed Deposit,Fixed Deposit for loan 435,1552692.15,2023-12-11
+617,893,Gold,Gold for loan 893,5726769.17,2018-05-25
+618,898,Fixed Deposit,Fixed Deposit for loan 898,9800722.45,2023-01-11
+619,228,Property,Property for loan 228,7434312.72,2023-01-08
+620,768,Gold,Gold for loan 768,4882023.78,2024-04-10
+621,113,Property,Property for loan 113,5325729.44,2024-03-04
+622,110,Vehicle,Vehicle for loan 110,412182.86,2022-12-03
+623,349,Fixed Deposit,Fixed Deposit for loan 349,1014321.63,2018-02-08
+624,207,Property,Property for loan 207,4134460.07,2024-07-24
+625,621,Gold,Gold for loan 621,9956846.68,2018-11-12
+626,947,Vehicle,Vehicle for loan 947,5738465.02,2020-03-17
+627,545,Property,Property for loan 545,4026648.37,2018-12-13
+628,266,Vehicle,Vehicle for loan 266,6316810.45,2020-05-19
+629,151,None,None for loan 151,0.0,2021-01-31
+630,984,Vehicle,Vehicle for loan 984,6376437.99,2019-09-18
+631,536,Fixed Deposit,Fixed Deposit for loan 536,9735226.95,2022-10-10
+632,301,Fixed Deposit,Fixed Deposit for loan 301,2067515.98,2024-02-14
+633,314,Fixed Deposit,Fixed Deposit for loan 314,1629851.29,2021-05-09
+634,461,None,None for loan 461,0.0,2024-11-09
+635,938,Fixed Deposit,Fixed Deposit for loan 938,1077761.48,2023-03-17
+636,208,Fixed Deposit,Fixed Deposit for loan 208,9323458.14,2019-03-18
+637,550,None,None for loan 550,0.0,2020-01-09
+638,932,None,None for loan 932,0.0,2022-02-28
+639,211,Vehicle,Vehicle for loan 211,8191563.18,2020-04-07
+640,784,Property,Property for loan 784,9516839.23,2021-11-25
+641,126,Vehicle,Vehicle for loan 126,992412.77,2021-09-12
+642,276,None,None for loan 276,0.0,2022-12-10
+643,555,None,None for loan 555,0.0,2023-06-15
+644,44,None,None for loan 44,0.0,2022-12-27
+645,319,Gold,Gold for loan 319,4884942.31,2020-12-14
+646,61,None,None for loan 61,0.0,2018-02-08
+647,694,Gold,Gold for loan 694,1096342.91,2021-01-04
+648,222,Fixed Deposit,Fixed Deposit for loan 222,8430619.14,2022-04-05
+649,693,Vehicle,Vehicle for loan 693,8403190.34,2018-04-13
+650,551,Vehicle,Vehicle for loan 551,2364857.41,2025-03-04
+651,896,Property,Property for loan 896,1103243.45,2021-09-29
+652,16,None,None for loan 16,0.0,2020-02-04
+653,788,Fixed Deposit,Fixed Deposit for loan 788,6810536.29,2023-09-23
+654,430,Property,Property for loan 430,6359277.51,2021-05-01
+655,81,Gold,Gold for loan 81,2183732.28,2021-10-04
+656,820,Fixed Deposit,Fixed Deposit for loan 820,4846988.79,2023-11-19
+657,279,Property,Property for loan 279,2827610.29,2023-02-15
+658,294,Gold,Gold for loan 294,2426739.16,2021-11-11
+659,575,Gold,Gold for loan 575,5293655.87,2025-03-13
+660,328,Gold,Gold for loan 328,3864531.8,2018-11-16
+661,396,Vehicle,Vehicle for loan 396,3040347.12,2020-12-28
+662,512,Gold,Gold for loan 512,5633001.11,2023-01-06
+663,241,Vehicle,Vehicle for loan 241,833887.64,2018-12-05
+664,588,Gold,Gold for loan 588,8827007.77,2023-01-12
+665,900,Fixed Deposit,Fixed Deposit for loan 900,2500081.59,2025-04-14
+666,731,Fixed Deposit,Fixed Deposit for loan 731,8304411.76,2020-03-30
+667,478,Property,Property for loan 478,8368044.88,2021-01-13
+668,929,Gold,Gold for loan 929,8737179.96,2020-05-20
+669,78,Fixed Deposit,Fixed Deposit for loan 78,9829811.03,2020-06-08
+670,955,None,None for loan 955,0.0,2022-08-14
+671,582,Vehicle,Vehicle for loan 582,8432442.16,2018-12-13
+672,582,Vehicle,Vehicle for loan 582,5268359.44,2019-11-25
+673,927,Gold,Gold for loan 927,6344371.42,2020-08-08
+674,39,Gold,Gold for loan 39,6675170.6,2018-07-05
+675,268,Gold,Gold for loan 268,3342078.93,2018-09-02
+676,800,None,None for loan 800,0.0,2025-03-02
+677,450,Fixed Deposit,Fixed Deposit for loan 450,6842563.5,2019-05-19
+678,269,Property,Property for loan 269,4956878.33,2021-08-22
+679,32,Property,Property for loan 32,6738182.46,2025-04-01
+680,677,Property,Property for loan 677,6874671.24,2021-09-26
+681,615,Fixed Deposit,Fixed Deposit for loan 615,7609330.1,2020-10-11
+682,74,None,None for loan 74,0.0,2022-03-02
+683,495,Property,Property for loan 495,5961168.73,2022-12-23
+684,328,Property,Property for loan 328,4020845.03,2020-10-30
+685,809,Gold,Gold for loan 809,5318681.88,2024-02-20
+686,587,Fixed Deposit,Fixed Deposit for loan 587,7276096.75,2020-03-15
+687,628,Gold,Gold for loan 628,7570331.91,2022-04-01
+688,161,Property,Property for loan 161,7436190.4,2018-03-30
+689,527,None,None for loan 527,0.0,2023-06-23
+690,914,Fixed Deposit,Fixed Deposit for loan 914,5536548.97,2021-12-25
+691,755,Fixed Deposit,Fixed Deposit for loan 755,8813828.19,2019-11-17
+692,46,None,None for loan 46,0.0,2021-05-05
+693,750,None,None for loan 750,0.0,2025-08-31
+694,123,Vehicle,Vehicle for loan 123,9326668.1,2024-06-02
+695,718,Fixed Deposit,Fixed Deposit for loan 718,1094232.7,2024-10-17
+696,13,Fixed Deposit,Fixed Deposit for loan 13,4911445.1,2019-05-19
+697,524,Gold,Gold for loan 524,6991032.7,2020-07-17
+698,5,None,None for loan 5,0.0,2022-01-08
+699,763,Gold,Gold for loan 763,1763365.36,2020-01-04
+700,231,None,None for loan 231,0.0,2025-03-01
+701,185,Fixed Deposit,Fixed Deposit for loan 185,873542.34,2021-12-27
+702,91,Vehicle,Vehicle for loan 91,8091412.75,2025-07-10
+703,43,Property,Property for loan 43,4633627.65,2024-10-19
+704,683,Gold,Gold for loan 683,1029587.58,2025-02-25
+705,718,Gold,Gold for loan 718,2599290.84,2019-06-10
+706,329,Fixed Deposit,Fixed Deposit for loan 329,1190299.29,2024-08-12
+707,960,Fixed Deposit,Fixed Deposit for loan 960,190497.88,2019-04-09
+708,696,Gold,Gold for loan 696,2710391.13,2023-05-21
+709,709,Gold,Gold for loan 709,2025911.47,2024-09-10
+710,488,None,None for loan 488,0.0,2022-04-09
+711,322,Property,Property for loan 322,4510662.48,2020-05-02
+712,962,None,None for loan 962,0.0,2025-03-26
+713,363,Vehicle,Vehicle for loan 363,3633575.99,2025-08-18
+714,472,Fixed Deposit,Fixed Deposit for loan 472,6861658.37,2018-02-13
+715,967,Fixed Deposit,Fixed Deposit for loan 967,7605653.7,2021-09-09
+716,463,Property,Property for loan 463,6370388.05,2020-07-10
+717,886,Gold,Gold for loan 886,9497888.86,2025-02-12
+718,939,Property,Property for loan 939,3609090.6,2023-02-01
+719,780,None,None for loan 780,0.0,2025-03-15
+720,454,Vehicle,Vehicle for loan 454,5702794.53,2020-08-08
+721,3,Gold,Gold for loan 3,55433.37,2024-01-17
+722,816,None,None for loan 816,0.0,2024-03-25
+723,800,Property,Property for loan 800,6141675.75,2018-03-13
+724,612,Vehicle,Vehicle for loan 612,5060034.74,2024-06-29
+725,433,Vehicle,Vehicle for loan 433,8167884.37,2021-07-04
+726,775,Vehicle,Vehicle for loan 775,1714769.27,2021-09-26
+727,515,Gold,Gold for loan 515,9063757.07,2023-11-10
+728,947,Gold,Gold for loan 947,158460.37,2019-07-18
+729,137,Property,Property for loan 137,1415879.45,2025-02-08
+730,965,Fixed Deposit,Fixed Deposit for loan 965,7980282.57,2022-08-17
+731,869,Fixed Deposit,Fixed Deposit for loan 869,1038121.09,2022-10-05
+732,792,Property,Property for loan 792,6583546.11,2022-04-12
+733,635,Fixed Deposit,Fixed Deposit for loan 635,3386409.4,2021-07-02
+734,519,Vehicle,Vehicle for loan 519,7579585.65,2018-05-01
+735,489,Fixed Deposit,Fixed Deposit for loan 489,897431.38,2024-07-19
+736,602,Property,Property for loan 602,6906750.26,2021-12-20
+737,266,Vehicle,Vehicle for loan 266,1468994.75,2023-09-20
+738,597,Gold,Gold for loan 597,2662262.12,2020-11-19
+739,496,Gold,Gold for loan 496,9179075.99,2024-08-20
+740,436,Property,Property for loan 436,727337.01,2025-06-22
+741,451,Property,Property for loan 451,8127128.27,2020-08-30
+742,629,Gold,Gold for loan 629,445630.32,2024-03-18
+743,199,None,None for loan 199,0.0,2024-08-18
+744,131,Property,Property for loan 131,4355824.15,2019-09-25
+745,726,Vehicle,Vehicle for loan 726,7160144.66,2021-02-12
+746,75,Gold,Gold for loan 75,3717810.43,2023-04-29
+747,203,None,None for loan 203,0.0,2025-06-07
+748,700,Gold,Gold for loan 700,5534974.65,2018-02-18
+749,335,Gold,Gold for loan 335,673960.32,2022-04-10
+750,169,Property,Property for loan 169,4609926.15,2021-09-13
+751,429,Vehicle,Vehicle for loan 429,4273925.32,2019-08-27
+752,212,Vehicle,Vehicle for loan 212,7769678.41,2020-06-16
+753,749,Vehicle,Vehicle for loan 749,663790.34,2021-06-07
+754,875,Gold,Gold for loan 875,7288262.86,2022-03-17
+755,858,Gold,Gold for loan 858,9477267.75,2020-03-05
+756,834,Gold,Gold for loan 834,5760543.86,2024-01-10
+757,567,None,None for loan 567,0.0,2018-03-23
+758,807,Property,Property for loan 807,6655889.58,2023-08-25
+759,312,Vehicle,Vehicle for loan 312,5137474.31,2021-02-14
+760,575,Fixed Deposit,Fixed Deposit for loan 575,1185212.57,2024-10-30
+761,387,None,None for loan 387,0.0,2024-03-08
+762,918,Property,Property for loan 918,2109503.02,2019-06-23
+763,171,Property,Property for loan 171,1694002.61,2024-05-20
+764,370,Fixed Deposit,Fixed Deposit for loan 370,1957928.15,2025-07-17
+765,170,None,None for loan 170,0.0,2024-05-13
+766,26,Vehicle,Vehicle for loan 26,1535244.89,2020-05-25
+767,431,Property,Property for loan 431,3124068.37,2020-06-30
+768,862,None,None for loan 862,0.0,2025-07-04
+769,9,Fixed Deposit,Fixed Deposit for loan 9,717583.6,2021-08-10
+770,977,None,None for loan 977,0.0,2024-08-24
+771,339,Vehicle,Vehicle for loan 339,4489113.79,2023-10-17
+772,802,Vehicle,Vehicle for loan 802,7606015.8,2018-09-10
+773,863,Fixed Deposit,Fixed Deposit for loan 863,8538922.19,2022-08-04
+774,969,Gold,Gold for loan 969,3523453.83,2021-03-18
+775,881,Gold,Gold for loan 881,8247043.59,2025-05-10
+776,756,Vehicle,Vehicle for loan 756,5145994.85,2023-12-12
+777,183,Vehicle,Vehicle for loan 183,1693837.38,2022-08-31
+778,550,Property,Property for loan 550,5487623.59,2022-05-23
+779,207,Property,Property for loan 207,3580211.87,2025-03-08
+780,498,Property,Property for loan 498,8228651.57,2022-12-16
+781,423,Gold,Gold for loan 423,2887623.21,2022-05-17
+782,173,Property,Property for loan 173,8760525.12,2021-10-09
+783,421,Gold,Gold for loan 421,626028.84,2020-12-17
+784,280,Gold,Gold for loan 280,6125980.08,2024-02-06
+785,596,Fixed Deposit,Fixed Deposit for loan 596,8006383.78,2018-07-20
+786,52,Fixed Deposit,Fixed Deposit for loan 52,9366403.4,2023-05-04
+787,638,Gold,Gold for loan 638,8670674.33,2022-08-02
+788,137,Fixed Deposit,Fixed Deposit for loan 137,4492303.25,2024-11-29
+789,499,Gold,Gold for loan 499,1218579.7,2022-03-20
+790,661,None,None for loan 661,0.0,2019-08-23
+791,583,Gold,Gold for loan 583,5612555.06,2025-06-04
+792,764,None,None for loan 764,0.0,2018-11-11
+793,979,None,None for loan 979,0.0,2019-07-31
+794,558,Property,Property for loan 558,41874.42,2023-01-16
+795,883,Property,Property for loan 883,4885177.93,2022-06-14
+796,674,None,None for loan 674,0.0,2019-09-23
+797,908,Property,Property for loan 908,9622554.36,2022-06-09
+798,843,Fixed Deposit,Fixed Deposit for loan 843,5120784.85,2022-03-31
+799,564,Property,Property for loan 564,1576522.32,2022-10-05
+800,234,Fixed Deposit,Fixed Deposit for loan 234,4735556.75,2019-03-10
+801,945,Fixed Deposit,Fixed Deposit for loan 945,6587035.51,2018-11-29
+802,675,Vehicle,Vehicle for loan 675,3956279.37,2018-11-23
+803,692,Gold,Gold for loan 692,4452929.46,2020-01-10
+804,931,Gold,Gold for loan 931,59149.23,2023-11-03
+805,236,Fixed Deposit,Fixed Deposit for loan 236,7930187.94,2024-04-16
+806,283,Property,Property for loan 283,7725748.34,2023-02-23
+807,17,None,None for loan 17,0.0,2023-05-27
+808,64,Property,Property for loan 64,2604386.73,2018-02-04
+809,885,Gold,Gold for loan 885,8679103.29,2022-01-12
+810,572,Property,Property for loan 572,2848057.09,2024-05-04
+811,327,Gold,Gold for loan 327,9484747.71,2022-02-14
+812,326,Vehicle,Vehicle for loan 326,3799702.9,2022-11-26
+813,447,Gold,Gold for loan 447,2553105.15,2018-10-07
+814,336,Fixed Deposit,Fixed Deposit for loan 336,4581827.02,2024-08-31
+815,637,Property,Property for loan 637,6177499.16,2023-02-21
+816,845,None,None for loan 845,0.0,2024-04-16
+817,772,Fixed Deposit,Fixed Deposit for loan 772,3473965.1,2018-11-13
+818,474,Fixed Deposit,Fixed Deposit for loan 474,9290090.31,2020-05-07
+819,946,None,None for loan 946,0.0,2024-03-12
+820,722,Property,Property for loan 722,7578416.32,2018-05-06
+821,259,Property,Property for loan 259,7859400.62,2024-08-24
+822,339,Gold,Gold for loan 339,7809047.63,2025-07-18
+823,818,None,None for loan 818,0.0,2021-05-04
+824,826,Fixed Deposit,Fixed Deposit for loan 826,7114265.47,2020-06-27
+825,154,Vehicle,Vehicle for loan 154,8114914.34,2023-07-15
+826,858,None,None for loan 858,0.0,2020-11-25
+827,872,Property,Property for loan 872,3414575.21,2025-04-21
+828,963,Gold,Gold for loan 963,4121390.82,2019-01-23
+829,773,Gold,Gold for loan 773,8368980.74,2022-01-27
+830,584,Gold,Gold for loan 584,9052181.12,2018-12-15
+831,677,Vehicle,Vehicle for loan 677,4097755.3,2021-01-30
+832,206,None,None for loan 206,0.0,2022-06-12
+833,738,Vehicle,Vehicle for loan 738,9685688.54,2025-02-28
+834,621,Gold,Gold for loan 621,3801913.1,2018-08-04
+835,200,None,None for loan 200,0.0,2020-08-02
+836,150,Gold,Gold for loan 150,6926704.61,2022-12-13
+837,714,Fixed Deposit,Fixed Deposit for loan 714,7844197.95,2021-03-08
+838,738,Vehicle,Vehicle for loan 738,960002.77,2020-11-08
+839,337,Fixed Deposit,Fixed Deposit for loan 337,4405483.08,2018-09-20
+840,436,None,None for loan 436,0.0,2024-08-23
+841,753,Gold,Gold for loan 753,6821099.26,2021-12-03
+842,151,Property,Property for loan 151,5378854.38,2020-01-01
+843,38,Gold,Gold for loan 38,3808862.02,2024-06-12
+844,810,Fixed Deposit,Fixed Deposit for loan 810,1352255.36,2018-10-25
+845,457,Property,Property for loan 457,124380.56,2018-08-02
+846,97,None,None for loan 97,0.0,2023-12-12
+847,879,None,None for loan 879,0.0,2021-01-27
+848,473,Fixed Deposit,Fixed Deposit for loan 473,4508556.99,2024-04-16
+849,407,Vehicle,Vehicle for loan 407,639533.35,2025-05-10
+850,25,None,None for loan 25,0.0,2019-03-23
+851,846,Gold,Gold for loan 846,2393474.13,2022-05-29
+852,39,Vehicle,Vehicle for loan 39,76968.34,2022-08-04
+853,129,None,None for loan 129,0.0,2022-09-27
+854,568,Gold,Gold for loan 568,509821.21,2020-11-16
+855,844,Fixed Deposit,Fixed Deposit for loan 844,47326.38,2024-10-01
+856,682,None,None for loan 682,0.0,2024-08-03
+857,982,Gold,Gold for loan 982,3505682.67,2023-01-21
+858,901,Property,Property for loan 901,4340491.5,2024-04-13
+859,384,Property,Property for loan 384,3790539.2,2023-08-17
+860,642,Gold,Gold for loan 642,1763456.07,2021-06-15
+861,218,Gold,Gold for loan 218,5145872.59,2019-01-05
+862,819,Fixed Deposit,Fixed Deposit for loan 819,5307521.19,2021-04-24
+863,67,Property,Property for loan 67,5393429.84,2024-02-25
+864,191,Gold,Gold for loan 191,7528087.2,2019-08-05
+865,753,Fixed Deposit,Fixed Deposit for loan 753,4463010.43,2025-05-16
+866,931,Gold,Gold for loan 931,5972953.68,2022-12-24
+867,564,Vehicle,Vehicle for loan 564,1990937.44,2020-12-20
+868,308,None,None for loan 308,0.0,2018-07-14
+869,650,Fixed Deposit,Fixed Deposit for loan 650,5311228.94,2020-05-17
+870,280,Property,Property for loan 280,3156888.97,2023-02-10
+871,69,Gold,Gold for loan 69,6163638.83,2023-11-15
+872,843,Fixed Deposit,Fixed Deposit for loan 843,4554857.61,2020-04-15
+873,875,None,None for loan 875,0.0,2020-12-03
+874,413,Vehicle,Vehicle for loan 413,2876835.42,2018-09-18
+875,378,Vehicle,Vehicle for loan 378,113114.65,2024-02-26
+876,660,Vehicle,Vehicle for loan 660,3647410.22,2023-09-18
+877,52,Vehicle,Vehicle for loan 52,9716449.86,2024-08-14
+878,568,Vehicle,Vehicle for loan 568,3317852.18,2022-09-14
+879,972,Vehicle,Vehicle for loan 972,5355843.03,2022-06-04
+880,467,Vehicle,Vehicle for loan 467,7415643.86,2022-12-28
+881,635,Gold,Gold for loan 635,7871902.42,2021-02-01
+882,73,Property,Property for loan 73,8358902.51,2018-07-23
+883,74,Vehicle,Vehicle for loan 74,5072418.92,2020-12-20
+884,279,None,None for loan 279,0.0,2019-11-09
+885,64,Gold,Gold for loan 64,6292235.02,2018-09-30
+886,972,Property,Property for loan 972,5095422.36,2023-06-10
+887,876,Property,Property for loan 876,9492071.34,2023-12-24
+888,628,Property,Property for loan 628,3392853.01,2020-04-30
+889,508,Gold,Gold for loan 508,6238133.49,2024-06-18
+890,721,None,None for loan 721,0.0,2021-08-03
+891,987,Property,Property for loan 987,6106530.61,2022-06-07
+892,368,Vehicle,Vehicle for loan 368,5404375.3,2021-06-24
+893,340,Fixed Deposit,Fixed Deposit for loan 340,9212233.04,2022-04-16
+894,281,None,None for loan 281,0.0,2023-06-25
+895,899,Gold,Gold for loan 899,4365408.38,2024-10-29
+896,482,None,None for loan 482,0.0,2024-05-25
+897,902,Property,Property for loan 902,2132604.36,2020-06-19
+898,955,None,None for loan 955,0.0,2021-05-08
+899,573,Property,Property for loan 573,5786820.15,2018-03-02
+900,20,Property,Property for loan 20,998882.55,2022-02-11
+901,715,None,None for loan 715,0.0,2022-05-08
+902,611,Vehicle,Vehicle for loan 611,6770864.68,2021-01-01
+903,86,None,None for loan 86,0.0,2023-09-06
+904,586,Vehicle,Vehicle for loan 586,1758565.78,2018-06-21
+905,909,None,None for loan 909,0.0,2024-04-02
+906,932,None,None for loan 932,0.0,2024-09-02
+907,254,Gold,Gold for loan 254,7608736.86,2024-08-18
+908,336,Fixed Deposit,Fixed Deposit for loan 336,1691515.26,2022-03-20
+909,432,Vehicle,Vehicle for loan 432,4075202.39,2020-11-28
+910,971,Vehicle,Vehicle for loan 971,4490131.07,2023-01-30
+911,868,Property,Property for loan 868,9951260.92,2023-02-11
+912,712,None,None for loan 712,0.0,2024-08-08
+913,584,Vehicle,Vehicle for loan 584,4971250.0,2018-07-08
+914,200,None,None for loan 200,0.0,2023-05-09
+915,144,Gold,Gold for loan 144,1347061.16,2019-05-23
+916,478,None,None for loan 478,0.0,2023-11-02
+917,953,Vehicle,Vehicle for loan 953,6051271.55,2020-04-26
+918,690,Property,Property for loan 690,8019361.66,2021-01-08
+919,316,None,None for loan 316,0.0,2023-01-16
+920,894,None,None for loan 894,0.0,2021-06-30
+921,480,Gold,Gold for loan 480,6004603.03,2020-09-09
+922,865,Vehicle,Vehicle for loan 865,3306882.84,2023-04-09
+923,187,Gold,Gold for loan 187,500125.44,2021-03-10
+924,797,None,None for loan 797,0.0,2018-05-06
+925,640,Vehicle,Vehicle for loan 640,3522524.6,2019-09-05
+926,800,Vehicle,Vehicle for loan 800,5284040.94,2020-07-27
+927,600,Property,Property for loan 600,5680706.36,2024-03-18
+928,800,Property,Property for loan 800,1562626.82,2025-03-28
+929,241,Fixed Deposit,Fixed Deposit for loan 241,1447396.82,2021-06-16
+930,952,None,None for loan 952,0.0,2021-03-13
+931,454,Property,Property for loan 454,1474039.21,2021-05-21
+932,596,Gold,Gold for loan 596,4835402.29,2023-07-30
+933,644,Vehicle,Vehicle for loan 644,4331912.43,2022-01-06
+934,421,Fixed Deposit,Fixed Deposit for loan 421,9685997.85,2022-02-03
+935,843,Property,Property for loan 843,9456215.29,2019-07-02
+936,532,Fixed Deposit,Fixed Deposit for loan 532,2378067.01,2018-02-09
+937,307,Fixed Deposit,Fixed Deposit for loan 307,2447604.14,2021-05-21
+938,154,Fixed Deposit,Fixed Deposit for loan 154,4192028.83,2022-01-13
+939,163,Vehicle,Vehicle for loan 163,404523.12,2024-11-13
+940,296,None,None for loan 296,0.0,2018-06-21
+941,982,Fixed Deposit,Fixed Deposit for loan 982,9067606.25,2020-10-16
+942,803,Vehicle,Vehicle for loan 803,1033546.84,2024-01-02
+943,384,Fixed Deposit,Fixed Deposit for loan 384,9826728.49,2023-07-03
+944,549,Vehicle,Vehicle for loan 549,8348670.12,2022-10-07
+945,655,Vehicle,Vehicle for loan 655,3210035.29,2025-04-12
+946,579,Fixed Deposit,Fixed Deposit for loan 579,7853192.85,2023-12-21
+947,916,Vehicle,Vehicle for loan 916,5388351.84,2025-01-10
+948,662,Fixed Deposit,Fixed Deposit for loan 662,8688060.97,2018-12-30
+949,303,None,None for loan 303,0.0,2021-12-03
+950,468,None,None for loan 468,0.0,2021-09-29
+951,489,Gold,Gold for loan 489,4938717.99,2018-04-10
+952,971,Vehicle,Vehicle for loan 971,7699885.85,2021-03-06
+953,289,Property,Property for loan 289,8514576.25,2018-11-09
+954,110,Fixed Deposit,Fixed Deposit for loan 110,1947926.91,2018-07-17
+955,326,Fixed Deposit,Fixed Deposit for loan 326,5264559.85,2018-01-20
+956,967,Vehicle,Vehicle for loan 967,8935654.62,2019-11-04
+957,975,Property,Property for loan 975,4926543.74,2024-03-22
+958,534,Gold,Gold for loan 534,5590581.65,2021-05-02
+959,79,Fixed Deposit,Fixed Deposit for loan 79,8199984.16,2018-07-15
+960,375,Gold,Gold for loan 375,5581949.37,2019-07-20
+961,571,Gold,Gold for loan 571,9412733.37,2018-08-01
+962,487,Fixed Deposit,Fixed Deposit for loan 487,5344729.26,2020-02-07
+963,581,None,None for loan 581,0.0,2022-03-19
+964,472,Fixed Deposit,Fixed Deposit for loan 472,3343205.06,2019-08-01
+965,163,None,None for loan 163,0.0,2020-09-12
+966,871,None,None for loan 871,0.0,2019-11-30
+967,317,Gold,Gold for loan 317,7490800.9,2025-02-25
+968,648,Property,Property for loan 648,6897396.27,2019-01-09
+969,479,Vehicle,Vehicle for loan 479,4964078.85,2022-02-11
+970,684,Fixed Deposit,Fixed Deposit for loan 684,7640349.83,2022-03-16
+971,519,None,None for loan 519,0.0,2020-07-01
+972,606,Fixed Deposit,Fixed Deposit for loan 606,1733573.79,2024-05-26
+973,396,Vehicle,Vehicle for loan 396,7694175.05,2023-01-05
+974,301,Property,Property for loan 301,8993706.66,2018-12-14
+975,691,Property,Property for loan 691,8311743.21,2020-01-11
+976,974,Property,Property for loan 974,2480829.52,2021-07-27
+977,876,Property,Property for loan 876,1098067.22,2023-04-26
+978,207,Gold,Gold for loan 207,2622328.14,2025-06-22
+979,841,None,None for loan 841,0.0,2023-07-25
+980,442,Vehicle,Vehicle for loan 442,8492981.03,2025-04-10
+981,176,Property,Property for loan 176,1759545.75,2021-09-22
+982,276,Fixed Deposit,Fixed Deposit for loan 276,1299381.17,2023-12-17
+983,627,None,None for loan 627,0.0,2020-08-17
+984,658,Fixed Deposit,Fixed Deposit for loan 658,9853886.64,2022-12-25
+985,340,None,None for loan 340,0.0,2021-01-15
+986,846,Vehicle,Vehicle for loan 846,4661722.19,2018-01-14
+987,129,Gold,Gold for loan 129,6548318.63,2024-02-08
+988,888,Property,Property for loan 888,3803235.55,2019-06-03
+989,762,Property,Property for loan 762,6009603.04,2019-08-02
+990,169,Gold,Gold for loan 169,3374000.18,2022-01-23
+991,570,None,None for loan 570,0.0,2021-10-15
+992,747,Fixed Deposit,Fixed Deposit for loan 747,1504988.16,2020-06-13
+993,55,Fixed Deposit,Fixed Deposit for loan 55,3537486.56,2025-05-08
+994,805,Property,Property for loan 805,6957548.65,2019-10-23
+995,307,Gold,Gold for loan 307,5724924.5,2020-05-05
+996,492,Property,Property for loan 492,381549.56,2024-07-24
+997,926,None,None for loan 926,0.0,2022-06-29
+998,279,Property,Property for loan 279,1685450.37,2024-07-30
+999,965,Fixed Deposit,Fixed Deposit for loan 965,3891934.67,2024-01-17
+1000,550,Property,Property for loan 550,5962952.78,2018-09-18
