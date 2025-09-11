@@ -42,6 +42,11 @@ public class VisualizationService {
 	@Cacheable(value = "chartData", cacheManager = "visualizationCacheManager")
 	public ChartSpecification generateVisualization(VisualizationRequest request) {
 		try {
+			
+			if (!isTableAllowed(request.getTableName())) {
+		        throw new SecurityException("Access to table " + request.getTableName() + " is not allowed");
+		    }
+			
 			log.info("Generating {} visualization for table {}", request.getChartType(), request.getTableName());
 
 			// Security check
